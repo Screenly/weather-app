@@ -1,0 +1,26 @@
+/*
+    DEFINE GLOBAL VARIABLES
+*/
+
+$padding : 60px;
+
+
+
+
+
+/*
+    DEFINE GLOBAL FUNCTIONS
+*/
+
+@mixin font ()
+{
+	font-weight:lighter;
+	font-family: 'Muli', sans-serif;
+}
+
+@mixin font_number ()
+{
+	font-weight:lighter;
+	font-family: 'Kanit', sans-serif;
+}
+
