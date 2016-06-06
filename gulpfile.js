@@ -2,7 +2,7 @@
 
 // Gulpfile
 // Version:     1.0
-// Author:      Peter Monte
+// Author:      Screenly
 // --------------------------------------------
 // @see gulp/config.js for more info
 

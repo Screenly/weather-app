@@ -4,8 +4,8 @@
   "description": "Gulp.js file configuration for html5 project",
   "main": "./dist",
   "author": {
-    "name": "Hypnotic, Digital Agency",
-    "url": "http://www.hypnotic.pt"
+    "name": "Screenly",
+    "url": "https://www.screenlyapp.com/"
   },
   "license": "© Hypnotic",
   "repository": {
