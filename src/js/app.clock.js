@@ -55,7 +55,7 @@
         		return 0;
 
         	return new Date ( unix * 1000 );
-        }
+        };
 
 
 
@@ -79,7 +79,7 @@
         	var date = window.app.clock.unixtimeToDate(unix);
         		date.setMinutes(date.getMinutes() + min);
         	return date.getTime()/1000;
-        }
+        };
 
 
 
@@ -103,7 +103,7 @@
         	var date = window.app.clock.unixtimeToDate(unix);
         		date.setMinutes(date.getMinutes() - min);
         	return date.getTime()/1000;
-        }
+        };
 
 
 
@@ -132,14 +132,14 @@
             */
 
             // FULL DAY
-            if ( nowTimeUnix > window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) && nowTimeUnix < window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) )
+            if (nowTimeUnix > window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) && nowTimeUnix < window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) )
             {
                 html.className = 'bg-day';
                 return true;
             }
 
             // NIGHT
-            if ( nowTimeUnix < sunriseTimeUnix || nowTimeUnix > sunsetTimeUnix )
+            if (nowTimeUnix < sunriseTimeUnix || nowTimeUnix > sunsetTimeUnix )
             {
                 html.className = 'bg-night';
                 return true;
@@ -147,14 +147,14 @@
 
 
             // SUNRISE
-            if ( nowTimeUnix >= sunriseTimeUnix && nowTimeUnix < window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) )
+            if (nowTimeUnix >= sunriseTimeUnix && nowTimeUnix < window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) )
             {
                 html.className = 'bg-sunset';
                 return true;
             }
 
             // SUNSET
-            if ( nowTimeUnix >= window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) && nowTimeUnix < sunsetTimeUnix )
+            if (nowTimeUnix >= window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) && nowTimeUnix < sunsetTimeUnix )
             {
                 html.className = 'bg-sunset';
                 return true;

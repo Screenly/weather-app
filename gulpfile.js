@@ -35,6 +35,7 @@ gulp.task('default', [
         'init', 
         'clean-css', 'sass-vendors', 'sass-vendors-concat', 'sass', 'sass-pages', 
         'clean-js', 'js-vendors', 'js-vendors-concat', 'js', 'js-pages',
+        'static-clean', 'static-do',
         'watch'], 
     error.reportSuccess);
 
@@ -48,6 +49,7 @@ gulp.task('production', [
         'init', 'init-production', 
         'clean-css', 'sass-vendors', 'sass-vendors-concat', 'sass', 'sass-pages', 
         'clean-js', 'js-vendors', 'js-vendors-concat', 'js', 'js-pages',
+        'static-clean', 'static-do',
         'watch'], 
     error.reportSuccess);
 
@@ -57,6 +59,4 @@ gulp.task('production', [
     Static Files Task
 */
 
-gulp.task('static', [
-        'init-production', 
-        'static-clean', 'static-process']);
+gulp.task('static', ['static-clean', 'static-do']);

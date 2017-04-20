@@ -14,7 +14,6 @@
 
     Object.defineProperty (window, 'app',
     {
-        __proto__    : null,
         writable     : false,
         configurable : true,
         enumerable   : true,
@@ -79,7 +78,6 @@
 
     Object.defineProperty (app, 'extend',
     {
-        __proto__    : null,
         writable     : false,
         configurable : false,
         enumerable   : false,
@@ -106,7 +104,7 @@
     
     app.extend ( '_name', 'Weather Forecast');
     app.extend ( '_version', '1.0');
-    app.extend ( '_credits', '© Screenly Apps. © 2016 WireLoad, Inc.');
+    app.extend ( '_credits', '© Screenly Apps. © 2016 Screenly, Inc.');
 
 
     /*

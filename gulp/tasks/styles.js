@@ -33,82 +33,44 @@ gulp.task('clean-css', function () {
 var processSassFiles = function(src, dest, filename, concatenate, map, min) {
 
     return gulp.src(src)
-        //.pipe(debug())
         .pipe(plumber({ errorHandler: error.reportError }))
         .pipe(gulpif(map, sourcemaps.init()))
         .pipe(sass({
                 sourcemap: true,
-                //outputStyle: 'compressed',
+                outputStyle: 'compressed',
                 errLogToConsole: true
             }).on('error', error.reportError ))
         .pipe(prefix("last 1 version", "> 1%"))
-        //.pipe(cleanCSS())
         .pipe(gulpif(concatenate, concat(filename)))
         .pipe(gulpif(config.appendDotMin && min, rename({ suffix: '.min' })))
         .pipe(gulpif(map, sourcemaps.write(".")))
         .pipe(flatten())
-        .pipe(gulp.dest(dest))
-        //.on('error', error.reportError)
-        //.on('end', error.reportSuccess)
-        .pipe(browserSync.stream({match: '**/*.css'}));
-}
+        .pipe(gulp.dest(dest));
+};
 
 // Sass Entry Point
 gulp.task('sass', function () {
-
     return processSassFiles (
         [config.path.CSS_SRC + '/app.scss'],
         config.path.CSS_DEST,
         'style.css',
         true,
         true,
-        false
+        true
     );
 });
 
 // SASS Pages
 gulp.task('sass-pages', function () {
-
     return true;
-    
-    // return processSassFiles (
-    //     [config.path.CSS_SRC + "/pages/**/*.scss"],
-    //     config.path.CSS_DEST,
-    //     'pages.css',
-    //     config.joinPages,
-    //     true,
-    //     true,
-    //     true
-    // );
 });
 
 // SASS Vendors
 gulp.task('sass-vendors', function () {
-
     return true;
-
-    // return processSassFiles (
-    //     [config.path.CSS_SRC + "/vendors/**/*",
-    //     "!" + config.path.CSS_SRC + "/vendors/concat/**/*"],
-    //     config.path.CSS_DEST + "/vendor",
-    //     'vendors.css',
-    //     false,
-    //     false,
-    //     false
-    // );
 });
 
 // SASS Vendors Concat
 gulp.task('sass-vendors-concat', function () {
-
     return true;
-
-    // return processSassFiles (
-    //     [config.path.CSS_SRC + "/vendor/concat/**/*"],
-    //     config.path.CSS_DEST + "/vendor",
-    //     'vendors.css',
-    //     true,
-    //     false,
-    //     true
-    // );
 });
