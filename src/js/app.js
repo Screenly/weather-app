@@ -36,22 +36,22 @@
 
             init : function()
             {
-                var current_canvas = document.getElementById ('icon_current');
+                // var current_canvas = document.getElementById ('icon_current');
 
-                var week = document.getElementById('next-days');
-                var next_canvas_1 = document.getElementById ('icon_next_1');
-                var next_canvas_2 = document.getElementById ('icon_next_2');
-                var next_canvas_3 = document.getElementById ('icon_next_3');
-                var next_canvas_4 = document.getElementById ('icon_next_4');
+                // var week = document.getElementById('next-days');
+                // var next_canvas_1 = document.getElementById ('icon_next_1');
+                // var next_canvas_2 = document.getElementById ('icon_next_2');
+                // var next_canvas_3 = document.getElementById ('icon_next_3');
+                // var next_canvas_4 = document.getElementById ('icon_next_4');
 
-                var skycons = new Skycons({"color": "white"});
-                    skycons.add("icon_current", window.app.getIcon(current_canvas));
-                    skycons.set("icon_next_1", window.app.getIcon(next_canvas_1));
-                    skycons.set("icon_next_2", window.app.getIcon(next_canvas_2));
-                    skycons.set("icon_next_3", window.app.getIcon(next_canvas_3));
-                    skycons.set("icon_next_4", window.app.getIcon(next_canvas_4));
+                // var skycons = new Skycons({"color": "white"});
+                //     skycons.add("icon_current", window.app.getIcon(current_canvas));
+                //     skycons.set("icon_next_1", window.app.getIcon(next_canvas_1));
+                //     skycons.set("icon_next_2", window.app.getIcon(next_canvas_2));
+                //     skycons.set("icon_next_3", window.app.getIcon(next_canvas_3));
+                //     skycons.set("icon_next_4", window.app.getIcon(next_canvas_4));
 
-                    skycons.play();
+                //     skycons.play();
             },
 
 
