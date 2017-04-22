@@ -1,29 +1,25 @@
-
-/*
-    ADD LEADING ZERO TO NUMBER
-*/
-
-Number.prototype.lead = function(size) {
-    var s = String(this);
-    while (s.length < (size || 2)) {s = "0" + s;}
-    return s;
-};
-
+(function ()
+{
+    /*
+     * ADD LEADING ZERO TO NUMBER
+     */
+    Number.prototype.lead = function(size) {
+        var s = String(this);
+        while (s.length < (size || 2)) {s = "0" + s;}
+        return s;
+    };
+})();
 
 (function()
 {
     /*
-        -----------------------------------------------------------------------------------------------------
-        GLOBAL CONFIGURATION
-    */
-
+     * GLOBAL CONFIGURATION
+     */
     window.transitionEnd = window.transitionEnd || "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
 
     /*
-        --------------------------------------------------------------------------------------------
-        CREATE MAIN CLASS APP
-    */
-
+     * CREATE MAIN CLASS APP
+     */
     Object.defineProperty (window, 'app',
     {
         writable     : false,
@@ -44,12 +40,9 @@ Number.prototype.lead = function(size) {
             },
 
 
-
-
             init : function()
             {
                 // var current_canvas = document.getElementById ('icon_current');
-
                 // var week = document.getElementById('next-days');
                 // var next_canvas_1 = document.getElementById ('icon_next_1');
                 // var next_canvas_2 = document.getElementById ('icon_next_2');
@@ -62,15 +55,13 @@ Number.prototype.lead = function(size) {
                 //     skycons.set("icon_next_2", window.app.getIcon(next_canvas_2));
                 //     skycons.set("icon_next_3", window.app.getIcon(next_canvas_3));
                 //     skycons.set("icon_next_4", window.app.getIcon(next_canvas_4));
-
                 //     skycons.play();
             },
 
 
             /*
-                -----------------------------------------------------------------------------------------------------
-                RESIZE
-            */
+             * RESIZE
+             */
 
             resize : function()
             {
@@ -78,15 +69,15 @@ Number.prototype.lead = function(size) {
 
 
             /*
-                -----------------------------------------------------------------------------------------------------
-                SCROLL
-            */
-
+             * SCROLL
+             */
             scroll : function()
             {
             },
         }
     });
+
+
 
     Object.defineProperty (app, 'extend',
     {
@@ -110,72 +101,52 @@ Number.prototype.lead = function(size) {
 
 
     /*
-        --------------------------------------------------------------------------------------------
-        DEFAULT AND STATIC PROPERTIES
-    */
-    
+     * DEFAULT AND STATIC PROPERTIES
+     */
     app.extend ( '_name', 'Weather Forecast');
     app.extend ( '_version', '1.0');
     app.extend ( '_credits', '© Screenly Apps. © 2016 Screenly, Inc.');
 
 
     /*
-        -----------------------------------------------------------------------------------------------------
-        DOM READY
-    */
-
+     * DOM READY
+     */
     window.onload = window.app.init;
 
 
 
-
-
     /*
-        -----------------------------------------------------------------------------------------------------
-        WINDOW RESIZE
-    */
-
-
+     * WINDOW RESIZE
+     */
     window.onresize = window.app.resize;
     window.app.resize ();
-
-
 })();
 
 (function()
 {
     /*
-        -----------------------------------------------------------------------------------------------------
-        CLOCK
-    */
-
+     * CLOCK
+     */
     app.extend ( 'clock', new function ()
     {
         /*
-            DOME ELEMENTS
-        */
-        
+         * DOM ELEMENTS
+         */
         var html = document.querySelector("html");
         var clockDom = document.getElementById ('footer-clock');
 
         /*
-            TIME
-        */
-
+         * TIME
+         */
         var nowTime         = new Date();
         var nowTimeUnix     = nowTime.getTime()/1000;
         var sunsetTimeUnix  = parseFloat ( html.getAttribute('data-sunset') );
         var sunriseTimeUnix = parseFloat ( html.getAttribute('data-sunrise') );
 
 
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            INIT
-        */
-
+         * INIT
+         */
         this.init = function()
         {
             window.app.clock.checkTime ();
@@ -184,15 +155,9 @@ Number.prototype.lead = function(size) {
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            ADD MINUTES TO UNIX TIME
-        */
-
+         * ADD MINUTES TO UNIX TIME
+         */
         this.unixtimeToDate = function (unix)
         {
         	if (!unix)
@@ -203,15 +168,9 @@ Number.prototype.lead = function(size) {
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            ADD MINUTES TO UNIX TIME
-        */
-
+         * ADD MINUTES TO UNIX TIME
+         */
         this.unixtimeAddMinutes = function (unix, min)
         {
         	if (!unix)
@@ -227,15 +186,9 @@ Number.prototype.lead = function(size) {
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            ADD MINUTES TO UNIX TIME
-        */
-
+         * ADD MINUTES TO UNIX TIME
+         */
         this.unixtimeSubtractMinutes = function (unix, min)
         {
         	if (!unix)
@@ -251,55 +204,46 @@ Number.prototype.lead = function(size) {
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            TIME INTERVALL
-        */
-
+         * TIME INTERVALL
+         */
         this.checkTime = function (i)
         {
             /*
-                CLOCK
-            */
-
+             * CLOCK
+             */
             nowTime = new Date();
             nowTimeUnix = nowTime.getTime()/1000;
             clockDom.innerHTML = nowTime.getHours() + ':' + (nowTime.getMinutes()).lead();
 
 
             /*
-                BACKGROUND BASED ON TIME
-            */
-
-            // FULL DAY
+             * BACKGROUND BASED ON TIME
+             */
             if (nowTimeUnix > window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) && nowTimeUnix < window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) )
             {
+                // FULL DAY
                 html.className = 'bg-day';
                 return true;
             }
 
-            // NIGHT
             if (nowTimeUnix < sunriseTimeUnix || nowTimeUnix > sunsetTimeUnix )
             {
+                // NIGHT
                 html.className = 'bg-night';
                 return true;
             }
 
-
-            // SUNRISE
             if (nowTimeUnix >= sunriseTimeUnix && nowTimeUnix < window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) )
             {
+                // SUNRISE
                 html.className = 'bg-sunset';
                 return true;
             }
 
-            // SUNSET
             if (nowTimeUnix >= window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) && nowTimeUnix < sunsetTimeUnix )
             {
+                // SUNSET
                 html.className = 'bg-sunset';
                 return true;
             }
@@ -308,24 +252,18 @@ Number.prototype.lead = function(size) {
 
 
 
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            RESIZE
-        */
-
+         * RESIZE
+         */
         this.resize = function()
         {
         };
 
 
 
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            SCROLL
-        */
-
+         * SCROLL
+         */
         this.scroll = function()
         {
         };
@@ -334,29 +272,19 @@ Number.prototype.lead = function(size) {
 
 
 
-
     /*
-        -----------------------------------------------------------------------------------------------------
-        DOM READY
-    */
-
-    // window.onload = window.app.clock.init;
+     * DOM READY
+     */
     window.app.clock.init();
 
 
 
 
-
     /*
-        -----------------------------------------------------------------------------------------------------
-        WINDOW RESIZE
-    */
-
-
+     * WINDOW RESIZE
+     */
     // window.onresize = window.app.clock.resize;
     // window.app.clock.resize ();
-
-
 })();
 
 //# sourceMappingURL=app.js.map

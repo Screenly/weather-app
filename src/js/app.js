@@ -1,17 +1,13 @@
 (function()
 {
     /*
-        -----------------------------------------------------------------------------------------------------
-        GLOBAL CONFIGURATION
-    */
-
+     * GLOBAL CONFIGURATION
+     */
     window.transitionEnd = window.transitionEnd || "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
 
     /*
-        --------------------------------------------------------------------------------------------
-        CREATE MAIN CLASS APP
-    */
-
+     * CREATE MAIN CLASS APP
+     */
     Object.defineProperty (window, 'app',
     {
         writable     : false,
@@ -32,12 +28,9 @@
             },
 
 
-
-
             init : function()
             {
                 // var current_canvas = document.getElementById ('icon_current');
-
                 // var week = document.getElementById('next-days');
                 // var next_canvas_1 = document.getElementById ('icon_next_1');
                 // var next_canvas_2 = document.getElementById ('icon_next_2');
@@ -50,15 +43,13 @@
                 //     skycons.set("icon_next_2", window.app.getIcon(next_canvas_2));
                 //     skycons.set("icon_next_3", window.app.getIcon(next_canvas_3));
                 //     skycons.set("icon_next_4", window.app.getIcon(next_canvas_4));
-
                 //     skycons.play();
             },
 
 
             /*
-                -----------------------------------------------------------------------------------------------------
-                RESIZE
-            */
+             * RESIZE
+             */
 
             resize : function()
             {
@@ -66,15 +57,15 @@
 
 
             /*
-                -----------------------------------------------------------------------------------------------------
-                SCROLL
-            */
-
+             * SCROLL
+             */
             scroll : function()
             {
             },
         }
     });
+
+
 
     Object.defineProperty (app, 'extend',
     {
@@ -98,34 +89,23 @@
 
 
     /*
-        --------------------------------------------------------------------------------------------
-        DEFAULT AND STATIC PROPERTIES
-    */
-    
+     * DEFAULT AND STATIC PROPERTIES
+     */
     app.extend ( '_name', 'Weather Forecast');
     app.extend ( '_version', '1.0');
     app.extend ( '_credits', '© Screenly Apps. © 2016 Screenly, Inc.');
 
 
     /*
-        -----------------------------------------------------------------------------------------------------
-        DOM READY
-    */
-
+     * DOM READY
+     */
     window.onload = window.app.init;
 
 
 
-
-
     /*
-        -----------------------------------------------------------------------------------------------------
-        WINDOW RESIZE
-    */
-
-
+     * WINDOW RESIZE
+     */
     window.onresize = window.app.resize;
     window.app.resize ();
-
-
 })();

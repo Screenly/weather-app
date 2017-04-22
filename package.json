@@ -2,7 +2,7 @@
   "name": "gulp-boilerplate",
   "version": "1.0.0",
   "description": "Gulp.js file configuration for html5 project",
-  "main": "./dist",
+  "main": "./assets",
   "author": {
     "name": "Screenly",
     "url": "https://www.screenlyapp.com/"

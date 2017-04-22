@@ -1,37 +1,28 @@
 (function()
 {
     /*
-        -----------------------------------------------------------------------------------------------------
-        CLOCK
-    */
-
+     * CLOCK
+     */
     app.extend ( 'clock', new function ()
     {
         /*
-            DOME ELEMENTS
-        */
-        
+         * DOM ELEMENTS
+         */
         var html = document.querySelector("html");
         var clockDom = document.getElementById ('footer-clock');
 
         /*
-            TIME
-        */
-
+         * TIME
+         */
         var nowTime         = new Date();
         var nowTimeUnix     = nowTime.getTime()/1000;
         var sunsetTimeUnix  = parseFloat ( html.getAttribute('data-sunset') );
         var sunriseTimeUnix = parseFloat ( html.getAttribute('data-sunrise') );
 
 
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            INIT
-        */
-
+         * INIT
+         */
         this.init = function()
         {
             window.app.clock.checkTime ();
@@ -40,15 +31,9 @@
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            ADD MINUTES TO UNIX TIME
-        */
-
+         * ADD MINUTES TO UNIX TIME
+         */
         this.unixtimeToDate = function (unix)
         {
         	if (!unix)
@@ -59,15 +44,9 @@
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            ADD MINUTES TO UNIX TIME
-        */
-
+         * ADD MINUTES TO UNIX TIME
+         */
         this.unixtimeAddMinutes = function (unix, min)
         {
         	if (!unix)
@@ -83,15 +62,9 @@
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            ADD MINUTES TO UNIX TIME
-        */
-
+         * ADD MINUTES TO UNIX TIME
+         */
         this.unixtimeSubtractMinutes = function (unix, min)
         {
         	if (!unix)
@@ -107,55 +80,46 @@
 
 
 
-
-
-
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            TIME INTERVALL
-        */
-
+         * TIME INTERVALL
+         */
         this.checkTime = function (i)
         {
             /*
-                CLOCK
-            */
-
+             * CLOCK
+             */
             nowTime = new Date();
             nowTimeUnix = nowTime.getTime()/1000;
             clockDom.innerHTML = nowTime.getHours() + ':' + (nowTime.getMinutes()).lead();
 
 
             /*
-                BACKGROUND BASED ON TIME
-            */
-
-            // FULL DAY
+             * BACKGROUND BASED ON TIME
+             */
             if (nowTimeUnix > window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) && nowTimeUnix < window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) )
             {
+                // FULL DAY
                 html.className = 'bg-day';
                 return true;
             }
 
-            // NIGHT
             if (nowTimeUnix < sunriseTimeUnix || nowTimeUnix > sunsetTimeUnix )
             {
+                // NIGHT
                 html.className = 'bg-night';
                 return true;
             }
 
-
-            // SUNRISE
             if (nowTimeUnix >= sunriseTimeUnix && nowTimeUnix < window.app.clock.unixtimeAddMinutes (sunriseTimeUnix, 4) )
             {
+                // SUNRISE
                 html.className = 'bg-sunset';
                 return true;
             }
 
-            // SUNSET
             if (nowTimeUnix >= window.app.clock.unixtimeSubtractMinutes (sunsetTimeUnix, 4) && nowTimeUnix < sunsetTimeUnix )
             {
+                // SUNSET
                 html.className = 'bg-sunset';
                 return true;
             }
@@ -164,24 +128,18 @@
 
 
 
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            RESIZE
-        */
-
+         * RESIZE
+         */
         this.resize = function()
         {
         };
 
 
 
-
         /*
-            -----------------------------------------------------------------------------------------------------
-            SCROLL
-        */
-
+         * SCROLL
+         */
         this.scroll = function()
         {
         };
@@ -190,27 +148,17 @@
 
 
 
-
     /*
-        -----------------------------------------------------------------------------------------------------
-        DOM READY
-    */
-
-    // window.onload = window.app.clock.init;
+     * DOM READY
+     */
     window.app.clock.init();
 
 
 
 
-
     /*
-        -----------------------------------------------------------------------------------------------------
-        WINDOW RESIZE
-    */
-
-
+     * WINDOW RESIZE
+     */
     // window.onresize = window.app.clock.resize;
     // window.app.clock.resize ();
-
-
 })();
