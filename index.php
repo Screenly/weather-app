@@ -26,9 +26,14 @@ ini_set('display_errors', 1);
  * @link     https://github.com/wireload
  * @since    0.0.1
  */
-$ip = getenv('REMOTE_ADDR');
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} else {
+    $ip = $_SERVER['REMOTE_ADDR'];
+}
 $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$ip"));
-
 
 
 
@@ -43,11 +48,13 @@ $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$ip"));
  * @since    0.0.1
  */
 include_once 'lib/forecast.io.php';
+
 $forecast = new ForecastIO('280b615c4a69fe34235855040fd4dccc');
 $condition = $forecast->getCurrentConditions($geo['geoplugin_latitude'], $geo['geoplugin_longitude']);
 $raw  = (object)$forecast->getRaw ();
 $week = (array)$raw->daily->data;
 $data = $week[0];
+date_default_timezone_set($raw->timezone);
 ?>
 <!DOCTYPE html>
     <html id="app" lang="en_UK" class="bg-day" data-sunset="<?php echo $data->sunsetTime ?>" data-sunrise="<?php echo $data->sunriseTime ?>">
@@ -67,8 +74,8 @@ $data = $week[0];
             <div id="current-day" class="left">
                 <!-- CURRENT DAY WITH LOCATION & DATE -->
                 <div id="location-today">
-                    <span class="location"><?php echo substr($raw->timezone, strpos($raw->timezone, "/") + 1); ?>.</span>
-                    <span class="today"><?php echo date('D d', $week[0]->time);?></span>
+                    <span class="location"><?php echo preg_replace('/[_]+/', ' ', substr($raw->timezone, strpos($raw->timezone, "/") + 1)); ?>.</span>
+                    <span class="today"><?php echo date('D d', $data->time);?></span>
                 </div>
                 <!-- TEMPERATURE - MAX MIN -->
                 <div id="temperatures">
