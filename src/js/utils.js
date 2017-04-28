@@ -1,6 +1,13 @@
 (function ()
 {
-    /*
+    /**
+     * GLOBAL CONFIGURATION
+     */
+    window.transitionEnd = window.transitionEnd || "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
+
+
+
+    /**
      * ADD LEADING ZERO TO NUMBER
      */
     Number.prototype.lead = function(size) {

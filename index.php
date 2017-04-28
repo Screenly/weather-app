@@ -89,7 +89,7 @@ $today = $week[0];
                 <span>© <?php echo date('Y');?> Screenly, Inc.</span>
             </div>
             <div class="right">
-                <span id="footer-clock">13:23</span>
+                <span id="footer-clock">00:00</span>
             </div>
         </footer>
 
