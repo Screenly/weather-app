@@ -62,7 +62,6 @@ section#central
 
 	.right
 	{
-		margin-top: 90px;
 		padding-left: 20px;
 	}
 
@@ -175,7 +174,7 @@ section#central
 			li
 			{
 				line-height: 0;
-				margin: 20px 0;
+				margin: 42px 0;
 
 				&:after
 				{
@@ -226,15 +225,16 @@ section#central
 
 		#app-name
 		{
-			margin: 40px 0 10px;
+			margin-bottom:10px;
 			font-size: 34px;
 			text-align: center;
 		}
 
-		small
+		#poweredby
 		{
 			display: block;
 			text-align: center;
+			margin-bottom:35px;
 		}
 	}
 }
