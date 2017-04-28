@@ -40,7 +40,7 @@ var processSassFiles = function(src, dest, filename, concatenate, map, min) {
                 outputStyle: 'compressed',
                 errLogToConsole: true
             }).on('error', error.reportError ))
-        .pipe(prefix("last 1 version", "> 1%"))
+        .pipe(prefix("Chrome"))
         .pipe(gulpif(concatenate, concat(filename)))
         .pipe(gulpif(config.appendDotMin && min, rename({ suffix: '.min' })))
         .pipe(gulpif(map, sourcemaps.write(".")))
