@@ -1,7 +1,6 @@
 var gulp        = require("gulp");
 var gutil       = require("gulp-util");
 var clear       = require('clear');
-
 var config      = require("../config");
 var error       = require("../error");
 

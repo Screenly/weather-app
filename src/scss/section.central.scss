@@ -1,12 +1,12 @@
 /*
-	DEPENDENCIES
+    DEPENDENCIES
 */
 
 @import 'variables';
 
 
 /*
-	STYLES
+    STYLES
 */
 
 html
@@ -16,227 +16,227 @@ html
 
 
 /*
-	SECTIONS
+    SECTIONS
 */
 
 section#central
 {
-	z-index: 99;
-	padding: 8%;
-	font-size: 0;
-	line-height: 0;
-	position: relative;
-	text-align: justify;
+    z-index: 99;
+    padding: 8%;
+    font-size: 0;
+    line-height: 0;
+    position: relative;
+    text-align: justify;
 
-	&:after
-	{
-		width: 100%;
-		content: ".";
-		visibility: hidden;
-		display: inline-block;
-	}
+    &:after
+    {
+        width: 100%;
+        content: ".";
+        visibility: hidden;
+        display: inline-block;
+    }
 
-	/*
-		CENTER VERTICALLY
-	*/
+    /*
+        CENTER VERTICALLY
+    */
 
-	top: 50%;
-	transform: translateY(-55%);
-	-webkit-transform: translateY(-55%);
+    top: 50%;
+    transform: translateY(-55%);
+    -webkit-transform: translateY(-55%);
 
-	.left,
-	.right
-	{
-		width: 50%;
-		margin: 0 auto;
-		line-height: 1;
-		max-width: 500px;
-		display: inline-block;
-		vertical-align: top;
-	}
+    .left,
+    .right
+    {
+        width: 50%;
+        margin: 0 auto;
+        line-height: 1;
+        max-width: 500px;
+        display: inline-block;
+        vertical-align: top;
+    }
 
-	.left
-	{
-		padding-right: 20px;
-	}
+    .left
+    {
+        padding-right: 20px;
+    }
 
-	.right
-	{
-		padding-left: 20px;
-	}
+    .right
+    {
+        padding-left: 20px;
+    }
 
-	#location-today
-	{
-		width: 100%;
-		color: #123e51;
-		font-size: 48px;
-		font-weight: 600;
-		text-align: center;
-	}
+    #location-today
+    {
+        color: #123e51;
+        font-size: 48px;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+    }
 
-	#temperatures
-	{
-		position: relative;
-	}
+    #temperatures
+    {
+        position: relative;
+    }
 
-	#temp
-	{
-		margin: 30px 0;
-		font-size: 320px;
-		line-height: .7em;
-		@include font_number();
+    #temp
+    {
+        margin: 30px 0;
+        font-size: 320px;
+        line-height: .7em;
+        @include font_number();
 
-		sup
-		{
-			font-size: 150px;
-			font-weight: 300;
-			vertical-align: super;
-			line-height: 0;
-			margin-left: -30px;
-		}
-	}
-
-
-	#temp-min,
-	#temp-max
-	{
-		right: 0;
-		bottom: 0;
-		@include font();
-		font-size: 50px;
-		position: absolute;
-
-		sup
-		{
-			font-size: 20px;
-			vertical-align: super;
-		}
-
-		b
-		{
-			display: block;
-			font-size: 28px;
-		}
-	}
-
-	#temp-max
-	{
-		top: 15px;
-		bottom: auto;
-	}
+        sup
+        {
+            font-size: 150px;
+            font-weight: 300;
+            vertical-align: super;
+            line-height: 0;
+            margin-left: -30px;
+        }
+    }
 
 
-	#weather
-	{
-		text-align: left;
-		margin-top: 60px;
-		position: relative;
+    #temp-min,
+    #temp-max
+    {
+        right: 0;
+        bottom: 0;
+        @include font();
+        font-size: 50px;
+        position: absolute;
 
-		.wi
-		{
-			font-size: 110px;
-			line-height: 1em;
-		}
+        sup
+        {
+            font-size: 20px;
+            vertical-align: super;
+        }
 
-		b
-		{
-			top: 50%;
-			right: 0;
-			max-width: 50%;
-			font-size: 40px;
-			font-weight: bold;
-			text-align: right;
-			position: absolute;
-			text-transform: uppercase;
-			transform: translateY(-50%);
-		}
-	}
+        b
+        {
+            display: block;
+            font-size: 28px;
+        }
+    }
 
-
-
-
-	/*
-		NEXT DAYS PREVISION
-	*/
+    #temp-max
+    {
+        top: 15px;
+        bottom: auto;
+    }
 
 
-	#next-days
-	{
-		font-size: 56px;
-		font-weight: lighter;
+    #weather
+    {
+        text-align: left;
+        margin-top: 60px;
+        position: relative;
 
-		ul
-		{
-			margin: 0 auto;
-			max-width: 380px;
-			white-space: nowrap;
+        .wi
+        {
+            font-size: 110px;
+            line-height: 1em;
+        }
 
-			li
-			{
-				line-height: 0;
-				margin: 42px 0;
+        b
+        {
+            top: 50%;
+            right: 0;
+            max-width: 50%;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: right;
+            position: absolute;
+            text-transform: uppercase;
+            transform: translateY(-50%);
+        }
+    }
 
-				&:after
-				{
-					width: 100%;
-					content: ".";
-					visibility: hidden;
-					display: inline-block;
-				}
 
-				&:first-of-type
-				{
-					margin-top: 0;
-				}
 
-				b
-				{
-					width: 33.333333%;
-					font-weight: lighter;
-					display: inline-block;
-					vertical-align: middle;
 
-					& + b
-					{
-						text-align: center;
-					}
+    /*
+        NEXT DAYS PREVISION
+    */
 
-					&:last-of-type
-					{
-						line-height: 1;
-						padding-right: 20px;
-						position: relative;
-						@include font_number();
-						font-weight: bolder;
-						text-align: right;
-					}
-				}
 
-				sup
-				{
-					top: 0;
-					right: 0;
-					font-size: 23px;
-					font-weight: 200;
-					position: absolute;
-				}
-			}
-		}
+    #next-days
+    {
+        font-size: 56px;
+        font-weight: lighter;
 
-		#app-name
-		{
-			margin-bottom:10px;
-			font-size: 34px;
-			text-align: center;
-		}
+        ul
+        {
+            margin: 0 auto;
+            max-width: 380px;
+            white-space: nowrap;
 
-		#poweredby
-		{
-			display: block;
-			text-align: center;
-			margin-bottom:35px;
-		}
-	}
+            li
+            {
+                line-height: 0;
+                margin: 42px 0;
+
+                &:after
+                {
+                    width: 100%;
+                    content: ".";
+                    visibility: hidden;
+                    display: inline-block;
+                }
+
+                &:first-of-type
+                {
+                    margin-top: 0;
+                }
+
+                b
+                {
+                    width: 33.333333%;
+                    font-weight: lighter;
+                    display: inline-block;
+                    vertical-align: middle;
+
+                    & + b
+                    {
+                        text-align: center;
+                    }
+
+                    &:last-of-type
+                    {
+                        line-height: 1;
+                        padding-right: 20px;
+                        position: relative;
+                        @include font_number();
+                        font-weight: bolder;
+                        text-align: right;
+                    }
+                }
+
+                sup
+                {
+                    top: 0;
+                    right: 0;
+                    font-size: 23px;
+                    font-weight: 200;
+                    position: absolute;
+                }
+            }
+        }
+
+        #app-name
+        {
+            margin-bottom:10px;
+            font-size: 34px;
+            text-align: center;
+        }
+
+        #poweredby
+        {
+            display: block;
+            text-align: center;
+            margin-bottom:35px;
+        }
+    }
 }
 
 
@@ -245,7 +245,7 @@ section#central
 
 html.bg-night section#central #location-today
 {
-	color: white;
+    color: white;
 }
 
 
@@ -257,157 +257,157 @@ html.bg-night section#central #location-today
 
 
 /*
-	MEDIA QUERIES
+    MEDIA QUERIES
 */
 
 @media screen and (max-width: 1440px)
 {
 
-	section#central
-	{
-		top: 0;
-		height: 100%;
-		transform: none;
+    section#central
+    {
+        top: 0;
+        height: 100%;
+        transform: none;
 
-		&:after
-		{
-		}
+        &:after
+        {
+        }
 
-		/*
-			CENTER VERTICALLY
-		*/
+        /*
+            CENTER VERTICALLY
+        */
 
-		.left,
-		.right
-		{
-			left: 0;
-			right: 0;
-			width: 100%;
-			margin: 0 auto;
-			display: block;
-			max-width: 80%;
-			position: absolute;
-		}
+        .left,
+        .right
+        {
+            left: 0;
+            right: 0;
+            width: 100%;
+            margin: 0 auto;
+            display: block;
+            max-width: 80%;
+            position: absolute;
+        }
 
-		.left
-		{
-			top: 25%;
-			transform: translateY(-50%);
-		}
+        .left
+        {
+            top: 25%;
+            transform: translateY(-50%);
+        }
 
-		.right
-		{
-			top: 70%;
-			transform: translateY(-50%);
-		}
+        .right
+        {
+            top: 70%;
+            transform: translateY(-50%);
+        }
 
-		#location-today
-		{
-		}
+        #location-today
+        {
+        }
 
-		#temperatures
-		{
-		}
+        #temperatures
+        {
+        }
 
-		#temp
-		{
-			margin: 60px 0;
-			font-size: 400px;
-			font-weight: 200;
+        #temp
+        {
+            margin: 60px 0;
+            font-size: 400px;
+            font-weight: 200;
 
-			sup
-			{
-			}
-		}
-
-
-		#temp-min,
-		#temp-max
-		{
-			font-size: 80px;
-
-			sup
-			{
-				font-size: 40px;
-			}
-
-			b
-			{
-				font-size: 35px;
-			}
-		}
-
-		#temp-max
-		{
-		}
+            sup
+            {
+            }
+        }
 
 
-		#weather
-		{
-			canvas
-			{
-			}
+        #temp-min,
+        #temp-max
+        {
+            font-size: 80px;
 
-			b
-			{
-			}
-		}
+            sup
+            {
+                font-size: 40px;
+            }
+
+            b
+            {
+                font-size: 35px;
+            }
+        }
+
+        #temp-max
+        {
+        }
+
+
+        #weather
+        {
+            canvas
+            {
+            }
+
+            b
+            {
+            }
+        }
 
 
 
 
-		/*
-			NEXT DAYS PREVISION
-		*/
+        /*
+            NEXT DAYS PREVISION
+        */
 
 
-		#next-days
-		{
-			font-size: 80px;
+        #next-days
+        {
+            font-size: 80px;
 
-			ul
-			{
-				max-width: 100%;
+            ul
+            {
+                max-width: 100%;
 
-				li
-				{
-					margin: 40px 0;
+                li
+                {
+                    margin: 40px 0;
 
-					&:after
-					{
-					}
+                    &:after
+                    {
+                    }
 
-					&:first-of-type
-					{
-					}
+                    &:first-of-type
+                    {
+                    }
 
-					b
-					{
-						& + b
-						{
-						}
+                    b
+                    {
+                        & + b
+                        {
+                        }
 
-						&:last-of-type
-						{
-						}
-					}
+                        &:last-of-type
+                        {
+                        }
+                    }
 
-					sup
-					{
-					}
-				}
-			}
+                    sup
+                    {
+                    }
+                }
+            }
 
-			#app-name
-			{
-				margin: 90px 0 30px;
-				font-size: 54px;
-			}
+            #app-name
+            {
+                margin: 90px 0 30px;
+                font-size: 54px;
+            }
 
-			small
-			{
-				font-size: 26px;
-			}
-		}
-	}
+            small
+            {
+                font-size: 26px;
+            }
+        }
+    }
 }

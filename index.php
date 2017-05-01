@@ -39,7 +39,7 @@ $today = $week[0];
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta name="copyright" content="&copy; <?php echo date ('Y');?>">
-        <link href='https://fonts.googleapis.com/css?family=Muli:300|Kanit:500,100' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Muli:300|Kanit:600,500,300,200,100' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body >
@@ -48,7 +48,7 @@ $today = $week[0];
         <section id="central">
             <div id="current-day" class="left">
                 <!-- CURRENT DAY WITH LOCATION & DATE -->
-                <div id="location-today">
+                <div id="location-today" class="scale-font">
                     <span class="location"><?php echo !empty($geoInfo->name) ? $geoInfo->name : $geoInfo->adminName1; ?>, </span>
                     <span class="today"><?php echo date('D d', $today->time);?></span>
                 </div>
@@ -94,7 +94,6 @@ $today = $week[0];
         </footer>
 
         <!-- FRONT-END SCRIPTS -->
-        <!-- <script type="text/javascript" src="assets/js/vendors/vendors.js"></script> -->
         <script type="text/javascript" src="assets/js/app.js"></script>
     </body>
 </html>

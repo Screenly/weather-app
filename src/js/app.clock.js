@@ -90,7 +90,8 @@
          */
         nowTime = new Date();
         nowTimeUnix = nowTime.getTime()/1000;
-        clockDom.innerHTML = nowTime.getHours() + ':' + (nowTime.getMinutes()).lead();
+        var hour = nowTime.getHours();
+        clockDom.innerHTML = hour.lead() + ':' + (nowTime.getMinutes()).lead() + (hour<13?'<sup>AM</sub>':'');
 
 
         /*
