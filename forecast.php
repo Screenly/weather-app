@@ -117,7 +117,7 @@ function findNearbyPlaceName($lt, $lg)
     }
     return json_encode(['error'=>'@findNearbyPlaceName - Please provide latitude and longitude params']);
 }
-$geoInfo = findNearbyPlaceName ($lat, $lng);
+$geoInfo = findNearbyPlaceName($lat, $lng);
 define('LAT', $lat);
 define('LNG', $lng);
 
@@ -142,7 +142,7 @@ define('LNG', $lng);
  */
 function sanitizeUnit($u)
 {
-    $u = filter_var ( $u, FILTER_SANITIZE_STRING);
+    $u = filter_var( $u, FILTER_SANITIZE_STRING);
     if (!empty($u) && in_array($u, ['auto', 'ca', 'uk2', 'us', 'si'])) {
         return $u;
     }

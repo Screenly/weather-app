@@ -22,7 +22,7 @@ $today = $week[0];
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <meta name="copyright" content="&copy; <?php echo date ('Y');?>">
+        <meta name="copyright" content="&copy; <?php echo date('Y');?>">
         <link href='https://fonts.googleapis.com/css?family=Muli:300|Kanit:600,500,300,200,100' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
