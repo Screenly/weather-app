@@ -116,7 +116,7 @@
         if (!unix){
             return 0;
         }
-        
+
         if (!min || min<0){
             min = 0;
         }
@@ -136,7 +136,7 @@
         if (!unix){
             return 0;
         }
-        
+
         if (!min || min<0){
             min = 0;
         }
