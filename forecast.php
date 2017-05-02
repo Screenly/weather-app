@@ -17,7 +17,7 @@ ini_set('display_errors', 1);
 
 /**
  * Sanitize GEO coordinate
- * 
+ *
  * @param number $n Latitude or Longitude.
  *
  * @category ScreenlyApps
@@ -26,11 +26,12 @@ ini_set('display_errors', 1);
  * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
  * @link     https://github.com/wireload
  * @since    0.0.1
- * @return   number Ensures that input is a floating number with dot seperation rather than comma.
+ * @return   number Ensures that input is a floating number with dot seperation
+ *           rather than comma.
  */
-function sanitizeLatLng ($n)
+function sanitizeLatLng($n)
 {
-    if (empty($n)){
+    if (empty($n)) {
         return 0;
     }
 
@@ -52,8 +53,8 @@ function sanitizeLatLng ($n)
  * @link     https://github.com/wireload
  * @since    0.0.1
  */
-$lat = sanitizeLatLng ( isset ($_GET['lat'])? $_GET['lat'] : 0 );
-$lng = sanitizeLatLng ( isset ($_GET['lng'])? $_GET['lng'] : 0 );
+$lat = sanitizeLatLng(isset($_GET['lat'])? $_GET['lat'] : 0);
+$lng = sanitizeLatLng(isset($_GET['lng'])? $_GET['lng'] : 0);
 
 
 
@@ -87,7 +88,7 @@ if ($lat==0 || $lng==0) {
  * Let's get more detail regarding GEO coordinates. We can use either the
  * [toponymName] for local city or village name or we can jump right to the
  * nearest administration city [adminName1]
- * 
+ *
  * @param number $lt Latitude.
  * @param number $lg Longitude.
  *
@@ -97,13 +98,13 @@ if ($lat==0 || $lng==0) {
  * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
  * @link     https://github.com/wireload
  * @since    0.0.1
- * 
+ *
  * @return json JSON value containing all data. For more info please review
  *         http://api.geonames.org/.
  */
-function findNearbyPlaceName ($lt, $lg)
+function findNearbyPlaceName($lt, $lg)
 {
-    if (!empty($lt) && !empty($lg)){
+    if (!empty($lt) && !empty($lg)) {
         $qUrl = "http://api.geonames.org/findNearbyPlaceNameJSON?";
         $qLat = "lat=$lt&";
         $qLng = "lng=$lg&";
@@ -117,8 +118,8 @@ function findNearbyPlaceName ($lt, $lg)
     return json_encode(['error'=>'@findNearbyPlaceName - Please provide latitude and longitude params']);
 }
 $geoInfo = findNearbyPlaceName ($lat, $lng);
-define('LATITUTE', $lat);
-define('LONGITUDE', $lng);
+define('LAT', $lat);
+define('LNG', $lng);
 
 
 
@@ -126,7 +127,7 @@ define('LONGITUDE', $lng);
 
 /**
  * Check for any GET vars containing units.
- * 
+ *
  * @param string $u Units value can be [auto, ca, uk2, us, si]
  *
  * @category ScreenlyApps
@@ -136,10 +137,10 @@ define('LONGITUDE', $lng);
  * @link     https://github.com/wireload
  * @since    0.0.1
  * @see      https://darksky.net/dev/docs/time-machine Documentation
- * 
+ *
  * @return string Returns a string holding the unit.
  */
-function sanitizeUnit ($u)
+function sanitizeUnit($u)
 {
     $u = filter_var ( $u, FILTER_SANITIZE_STRING);
     if (!empty($u) && in_array($u, ['auto', 'ca', 'uk2', 'us', 'si'])) {
@@ -156,7 +157,7 @@ define('UNITS', $units);
 
 /**
  * Check for any GET vars containing language code.
- * 
+ *
  * @param string $l Language The country code.
  *
  * @category ScreenlyApps
@@ -166,10 +167,10 @@ define('UNITS', $units);
  * @link     https://github.com/wireload
  * @since    0.0.1
  * @see      https://darksky.net/dev/docs/time-machine Documentation
- * 
+ *
  * @return string Returns a string holding the language code.
  */
-function sanitizeLang ($l)
+function sanitizeLang($l)
 {
     $l = filter_var($l, FILTER_SANITIZE_STRING);
     return !empty($l)? $l : 'en';
@@ -193,10 +194,10 @@ define('LANG', $lang);
  * @link     https://github.com/wireload
  * @since    0.0.1
  */
-include_once 'lib/forecast.io.php';
-$forecast = new ForecastIO('280b615c4a69fe34235855040fd4dccc'); // THE KEY NEEDS TO BE REPLACE WITH A SCREENLY KEY AND REMOVE FROM THIS FILE
+require_once 'lib/forecast.io.php';
+// THE KEY NEEDS TO BE REPLACE WITH A SCREENLY KEY AND REMOVE FROM THIS FILE
+$forecast = new ForecastIO('280b615c4a69fe34235855040fd4dccc');
 $forecast->setUnits($units);
 $forecast->setLanguage($lang);
-
 $condition = $forecast->getCurrentConditions($lat, $lng);
 ?>
