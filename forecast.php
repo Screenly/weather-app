@@ -1,6 +1,8 @@
 <?php
 /**
  * Weather Forecast App for Screenly devices.
+ * 
+ * PHP version 5
  *
  * @category ScreenlyApps
  * @package  WeatherForecast
