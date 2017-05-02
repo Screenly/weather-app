@@ -34,7 +34,7 @@ $today = $week[0];
                 <!-- CURRENT DAY WITH LOCATION & DATE -->
                 <div id="location-today" class="scale-font">
                     <span class="location"><?php echo !empty($geoInfo->name) ? $geoInfo->name : $geoInfo->adminName1; ?>, </span>
-                    <span class="today"><?php echo date('D d', $today->time);?></span>
+                    <span class="today"><?php echo date('D j', $today->time);?></span>
                 </div>
                 <!-- TEMPERATURE - MAX MIN -->
                 <div id="temperatures">
