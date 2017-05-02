@@ -142,7 +142,7 @@ define('LNG', $lng);
  */
 function sanitizeUnit($u)
 {
-    $u = filter_var( $u, FILTER_SANITIZE_STRING);
+    $u = filter_var($u, FILTER_SANITIZE_STRING);
     if (!empty($u) && in_array($u, ['auto', 'ca', 'uk2', 'us', 'si'])) {
         return $u;
     }
