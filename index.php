@@ -10,8 +10,8 @@
  * @since    0.0.1
  */
 
-include_once 'forecast.php';
-$raw  = (object)$forecast->getRaw ();
+require_once 'forecast.php';
+$raw  = (object)$forecast->getRaw();
 $week = (array)$raw->daily->data;
 $today = $week[0];
 ?>
