@@ -14,22 +14,6 @@ include_once 'forecast.php';
 $raw  = (object)$forecast->getRaw ();
 $week = (array)$raw->daily->data;
 $today = $week[0];
-
-
-
-/**
- * Set the default timezone based on $lat $lng result
- *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
- */
-// date_default_timezone_set($raw->timezone);
-// setlocale(LC_TIME, 'fr');
-// strftime('%a %d', $today->time);
 ?>
 <!DOCTYPE html>
     <html id="app" lang="en_UK" class="bg-day" data-sunset="<?php echo $today->sunsetTime ?>" data-sunrise="<?php echo $today->sunriseTime ?>">
