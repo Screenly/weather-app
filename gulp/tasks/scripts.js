@@ -50,8 +50,7 @@ gulp.task("js", function () {
     return processJsFiles (
         [
             config.path.JS_SRC + "/utils.js",
-            config.path.JS_ENTRY_POINT,
-            config.path.JS_SRC + "/app.clock.js"
+            config.path.JS_ENTRY_POINT
         ], 
         config.path.JS_DEST, 
         'app.js',
@@ -75,7 +74,8 @@ gulp.task("js-vendors", function () {
 // Vendors Concat
 gulp.task ("js-vendors-concat", function () {
     return gulp.src([
-            config.path.JS_SRC + "/vendors/skycons.js",
+            config.path.JS_SRC + "/vendors/moment-with-locales.min.js",
+            config.path.JS_SRC + "/vendors/moment-timezone-with-data.js"
         ])
         .pipe(concat('vendors.js'))
         .pipe(gulp.dest(config.path.JS_DEST + "/vendors/"));

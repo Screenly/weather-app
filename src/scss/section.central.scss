@@ -188,7 +188,7 @@ section#central
 
                 &:first-of-type
                 {
-                    margin-top: 0;
+                    margin-top: 90px;
                 }
 
                 b
@@ -223,20 +223,6 @@ section#central
                     position: absolute;
                 }
             }
-        }
-
-        #app-name
-        {
-            margin-bottom:10px;
-            font-size: 34px;
-            text-align: center;
-        }
-
-        #poweredby
-        {
-            display: block;
-            text-align: center;
-            margin-bottom:35px;
         }
     }
 }

@@ -12,7 +12,9 @@
      */
     Number.prototype.lead = function(size) {
         var s = String(this);
-        while (s.length < (size || 2)) {s = "0" + s;}
+        while (s.length < (size || 2)) {
+            s = "0" + s;
+        }
         return s;
     };
 
@@ -49,7 +51,7 @@
     /**
      * SCALE FONTS TO FIT WIDTH AND VOID WORD WRAP
      */
-    var scalableFonts = document.querySelectorAll (".scale-font");
+    var scalableFonts = document.querySelectorAll(".scale-font");
     if (scalableFonts.length>0) {
         for(var i=0; i<scalableFonts.length; i++) {
             var el = scalableFonts[i];
@@ -57,7 +59,7 @@
             var parentWidth = parent.offsetWidth;
             var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
             var fontSize = parseFloat(style);
-            while (parentWidth < getInnerWidth (el)) {
+            while (parentWidth < getInnerWidth(el)) {
                 fontSize-=0.5;
                 el.style.fontSize = fontSize + 'px';
             }
@@ -65,31 +67,61 @@
     }
 })();
 
-
-(function()
-{
+/**
+ * This file should hold global script. Use app.utils for utilities.
+ *
+ * @category ScreenlyApps
+ * @package  WeatherForecast
+ * @author   Original Peter Monte <pmonte@screenly.io>
+ * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
+ * @link     https://github.com/wireload
+ * @since    0.0.1
+ */
+(function() {
     /**
      * DOM ELEMENTS
      */
     var html = document.querySelector("html");
-    var clockDom = document.getElementById ('footer-clock');
+    var clockDom = document.getElementById('footer-clock');
+
 
     /**
-     * TIME
+     * HTML DOM ELEMENT HOLDING SERVER DATA
      */
-    var nowTime         = new Date();
-    var nowTimeUnix     = nowTime.getTime()/1000;
-    var sunsetTimeUnix  = parseFloat ( html.getAttribute('data-sunset') );
-    var sunriseTimeUnix = parseFloat ( html.getAttribute('data-sunrise') );
+    var mmt = moment();
+        mmt.tz(html.getAttribute('data-timezone'));
+
+    /**
+     * SUNSET AND SUNRISE TIMES
+     */
+    var sunSpeed = 10*60000; // As in 10 minutes (winter)
+    var sunriseTimeUnix, sunsetTimeUnix;
+    var sunriseTimeConcat, sunriseEndTimeConcat, sunsetTimeConcat, sunsetEndTimeConcat;
 
 
     /**
      * INIT
      */
-    function init ()
-    {
-        checkTime ();
-        setInterval (checkTime, 1000);
+    function init () {
+        sunriseTimeUnix = Number(html.getAttribute('data-sunrise'));
+        sunsetTimeUnix  = Number(html.getAttribute('data-sunset'));
+
+        // PREPARE VARIABLES FOR SUNRISE AND SUNSET INTERVAL
+        var dt = new Date(sunriseTimeUnix*1000);
+        sunriseTimeConcat = Number(dt.getHours()+''+dt.getMinutes());
+        dt = new Date(sunriseTimeUnix*1000+sunSpeed);
+        sunriseEndTimeConcat = Number(dt.getHours()+''+dt.getMinutes());
+
+        dt = new Date(sunsetTimeUnix*1000);
+        sunsetTimeConcat = Number(dt.getHours()+''+dt.getMinutes());
+        dt = new Date(sunsetTimeUnix*1000+sunSpeed);
+        sunsetEndTimeConcat = Number(dt.getHours()+''+dt.getMinutes());
+
+        // START TIME
+        checkTime();
+
+        // CREATE LOOP
+        setInterval(checkTime, 1000);
     }
 
 
@@ -97,13 +129,8 @@
     /**
      * ADD MINUTES TO UNIX TIME
      */
-    function unixtimeToDate (unix)
-    {
-        if (!unix){
-            return 0;
-        }
-
-        return new Date ( unix * 1000 );
+    function unixtimeToDate (unix) {
+        return !unix ? 0 : new Date(unix * 1000);
     }
 
 
@@ -111,8 +138,7 @@
     /**
      * ADD MINUTES TO UNIX TIME
      */
-    function unixtimeAddMinutes (unix, min)
-    {
+    function unixtimeAddMinutes (unix, min) {
         if (!unix){
             return 0;
         }
@@ -122,7 +148,7 @@
         }
 
         var date = unixtimeToDate(unix);
-            date.setMinutes(date.getMinutes() + min);
+        date.setMinutes(date.getMinutes() + min);
         return date.getTime()/1000;
     }
 
@@ -131,18 +157,17 @@
     /**
      * ADD MINUTES TO UNIX TIME
      */
-    function unixtimeSubtractMinutes (unix, min)
-    {
-        if (!unix){
+    function unixtimeSubtractMinutes (unix, min) {
+        if (!unix) {
             return 0;
         }
 
-        if (!min || min<0){
+        if (!min || min<0) {
             min = 0;
         }
 
         var date = unixtimeToDate(unix);
-            date.setMinutes(date.getMinutes() - min);
+        date.setMinutes(date.getMinutes() - min);
         return date.getTime()/1000;
     }
 
@@ -151,52 +176,48 @@
     /**
      * TIME INTERVALL
      */
-    function checkTime (i)
-    {
-        /*
+    function checkTime () {
+        var mmtHour = mmt.hours();
+        var mmtMin  = mmt.minutes();
+        var mmtUnix = mmt.unix();
+        var mmtTimeConcat = Number(mmt.format('HHmm'));
+
+
+        /**
          * CLOCK
          */
-        nowTime = new Date();
-        nowTimeUnix = nowTime.getTime()/1000;
-        var hour = nowTime.getHours();
-        clockDom.innerHTML = hour.lead() + ':' + (nowTime.getMinutes()).lead() + (hour<13?'<sup>AM</sub>':'');
+        clockDom.innerHTML = mmt.format('HH:mm') + '<sup>' + mmt.format('A') + '</sup>';
 
 
-        /*
+        /**
          * BACKGROUND BASED ON TIME
          */
-        if (nowTimeUnix > unixtimeAddMinutes(sunriseTimeUnix, 4) && nowTimeUnix < unixtimeSubtractMinutes(sunsetTimeUnix, 4) ) {
-            // FULL DAY
-            html.className = 'bg-day';
-            return true;
-        }
-
-        if (nowTimeUnix < sunriseTimeUnix || nowTimeUnix > sunsetTimeUnix ) {
-            // NIGHT
-            html.className = 'bg-night';
-            return true;
-        }
-
-        if (nowTimeUnix >= sunriseTimeUnix && nowTimeUnix < unixtimeAddMinutes(sunriseTimeUnix, 4) ) {
+        if (mmtTimeConcat >= sunriseTimeConcat && mmtTimeConcat <= sunriseEndTimeConcat ) {
             // SUNRISE
             html.className = 'bg-sunset';
             return true;
         }
 
-        if (nowTimeUnix >= unixtimeSubtractMinutes(sunsetTimeUnix, 4) && nowTimeUnix < sunsetTimeUnix ) {
+        if (mmtTimeConcat > sunriseEndTimeConcat && mmtTimeConcat < sunsetTimeConcat ) {
+            // FULL DAY
+            html.className = 'bg-day';
+            return true;
+        }
+
+        if (mmtTimeConcat >= sunsetTimeConcat && mmtTimeConcat <= sunsetEndTimeConcat ) {
             // SUNSET
             html.className = 'bg-sunset';
             return true;
         }
+
+        // NONE OF THE ABOVE? IT'S NIGHT
+        html.className = 'bg-night';
     }
 
 
 
-
-
-
     /**
-     * ALL DONE LET'S INIT
+     * ALL DONE LETS INIT
      */
     init ();
 })();

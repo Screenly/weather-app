@@ -12,7 +12,9 @@
      */
     Number.prototype.lead = function(size) {
         var s = String(this);
-        while (s.length < (size || 2)) {s = "0" + s;}
+        while (s.length < (size || 2)) {
+            s = "0" + s;
+        }
         return s;
     };
 
@@ -49,7 +51,7 @@
     /**
      * SCALE FONTS TO FIT WIDTH AND VOID WORD WRAP
      */
-    var scalableFonts = document.querySelectorAll (".scale-font");
+    var scalableFonts = document.querySelectorAll(".scale-font");
     if (scalableFonts.length>0) {
         for(var i=0; i<scalableFonts.length; i++) {
             var el = scalableFonts[i];
@@ -57,7 +59,7 @@
             var parentWidth = parent.offsetWidth;
             var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
             var fontSize = parseFloat(style);
-            while (parentWidth < getInnerWidth (el)) {
+            while (parentWidth < getInnerWidth(el)) {
                 fontSize-=0.5;
                 el.style.fontSize = fontSize + 'px';
             }
