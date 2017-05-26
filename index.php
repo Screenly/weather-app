@@ -9,7 +9,6 @@
  * @link     https://github.com/wireload
  * @since    0.0.1
  */
-
 require_once 'forecast.php';
 $raw  = (object)$forecast->getRaw();
 $week = (array)$raw->daily->data;

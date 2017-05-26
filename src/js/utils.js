@@ -1,32 +1,15 @@
-(function ()
-{
+(function () {
     /**
-     * GLOBAL CONFIGURATION
+     * Check the full width of an element based on it's childs width
+     *
+     * @category ScreenlyApps
+     * @package  WeatherForecast
+     * @author   Original Peter Monte <pmonte@screenly.io>
+     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
+     * @link     https://github.com/wireload
+     * @since    0.0.1
      */
-    window.transitionEnd = window.transitionEnd || "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend";
-
-
-
-    /**
-     * ADD LEADING ZERO TO NUMBER
-     */
-    Number.prototype.lead = function(size) {
-        var s = String(this);
-        while (s.length < (size || 2)) {
-            s = "0" + s;
-        }
-        return s;
-    };
-
-
-
-
-
-    /**
-     * GET ELEMENT INNER WIDTH
-     */
-    function getInnerWidth (el)
-    {
+    function getInnerWidth (el) {
         if (!el) {
             return 0;
         }
@@ -49,7 +32,14 @@
 
 
     /**
-     * SCALE FONTS TO FIT WIDTH AND VOID WORD WRAP
+     * Reduce the size of an element by reducing it's font size
+     *
+     * @category ScreenlyApps
+     * @package  WeatherForecast
+     * @author   Original Peter Monte <pmonte@screenly.io>
+     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
+     * @link     https://github.com/wireload
+     * @since    0.0.1
      */
     var scalableFonts = document.querySelectorAll(".scale-font");
     if (scalableFonts.length>0) {
