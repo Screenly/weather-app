@@ -217,7 +217,7 @@
         }
         else {
             // NONE OF THE ABOVE? IT'S NIGHT
-            html.className = 'bg-night';   
+            html.className = 'bg-night';
         }
     }
 
