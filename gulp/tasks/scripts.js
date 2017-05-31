@@ -51,8 +51,8 @@ gulp.task("js", function () {
         [
             config.path.JS_SRC + "/utils.js",
             config.path.JS_ENTRY_POINT
-        ], 
-        config.path.JS_DEST, 
+        ],
+        config.path.JS_DEST,
         'app.js',
         config.joinPages,
         true,

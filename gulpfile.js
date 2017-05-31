@@ -32,11 +32,11 @@ requireDir("./gulp/tasks", { recurse: true } );
 */
 
 gulp.task('default', [
-        'init', 
-        'clean-css', 'sass-vendors', 'sass-vendors-concat', 'sass', 'sass-pages', 
+        'init',
+        'clean-css', 'sass-vendors', 'sass-vendors-concat', 'sass', 'sass-pages',
         'clean-js', 'js-vendors', 'js-vendors-concat', 'js', 'js-pages',
         'static-clean', 'static-do',
-        'watch'], 
+        'watch'],
     error.reportSuccess);
 
 
@@ -46,11 +46,11 @@ gulp.task('default', [
 */
 
 gulp.task('production', [
-        'init', 'init-production', 
-        'clean-css', 'sass-vendors', 'sass-vendors-concat', 'sass', 'sass-pages', 
+        'init', 'init-production',
+        'clean-css', 'sass-vendors', 'sass-vendors-concat', 'sass', 'sass-pages',
         'clean-js', 'js-vendors', 'js-vendors-concat', 'js', 'js-pages',
         'static-clean', 'static-do',
-        'watch'], 
+        'watch'],
     error.reportSuccess);
 
 
