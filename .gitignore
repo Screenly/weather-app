@@ -36,6 +36,7 @@
 .mongo
 
 /node_modules
+/assets
 
 .sass-cache
 .session
