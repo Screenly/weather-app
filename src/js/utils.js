@@ -1,4 +1,4 @@
-(function () {
+(function() {
     /**
      * Check the full width of an element based on it's childs width
      *
@@ -9,19 +9,18 @@
      * @link     https://github.com/wireload
      * @since    0.0.1
      */
-    function getInnerWidth (el) {
+    function getInnerWidth(el) {
         if (!el) {
             return 0;
         }
 
         var width = 0;
         var children = el.children;
-        if (children.length>0) {
+        if (children.length > 0) {
             for (var i = 0; i < children.length; i++) {
                 width += children[i].offsetWidth;
             }
-        }
-        else {
+        } else {
             width = el.offsetWidth;
         }
 
@@ -42,15 +41,15 @@
      * @since    0.0.1
      */
     var scalableFonts = document.querySelectorAll(".scale-font");
-    if (scalableFonts.length>0) {
-        for(var i=0; i<scalableFonts.length; i++) {
+    if (scalableFonts.length > 0) {
+        for (var i = 0; i < scalableFonts.length; i++) {
             var el = scalableFonts[i];
             var parent = el.parentElement;
             var parentWidth = parent.offsetWidth;
             var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
             var fontSize = parseFloat(style);
             while (parentWidth < getInnerWidth(el)) {
-                fontSize-=0.5;
+                fontSize -= 0.5;
                 el.style.fontSize = fontSize + 'px';
             }
         }

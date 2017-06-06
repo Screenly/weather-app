@@ -34,7 +34,7 @@
      * @since    0.0.1
      */
     var timezone = html.getAttribute('data-timezone');
-    var sunSpeed = 10*60000; // As in 10 minutes (winter)
+    var sunSpeed = 10 * 60000; // As in 10 minutes (winter)
     var sunriseTimeUnix, sunsetTimeUnix;
     var sunriseTimeConcat, sunriseEndTimeConcat, sunsetTimeConcat, sunsetEndTimeConcat;
 
@@ -50,7 +50,7 @@
      * @since    0.0.1
      */
     var mmt = moment();
-        mmt.tz(timezone);
+    mmt.tz(timezone);
 
 
     /**
@@ -63,27 +63,27 @@
      * @link     https://github.com/wireload
      * @since    0.0.1
      */
-    function init () {
+    function init() {
         sunriseTimeUnix = Number(html.getAttribute('data-sunrise'));
-        sunsetTimeUnix  = Number(html.getAttribute('data-sunset'));
+        sunsetTimeUnix = Number(html.getAttribute('data-sunset'));
 
         // Sunrise
-        var sunMoment = moment(sunriseTimeUnix*1000);
+        var sunMoment = moment(sunriseTimeUnix * 1000);
         sunMoment.tz(timezone);
         sunriseTimeConcat = sunMoment.format('Hmm');
 
         // Sunrise end point
-        sunMoment = moment(sunriseTimeUnix*1000+sunSpeed);
+        sunMoment = moment(sunriseTimeUnix * 1000 + sunSpeed);
         sunMoment.tz(timezone);
         sunriseEndTimeConcat = sunMoment.format('Hmm');
 
         // Sunset
-        sunMoment = moment(sunsetTimeUnix*1000);
+        sunMoment = moment(sunsetTimeUnix * 1000);
         sunMoment.tz(timezone);
         sunsetTimeConcat = sunMoment.format('Hmm');
 
         // Sunset end point
-        sunMoment = moment(sunsetTimeUnix*1000+sunSpeed);
+        sunMoment = moment(sunsetTimeUnix * 1000 + sunSpeed);
         sunMoment.tz(timezone);
         sunsetEndTimeConcat = sunMoment.format('Hmm');
 
@@ -130,7 +130,7 @@
      * @link     https://github.com/wireload
      * @since    0.0.1
      */
-    function checkTime () {
+    function checkTime() {
         var mmtTimeConcat = Number(mmt.format('HHmm'));
 
         /**
@@ -141,22 +141,19 @@
         /**
          * Change background image based on time
          */
-        if (mmtTimeConcat >= sunriseTimeConcat && mmtTimeConcat <= sunriseEndTimeConcat ) {
+        if (mmtTimeConcat >= sunriseTimeConcat && mmtTimeConcat <= sunriseEndTimeConcat) {
             // SUNRISE
             html.className = 'bg-sunset';
             return true;
-        }
-        else if (mmtTimeConcat > sunriseEndTimeConcat && mmtTimeConcat < sunsetTimeConcat ) {
+        } else if (mmtTimeConcat > sunriseEndTimeConcat && mmtTimeConcat < sunsetTimeConcat) {
             // FULL DAY
             html.className = 'bg-day';
             return true;
-        }
-        else if (mmtTimeConcat >= sunsetTimeConcat && mmtTimeConcat <= sunsetEndTimeConcat ) {
+        } else if (mmtTimeConcat >= sunsetTimeConcat && mmtTimeConcat <= sunsetEndTimeConcat) {
             // SUNSET
             html.className = 'bg-sunset';
             return true;
-        }
-        else {
+        } else {
             // NONE OF THE ABOVE? IT'S NIGHT
             html.className = 'bg-night';
         }
@@ -174,5 +171,5 @@
      * @link     https://github.com/wireload
      * @since    0.0.1
      */
-    init ();
+    init();
 })();

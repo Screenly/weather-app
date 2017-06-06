@@ -1,7 +1,7 @@
-var gulp   = require("gulp");
+var gulp = require("gulp");
 var notify = require("gulp-notify");
-var gutil  = require("gulp-util");
-var clear  = require('clear');
+var gutil = require("gulp-util");
+var clear = require('clear');
 
 var config = require("./config");
 
@@ -13,8 +13,7 @@ module.exports = {
         Notify Errors and write errors to console
     */
 
-    reportError: function (error)
-    {
+    reportError: function(error) {
         clear();
 
         // Notify
@@ -44,20 +43,20 @@ module.exports = {
 
         report += blue('#################################################################################################\n');
         report += black('Task:') + black(' [' + error.plugin + ']') + '\n';
-        report += blue( '#################################################################################################\n');
+        report += blue('#################################################################################################\n');
 
-        if (error.plugin == "gulp-sass"){
+        if (error.plugin == "gulp-sass") {
             var filenameParts = error.file ? error.file.split("/") : null;
             var filename = filenameParts ? filenameParts[filenameParts.length - 1] : null;
             report += chalk('Error:\n') + '    ' + red(error.messageFormatted) + '\n';
-            if (error.file)   { report += red('File:' + '      ' + fileColor("[" + filename + "]") + " (" + red(error.file) + ")") + '\n'; }
+            if (error.file) { report += red('File:' + '      ' + fileColor("[" + filename + "]") + " (" + red(error.file) + ")") + '\n'; }
             if (error.line) { report += red('Line:' + '      ' + lineColor("[Line " + error.line + "]") + ']\n'); }
             if (error.column) { report += red('Column:' + '    [' + red(error.column) + ']\n'); }
         } else {
             var filenameParts = error.fileName ? error.fileName.split("/") : null;
             var filename = filenameParts ? filenameParts[filenameParts.length - 1] : null;
             report += chalk('Error:\n') + '    ' + red(' ' + error.message + ' ') + '\n';
-            if (error.fileName)   { report += red('File:' + '      ' + fileColor("[" + filename + "]") + " (" + red(error.fileName) + ")" + '\n'); }
+            if (error.fileName) { report += red('File:' + '      ' + fileColor("[" + filename + "]") + " (" + red(error.fileName) + ")" + '\n'); }
             if (error.lineNumber) { report += red('Line:' + '      ' + lineColor('[Line ' + error.lineNumber + "]") + ']\n'); }
         }
 
@@ -80,8 +79,7 @@ module.exports = {
         Notify Success
     */
 
-    reportSuccess: function ()
-    {
+    reportSuccess: function() {
         // We should not show the notification if we have errors
         if (GLOBAL.errors) return;
 
