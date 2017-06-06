@@ -75,7 +75,6 @@ if ($lat==0 || $lng==0) {
  * @param number $lg Longitude.
  *
  * @since  0.0.1
- *
  * @return json JSON value containing all data. For more info please review
  *         http://api.geonames.org/.
  */
