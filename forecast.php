@@ -17,7 +17,7 @@ ini_set('display_errors', 1);
  *
  * @param number $n Latitude or Longitude.
  *
- * @since 0.0.1
+ * @since  0.0.1
  * @return number Ensures that input is a floating number with dot seperation
  *         rather than comma.
  */
@@ -74,7 +74,7 @@ if ($lat==0 || $lng==0) {
  * @param number $lt Latitude.
  * @param number $lg Longitude.
  *
- * @since 0.0.1
+ * @since  0.0.1
  *
  * @return json JSON value containing all data. For more info please review
  *         http://api.geonames.org/.
