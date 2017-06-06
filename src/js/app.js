@@ -92,6 +92,8 @@
      * @since 0.0.1
      */
     function checkTime() {
+        mmt = moment();
+        mmt.tz(timezone);
         var mmtTimeConcat = Number(mmt.format('HHmm'));
 
         /**
