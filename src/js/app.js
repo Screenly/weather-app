@@ -96,6 +96,7 @@
         mmt.tz(timezone);
         var mmtTimeConcat = Number(mmt.format('HHmm'));
 
+
         /**
          * Draw DOM clock
          */
