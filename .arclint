@@ -49,7 +49,7 @@
     "PHP syntax check": {
       "type": "php",
       "include": "(\\.php$)",
-      "exclude": "(^lib/)"
+      "exclude": "(^lib/)",
       "bin": ["php5.5", "php"]
     },
     "PHP linting": {
