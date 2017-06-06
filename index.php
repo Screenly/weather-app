@@ -2,12 +2,7 @@
 /**
  * Get current weather conditions
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
+ * @since 0.0.1
  */
 require_once 'forecast.php';
 $raw  = (object)$forecast->getRaw();

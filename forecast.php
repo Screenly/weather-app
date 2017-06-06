@@ -4,12 +4,7 @@
  *
  * PHP version 5
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
+ * @since 0.0.1
  */
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -22,14 +17,9 @@ ini_set('display_errors', 1);
  *
  * @param number $n Latitude or Longitude.
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
- * @return   number Ensures that input is a floating number with dot seperation
- *           rather than comma.
+ * @since 0.0.1
+ * @return number Ensures that input is a floating number with dot seperation
+ *         rather than comma.
  */
 function sanitizeLatLng($n)
 {
@@ -48,12 +38,7 @@ function sanitizeLatLng($n)
 /**
  * Check for any GET vars containing GEO references
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
+ * @since 0.0.1
  */
 $lat = sanitizeLatLng(isset($_GET['lat'])? $_GET['lat'] : 0);
 $lng = sanitizeLatLng(isset($_GET['lng'])? $_GET['lng'] : 0);
@@ -63,12 +48,7 @@ $lng = sanitizeLatLng(isset($_GET['lng'])? $_GET['lng'] : 0);
 /**
  * If no coordinates provided or not complete then get current location by IP.
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
+ * @since 0.0.1
  */
 if ($lat==0 || $lng==0) {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -94,12 +74,7 @@ if ($lat==0 || $lng==0) {
  * @param number $lt Latitude.
  * @param number $lg Longitude.
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
+ * @since 0.0.1
  *
  * @return json JSON value containing all data. For more info please review
  *         http://api.geonames.org/.
@@ -132,13 +107,8 @@ define('LNG', $lng);
  *
  * @param string $u Units value can be [auto, ca, uk2, us, si]
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
- * @see      https://darksky.net/dev/docs/time-machine Documentation
+ * @since 0.0.1
+ * @see   https://darksky.net/dev/docs/time-machine Documentation
  *
  * @return string Returns a string holding the unit.
  */
@@ -162,13 +132,8 @@ define('UNITS', $units);
  *
  * @param string $l Language The country code.
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
- * @see      https://darksky.net/dev/docs/time-machine Documentation
+ * @since 0.0.1
+ * @see   https://darksky.net/dev/docs/time-machine Documentation
  *
  * @return string Returns a string holding the language code.
  */
@@ -184,17 +149,10 @@ define('LANG', $lang);
 
 
 
-
-
 /**
  * Get current weather conditions
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
- * @since    0.0.1
+ * @since 0.0.1
  */
 require_once 'lib/forecast.io.php';
 // THE KEY NEEDS TO BE REPLACE WITH A SCREENLY KEY AND REMOVE FROM THIS FILE

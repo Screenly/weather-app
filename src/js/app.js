@@ -1,23 +1,14 @@
 /**
  * This file should hold global script. Use app.utils for utilities.
  *
- * @category ScreenlyApps
- * @package  WeatherForecast
- * @author   Original Peter Monte <pmonte@screenly.io>
- * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
- * @link     https://github.com/wireload
+
  * @since    0.0.1
  */
 (function() {
     /**
      * DOM elements
      *
-     * @category ScreenlyApps
-     * @package  WeatherForecast
-     * @author   Original Peter Monte <pmonte@screenly.io>
-     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-     * @link     https://github.com/wireload
-     * @since    0.0.1
+     * @since 0.0.1
      */
     var html = document.querySelector("html");
     var clockDom = document.getElementById('footer-clock');
@@ -26,12 +17,7 @@
     /**
      * Global vars
      *
-     * @category ScreenlyApps
-     * @package  WeatherForecast
-     * @author   Original Peter Monte <pmonte@screenly.io>
-     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-     * @link     https://github.com/wireload
-     * @since    0.0.1
+     * @since 0.0.1
      */
     var timezone = html.getAttribute('data-timezone');
     var sunSpeed = 10 * 60000; // As in 10 minutes (winter)
@@ -42,12 +28,7 @@
     /**
      * We pick up all the server data in HTML tag attributes
      *
-     * @category ScreenlyApps
-     * @package  WeatherForecast
-     * @author   Original Peter Monte <pmonte@screenly.io>
-     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-     * @link     https://github.com/wireload
-     * @since    0.0.1
+     * @since 0.0.1
      */
     var mmt = moment();
     mmt.tz(timezone);
@@ -56,12 +37,7 @@
     /**
      * After all functions and vars are declared we run init.
      *
-     * @category ScreenlyApps
-     * @package  WeatherForecast
-     * @author   Original Peter Monte <pmonte@screenly.io>
-     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-     * @link     https://github.com/wireload
-     * @since    0.0.1
+     * @since 0.0.1
      */
     function init() {
         sunriseTimeUnix = Number(html.getAttribute('data-sunrise'));
@@ -93,12 +69,7 @@
         /**
          * Run time process for first time
          *
-         * @category ScreenlyApps
-         * @package  WeatherForecast
-         * @author   Original Peter Monte <pmonte@screenly.io>
-         * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-         * @link     https://github.com/wireload
-         * @since    0.0.1
+         * @since 0.0.1
          */
         checkTime();
 
@@ -106,12 +77,7 @@
         /**
          * Start the loop that will be updating everytime
          *
-         * @category ScreenlyApps
-         * @package  WeatherForecast
-         * @author   Original Peter Monte <pmonte@screenly.io>
-         * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-         * @link     https://github.com/wireload
-         * @since    0.0.1
+         * @since 0.0.1
          */
         setInterval(checkTime, 1000);
     }
@@ -123,12 +89,7 @@
      * Changes DOM clock time and determines if background needs to be changed in
      * order to represent the day light, sunset/sunrize or night
      *
-     * @category ScreenlyApps
-     * @package  WeatherForecast
-     * @author   Original Peter Monte <pmonte@screenly.io>
-     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-     * @link     https://github.com/wireload
-     * @since    0.0.1
+     * @since 0.0.1
      */
     function checkTime() {
         var mmtTimeConcat = Number(mmt.format('HHmm'));
@@ -164,12 +125,7 @@
     /**
      * All done let's init
      *
-     * @category ScreenlyApps
-     * @package  WeatherForecast
-     * @author   Original Peter Monte <pmonte@screenly.io>
-     * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html  GPLv2
-     * @link     https://github.com/wireload
-     * @since    0.0.1
+     * @since 0.0.1
      */
     init();
 })();
