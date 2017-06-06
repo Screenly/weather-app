@@ -11,7 +11,7 @@
 
         var width = 0;
         var children = el.children;
-        if (children.length > 0) {
+        if (children.length) {
             for (var i = 0; i < children.length; i++) {
                 width += children[i].offsetWidth;
             }
