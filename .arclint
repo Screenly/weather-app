@@ -38,7 +38,8 @@
     },
     "JavaScript linting": {
       "type": "jshint",
-      "include": "(\\.js$)"
+      "include": "(\\.js$)",
+      "exclude": "(^vendors/)"
     },
     "CoffeeScript linting": {
       "type": "coffeelint",
@@ -48,15 +49,48 @@
     "PHP syntax check": {
       "type": "php",
       "include": "(\\.php$)",
+      "exclude": "(^lib/)"
       "bin": ["php5.5", "php"]
     },
     "PHP linting": {
       "type": "phpcs",
       "include": "(\\.php$)",
+      "bin": ["phpcs"],
       "flags": [
         "--encoding=utf-8",
         "--tab-width=4"
-      ]
+      ],
+      "severity": {
+        "PHPCS.E.Generic.Files.OneClassPerFile.MultipleFound": "advice",
+        "PHPCS.E.Generic.Files.OneInterfacePerFile.MultipleFound": "advice",
+        "PHPCS.E.Generic.Functions.CallTimePassByReference.NotAllowed": "error",
+        "PHPCS.E.Generic.NamingConventions.ConstructorName.OldStyle": "error",
+        "PHPCS.E.Generic.PHP.DisallowShortOpenTag.EchoFound": "error",
+        "PHPCS.E.Generic.PHP.DisallowShortOpenTag.Found": "error",
+        "PHPCS.E.PSR2.Methods.MethodDeclaration.StaticBeforeVisibility": "advice",
+        "PHPCS.E.ReadyReturns.Commenting.PostStatementComment.Found": "advice",
+        "PHPCS.E.ReadyReturns.ControlStructures.InlineControlStructure.NotAllowed": "error",
+        "PHPCS.E.ReadyReturns.Functions.ValidDefaultValue.NotAtEnd": "error",
+        "PHPCS.E.Squiz.Arrays.ArrayDeclaration.KeySpecified": "advice",
+        "PHPCS.E.Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed": "advice",
+        "PHPCS.E.Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast": "advice",
+        "PHPCS.E.Squiz.Arrays.ArrayDeclaration.NoKeySpecified": "advice",
+        "PHPCS.E.Squiz.Commenting.FunctionComment.Missing": "advice",
+        "PHPCS.E.Squiz.Functions.FunctionDuplicateArgument.Found": "error",
+        "PHPCS.E.Squiz.PHP.DisallowSizeFunctionsInLoops": "advice",
+        "PHPCS.E.Squiz.Scope.MethodScope.Missing": "error",
+        "PHPCS.E.Squiz.Scope.StaticThisUsage.Found": "error",
+        "PHPCS.E.Zend.Files.ClosingTag.NotAllowed": "error",
+        "PHPCS.W.Generic.CodeAnalysis.ForLoopShouldBeWhileLoop": "advice",
+        "PHPCS.W.PSR2.ControlStructures.ElseIfDeclaration.NotAllowed": "advice",
+        "PHPCS.W.ReadyReturns.ControlStructures.InlineControlStructure.Discouraged": "advice",
+        "PHPCS.W.ReadyReturns.Operators.AssignmentInsideCondition.Found": "advice",
+        "PHPCS.W.Squiz.PHP.NonExecutableCode.ReturnNotRequired": "advice",
+        "PHPCS.W.Squiz.PHP.NonExecutableCode.Unreachable": "advice"
+      },
+      "severity.rules": {
+        "(^PHPCS\\.E\\.)": "warning"
+      }
     }
   }
 }
