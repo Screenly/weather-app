@@ -105,7 +105,7 @@
         /**
          * Change background image based on time
          */
-        if (mmtTimeConcat >= sunriseTimeConcat && mmtTimeConcat <= sunriseEndTimeConcat) {
+        if (sunriseTimeConcat <= mmtTimeConcat && mmtTimeConcat <= sunriseEndTimeConcat) {
             // SUNRISE
             html.className = 'bg-sunset';
             return true;

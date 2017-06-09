@@ -82,6 +82,9 @@ footer
 {
     footer
     {
+        left: 10%;
+        right: 10%;
+
         .left
         {
             width: 75%;
@@ -98,11 +101,23 @@ footer
 
         .logo
         {
+            width: 40px;
+
+            image
+            {
+                width: 40px;
+            }
         }
 
 
         #footer-clock
         {
+            font-size: 30px;
+
+            sup
+            {
+                font-size: 12px;
+            }
         }
     }
 }

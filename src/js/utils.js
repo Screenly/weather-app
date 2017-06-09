@@ -1,6 +1,6 @@
 (function() {
     /**
-     * Check the full width of an element based on it's childs width
+     * Check the full width of an element including its children's width.
      *
      * @since 0.0.1
      */

@@ -5,9 +5,15 @@
  * @since 0.0.1
  */
 require_once 'forecast.php';
+
 $raw  = (object)$forecast->getRaw();
 $week = (array)$raw->daily->data;
 $today = $week[1];
+
+$geoName = !empty($geoInfo->name) ? $geoInfo->name : null;
+if (empty($geoName) && !empty($geoInfo->adminName1)){
+    $geoName = $geoInfo->adminName1;
+}
 ?>
 <!DOCTYPE html>
     <html id="app" lang="en_UK" class="bg-day" data-timezone="<?php echo $raw->timezone ?>" data-today="<?php echo $today->time ?>" data-sunset="<?php echo $today->sunsetTime ?>" data-sunrise="<?php echo $today->sunriseTime ?>">
@@ -26,7 +32,9 @@ $today = $week[1];
             <div id="current-day" class="left">
                 <!-- CURRENT DAY WITH LOCATION & DATE -->
                 <div id="location-today" class="scale-font">
-                    <span class="location"><?php echo !empty($geoInfo->name) ? $geoInfo->name : $geoInfo->adminName1; ?>, </span>
+                    <?php if (!empty($geoName)): ?>
+                    <span class="location"><?php echo $geoName; ?>, </span>
+                    <?php endif; ?>
                     <span class="today"><?php echo date('D j', $today->time);?></span>
                 </div>
                 <!-- TEMPERATURE - MAX MIN -->
