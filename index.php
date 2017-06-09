@@ -11,7 +11,7 @@ $week = (array)$raw->daily->data;
 $today = $week[1];
 
 $geoName = !empty($geoInfo->name) ? $geoInfo->name : null;
-if (empty($geoName) && !empty($geoInfo->adminName1)){
+if (empty($geoName) && !empty($geoInfo->adminName1)) {
     $geoName = $geoInfo->adminName1;
 }
 ?>
@@ -32,7 +32,7 @@ if (empty($geoName) && !empty($geoInfo->adminName1)){
             <div id="current-day" class="left">
                 <!-- CURRENT DAY WITH LOCATION & DATE -->
                 <div id="location-today" class="scale-font">
-                    <?php if (!empty($geoName)): ?>
+                    <?php if (!empty($geoName)) : ?>
                     <span class="location"><?php echo $geoName; ?>, </span>
                     <?php endif; ?>
                     <span class="today"><?php echo date('D j', $today->time);?></span>
