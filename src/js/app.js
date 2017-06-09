@@ -109,11 +109,11 @@
             // SUNRISE
             html.className = 'bg-sunset';
             return true;
-        } else if (mmtTimeConcat > sunriseEndTimeConcat && mmtTimeConcat < sunsetTimeConcat) {
+        } else if (sunriseEndTimeConcat < mmtTimeConcat && mmtTimeConcat < sunsetTimeConcat) {
             // FULL DAY
             html.className = 'bg-day';
             return true;
-        } else if (mmtTimeConcat >= sunsetTimeConcat && mmtTimeConcat <= sunsetEndTimeConcat) {
+        } else if ( sunsetTimeConcat <= mmtTimeConcat && mmtTimeConcat <= sunsetEndTimeConcat) {
             // SUNSET
             html.className = 'bg-sunset';
             return true;
