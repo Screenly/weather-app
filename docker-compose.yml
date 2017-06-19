@@ -1,0 +1,13 @@
+version: '3'
+services:
+  gulp:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+  apache:
+    image: php:7.0-apache
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8080:80
