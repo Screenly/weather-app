@@ -154,8 +154,14 @@ define('LANG', $lang);
  * @since 0.0.1
  */
 require_once 'lib/forecast.io.php';
-// THE KEY NEEDS TO BE REPLACE WITH A SCREENLY KEY AND REMOVE FROM THIS FILE
-$forecast = new ForecastIO('280b615c4a69fe34235855040fd4dccc');
+if (empty($_ENV["FORECAST_IO_API_KEY"])){
+    $errWarning = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>';
+    $errWarning .= '<h1>Error with Forecast.io API KEY.</h1>';
+    $errWarning .= '<p>There seems to be an error with the API key for Foreacast.io. Please contact administration for further help.</p>';
+    $errWarning .= '</body></html>';
+    die ($errWarning);
+}
+$forecast = new ForecastIO($_ENV["FORECAST_IO_API_KEY"]);
 $forecast->setUnits($units);
 $forecast->setLanguage($lang);
 $condition = $forecast->getCurrentConditions($lat, $lng);
