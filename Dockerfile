@@ -10,4 +10,4 @@ ENV PATH "$PATH:/app/node_modules/.bin"
 RUN cd /app && npm install
 
 # Define default command.
-CMD ["gulp"]
+CMD ["gulp", "watch"]

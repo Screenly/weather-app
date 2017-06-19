@@ -2,6 +2,7 @@ version: '3'
 services:
   gulp:
     build: .
+    command: bash -c "gulp && gulp watch"
     volumes:
       - .:/app
       - /app/node_modules
