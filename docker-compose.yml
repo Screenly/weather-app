@@ -12,3 +12,5 @@ services:
       - .:/var/www/html
     ports:
       - 8080:80
+    environment:
+      - FORECAST_IO_API_KEY=280b615c4a69fe34235855040fd4dccc
