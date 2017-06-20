@@ -1,12 +1,22 @@
 # Screenly Weather Cast App
 
-# Description
-Screenly app for weather forcast.
+## Description
 
-# Requirements
-```Node.js 4.0+, Node Package Manager 3.6.0+, Gulp CLI 3.9.0+, Gulp 3.9.1+```
+Screenly app for weather forecast.
 
-# Instalation
-Clone or download repository.
-Open terminal on project root ```package.json```
-Run command ```npm install``` - for more information regarding NodeJS and NPM please refere to https://nodejs.org
+## Requirements
+
+* Docker
+* Docker Compose
+
+## Installation
+
+* Clone or download repository.
+* Run `docker-compose up`
+* Navigate to localhost:8080
+
+## Deploying
+
+```
+heroku builds:create -a screenly-weather-app
+```
