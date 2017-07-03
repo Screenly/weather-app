@@ -100,7 +100,7 @@
         /**
          * Draw DOM clock
          */
-        clockDom.innerHTML = mmt.format('HH:mm') + '<sup>' + mmt.format('A') + '</sup>';
+        clockDom.innerHTML = mmt.format('HH:mm');
 
         /**
          * Change background image based on time
