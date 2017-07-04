@@ -1,5 +1,29 @@
 <?php
 /**
+ * Sentry PHP
+ *
+ * @since 0.0.1
+ */
+require_once 'lib/sentry-php-master/lib/Raven/Autoloader.php';
+Raven_Autoloader::register();
+$client = new Raven_Client('https://f74afa387cc249a1a12010e2c476bf38:30609d99ec9040c18f703f455251eaad@sentry.io/187325');
+$error_handler = new Raven_ErrorHandler($client);
+$error_handler->registerExceptionHandler();
+$error_handler->registerErrorHandler();
+$error_handler->registerShutdownFunction();
+
+
+
+/**
+ * Create version for assets
+ *
+ * @since 0.0.1
+ */
+$version = '?v=0.0.1';
+
+
+
+/**
  * Get current weather conditions
  *
  * @since 0.0.1
@@ -23,7 +47,7 @@ if (empty($geoName) && !empty($geoInfo->adminName1)) {
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <link href='https://fonts.googleapis.com/css?family=Muli:300|Kanit:600,500,300,200,100' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/style.css<?php echo $version?>">
     </head>
     <body>
 
@@ -67,7 +91,7 @@ if (empty($geoName) && !empty($geoInfo->adminName1)) {
         <footer>
             <div class="left">
                 <svg class="logo" width="70" height="70">
-                    <image xlink:href="assets/svg/screenly-logo-symbol.svg" src="assets/svg/screenly-logo-symbol.png" width="70" height="70" />
+                    <image xlink:href="assets/svg/screenly-logo-symbol.svg" src="assets/svg/screenly-logo-symbol.png<?php echo $version?>" width="70" height="70" />
                 </svg>
                 <span>© <?php echo date('Y');?> Screenly, Inc.</span>
                 <span id="app-name">Weather Forecast powered by Dark Sky</span>
@@ -78,8 +102,12 @@ if (empty($geoName) && !empty($geoInfo->adminName1)) {
         </footer>
 
         <!-- FRONT-END SCRIPTS -->
-        <script type="text/javascript" src="assets/js/vendors/vendors.js"></script>
-        <script type="text/javascript" src="assets/js/app.js"></script>
+        <script src="https://cdn.ravenjs.com/3.16.1/raven.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Raven.config('https://f74afa387cc249a1a12010e2c476bf38@sentry.io/187325').install();
+        </script>
+        <script type="text/javascript" src="assets/js/vendors/vendors.js<?php echo $version?>"></script>
+        <script type="text/javascript" src="assets/js/app.js<?php echo $version?>"></script>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
