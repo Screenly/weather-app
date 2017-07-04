@@ -90,9 +90,7 @@ if (empty($geoName) && !empty($geoInfo->adminName1)) {
         <!-- FOOTER -->
         <footer>
             <div class="left">
-                <svg class="logo" width="70" height="70">
-                    <image xlink:href="assets/svg/screenly-logo-symbol.svg" src="assets/svg/screenly-logo-symbol.png<?php echo $version?>" width="70" height="70" />
-                </svg>
+                <img src="assets/img/screenly-logo-symbol.png<?php echo $version?>" class="logo">
                 <span>© <?php echo date('Y');?> Screenly, Inc.</span>
                 <span id="app-name">Weather Forecast powered by Dark Sky</span>
             </div>
