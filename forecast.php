@@ -59,8 +59,10 @@ if ($lat==0 || $lng==0) {
         $ip = $_SERVER['REMOTE_ADDR'];
     }
     $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$ip"));
-    $lat = $geo['geoplugin_latitude'];
-    $lng = $geo['geoplugin_longitude'];
+    if (!empty($geo['geoplugin_latitude']) && !empty($geo['geoplugin_longitude'])) {
+        $lat = $geo['geoplugin_latitude'];
+        $lng = $geo['geoplugin_longitude'];
+    }
 }
 
 
