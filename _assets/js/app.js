@@ -37,20 +37,15 @@
 
 
     /**
-     * We pick up all the server data in HTML tag attributes
-     *
-     * @since 0.0.1
-     */
-    var mmt = moment();
-    mmt.tz(timezone);
-
-
-    /**
      * After all functions and vars are declared we run init.
      *
      * @since 0.0.1
      */
     function init() {
+
+        var mmt = moment();
+        mmt.tz(timezone);
+
         sunriseTimeUnix = Number(html.getAttribute('data-sunrise'));
         sunsetTimeUnix = Number(html.getAttribute('data-sunset'));
 
@@ -124,7 +119,7 @@
             // FULL DAY
             html.className = 'bg-day';
             return true;
-        } else if ( sunsetTimeConcat <= mmtTimeConcat && mmtTimeConcat <= sunsetEndTimeConcat) {
+        } else if (sunsetTimeConcat <= mmtTimeConcat && mmtTimeConcat <= sunsetEndTimeConcat) {
             // SUNSET
             html.className = 'bg-sunset';
             return true;
@@ -136,10 +131,56 @@
 
 
 
+
     /**
-     * All done let's init
+     * Get weather forecast
      *
      * @since 0.0.1
      */
-    init();
+    function onRequestReady() {
+        if (oReq.readyState === 4) {
+            if (oReq.status === 200) {
+                console.log('done');
+            } else {
+                console.log('An error occurred during your oReq: ' + oReq.status + ' ' + oReq.statusText);
+            }
+        }
+    }
+
+    function onRequestProgress(e) {
+        if (e.lengthComputable) {
+            var percentComplete = Math.floor(e.loaded * 100 / e.total);
+            console.log(e.loaded, e.total, percentComplete + '%');
+        } else {
+            console.log('Unable to compute progress information since the total size is unknown');
+        }
+    }
+
+    function onRequestFailed(e) {
+        console.log("An error occurred while transferring the file.");
+    }
+
+    function onRequestCanceled(e) {
+        console.log("The transfer has been canceled by the user.");
+    }
+
+    function onRequestComplete(e) {
+        console.log("The transfer is complete.");
+
+        /**
+         * All done let's init
+         *
+         * @since 0.0.1
+         */
+        init();
+    }
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("onreadystatechange", onRequestReady);
+    oReq.addEventListener("progress", onRequestProgress);
+    oReq.addEventListener("load", onRequestComplete);
+    oReq.addEventListener("error", onRequestFailed);
+    oReq.addEventListener("abort", onRequestCanceled);
+    oReq.open('Get', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/Bio.txt');
+    oReq.send();
 })();
