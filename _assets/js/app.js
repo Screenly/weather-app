@@ -149,7 +149,7 @@
 
     function onRequestProgress(e) {
         if (e.lengthComputable) {
-            var percentComplete = Math.floor(e.loaded * 100 / e.total);
+            var percentComplete = Math.round(e.loaded * 100 / e.total);
             console.log(e.loaded, e.total, percentComplete + '%');
         } else {
             console.log('Unable to compute progress information since the total size is unknown');
