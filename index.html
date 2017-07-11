@@ -1,0 +1,34 @@
+---
+layout: default
+---
+        <!-- SECTION -->
+        <section id="central">
+            <div id="current-day" class="left">
+                <!-- CURRENT DAY WITH LOCATION & DATE -->
+                <div id="location-today" class="scale-font">
+                    <span class="location">XX, </span>
+                    <span class="today">XX</span>
+                </div>
+                <!-- TEMPERATURE - MAX MIN -->
+                <div id="temperatures">
+                    <h1 id="temp">XX<sup>º</sup></h1>
+                    <p id="temp-max">XXº<b>high</b></p>
+                    <p id="temp-min">XXº<b>low</b></p>
+                </div>
+                <div id="weather">
+                    <i id="icon_current" class="wi wi-forecast-io-XXXXXXXX"></i>
+                    <b>XX</b>
+                </div>
+            </div>
+
+            <!-- NEXT DAYS -->
+            <div id="next-days" class="right">
+                <ul>
+                    <li>
+                        <b>XXXXXXXX</b>
+                        <b><i class="wi wi-forecast-io-<?php echo $week[$i]->icon ?>"></i></b>
+                        <b>XXº</b>
+                    </li>
+                </ul>
+            </div>
+        </section>

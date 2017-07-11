@@ -1,16 +1,15 @@
 version: '3'
 services:
-  gulp:
-    build: .
-    command: bash -c "gulp && gulp watch"
+  jekyll:
+    image: jekyll/jekyll
+    command: jekyll build --watch --incremental
     volumes:
-      - .:/app
-      - /app/node_modules
-  apache:
-    image: php:7.0-apache
+      - .:/srv/jekyll
+  nginx:
+    image: nginx
     volumes:
-      - .:/var/www/html
+      - ./_site:/usr/share/nginx/html
     ports:
       - 8080:80
-    environment:
-      - FORECAST_IO_API_KEY=280b615c4a69fe34235855040fd4dccc
+    depends_on:
+      - jekyll

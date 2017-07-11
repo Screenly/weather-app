@@ -13,7 +13,10 @@
 
 .DS_Store
 
-/node_modules
-/assets
-/build
+_gulp-version
 
+# Jekyll ignore
+_site/
+.sass-cache/
+.asset-cache/
+.jekyll-metadata

@@ -1,0 +1,67 @@
+/**
+ * DEPENDENCIES
+ */
+@import 'variables';
+
+
+
+/**
+ * STYLES
+ */
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    color: white;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+
+    &:not(.debug){
+        user-select: none;
+        pointer-events: none;
+    }
+
+    &:before {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        content: '';
+        position: absolute;
+        background-size: cover;
+        background-color: black;
+        transition: background 1s;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url(asset_path("bg-night.jpg"));
+    }
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    padding: $padding;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 1100px) {
+        padding: 8% 10% 10% 10%;
+    }
+}
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+small {
+    font-size: 14px;
+}
