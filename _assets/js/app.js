@@ -30,7 +30,7 @@
      *
      * @since 0.0.1
      */
-    var timezone = html.getAttribute('data-timezone');
+    var local, forecast;
     var sunSpeed = 10 * 60000; // As in 10 minutes (winter)
     var sunriseTimeUnix, sunsetTimeUnix;
     var sunriseTimeConcat, sunriseEndTimeConcat, sunsetTimeConcat, sunsetEndTimeConcat;
@@ -43,33 +43,25 @@
      */
     function init() {
 
-        var mmt = moment();
-        mmt.tz(timezone);
+        /**
+         * Fill DOM with local info like city name and date
+         */
+        var elCity = document.querySelector("#location-today .location");
+        elCity.innerHTML = (local.region_name || local.country_name) + ', ';
 
-        sunriseTimeUnix = Number(html.getAttribute('data-sunrise'));
-        sunsetTimeUnix = Number(html.getAttribute('data-sunset'));
 
-        // Sunrise
-        var sunMoment = moment(sunriseTimeUnix * 1000);
-        sunMoment.tz(timezone);
-        sunriseTimeConcat = sunMoment.format('Hmm');
+        var mmt = moment(forecast.daily.data[1]);
+        mmt.tz(local.time_zone);
 
-        // Sunrise end point
-        sunMoment = moment(sunriseTimeUnix * 1000 + sunSpeed);
-        sunMoment.tz(timezone);
-        sunriseEndTimeConcat = sunMoment.format('Hmm');
+        var elToday = document.querySelector("#location-today .today");
+        elToday.innerHTML = mmt.format('ddd D');
 
-        // Sunset
-        sunMoment = moment(sunsetTimeUnix * 1000);
-        sunMoment.tz(timezone);
-        sunsetTimeConcat = sunMoment.format('Hmm');
 
-        // Sunset end point
-        sunMoment = moment(sunsetTimeUnix * 1000 + sunSpeed);
-        sunMoment.tz(timezone);
-        sunsetEndTimeConcat = sunMoment.format('Hmm');
 
-        sunMoment = null; // Clean it, we're not using it anymore
+        /**
+         * Configure sunset and sunrise intervals for background animation
+         */
+        checkSunriseSunset();
 
 
         /**
@@ -89,6 +81,43 @@
     }
 
 
+    /**
+     * Configure sunset and sunrise intervals for background animation
+     *
+     * @since 0.0.1
+     */
+    function checkSunriseSunset() {
+
+        var mmt = moment();
+        mmt.tz(local.time_zone);
+
+        sunriseTimeUnix = Number(html.getAttribute('data-sunrise'));
+        sunsetTimeUnix = Number(html.getAttribute('data-sunset'));
+
+        // Sunrise
+        var sunMoment = moment(sunriseTimeUnix * 1000);
+        sunMoment.tz(local.time_zone);
+        sunriseTimeConcat = sunMoment.format('Hmm');
+
+        // Sunrise end point
+        sunMoment = moment(sunriseTimeUnix * 1000 + sunSpeed);
+        sunMoment.tz(local.time_zone);
+        sunriseEndTimeConcat = sunMoment.format('Hmm');
+
+        // Sunset
+        sunMoment = moment(sunsetTimeUnix * 1000);
+        sunMoment.tz(local.time_zone);
+        sunsetTimeConcat = sunMoment.format('Hmm');
+
+        // Sunset end point
+        sunMoment = moment(sunsetTimeUnix * 1000 + sunSpeed);
+        sunMoment.tz(local.time_zone);
+        sunsetEndTimeConcat = sunMoment.format('Hmm');
+
+        sunMoment = null; // Clean it, we're not using it anymore
+    }
+
+
 
     /**
      * Checktime
@@ -98,8 +127,9 @@
      * @since 0.0.1
      */
     function checkTime() {
+
         mmt = moment();
-        mmt.tz(timezone);
+        mmt.tz(local.time_zone);
         var mmtTimeConcat = Number(mmt.format('HHmm'));
 
 
@@ -133,54 +163,97 @@
 
 
     /**
-     * Get weather forecast
+     * Get forecast information
      *
      * @since 0.0.1
      */
-    function onRequestReady() {
-        if (oReq.readyState === 4) {
-            if (oReq.status === 200) {
-                console.log('done');
+    function getForecast() {
+
+        var oReqParam = JSON.stringify({ lat: local.latitude, long: local.longitude});
+        var oReq = new XMLHttpRequest();
+
+        oReq.addEventListener("progress", function(e) {
+            if (e.lengthComputable) {
+                var percent = Math.round(e.loaded * 100 / e.total);
             } else {
-                console.log('An error occurred during your oReq: ' + oReq.status + ' ' + oReq.statusText);
+                console.warn('getForecast: Unable to compute progress information since the total size is unknown');
             }
-        }
+        });
+
+        oReq.addEventListener("error", function(e) {
+            console.error("getForecast: An error occurred.");
+        });
+
+        oReq.addEventListener("abort", function(e) {
+            console.warn("getForecast: Transfer canceled by the user.");
+        });
+
+        oReq.addEventListener("load", function(e) {
+            console.log("getForecast: Transfer complete.");
+
+            // register local
+            if (e.target.status === 200) {
+                forecast = JSON.parse(e.target.response);
+                console.log(forecast);
+
+                // Lets start changing DOM
+                init ();
+            }
+        });
+
+        oReq.open('POST', 'http://localhost:5000/v1/weather', true);
+        oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        oReq.send(oReqParam);
     }
 
-    function onRequestProgress(e) {
-        if (e.lengthComputable) {
-            var percentComplete = Math.round(e.loaded * 100 / e.total);
-            console.log(e.loaded, e.total, percentComplete + '%');
-        } else {
-            console.log('Unable to compute progress information since the total size is unknown');
-        }
+
+
+
+    /**
+     * Get local information
+     *
+     * @since 0.0.1
+     */
+    function getLocal(ip) {
+
+        var oReqParam = JSON.stringify({ ip: ip });
+        var oReq = new XMLHttpRequest();
+
+        oReq.addEventListener("progress", function(e) {
+            if (e.lengthComputable) {
+                var percent = Math.round(e.loaded * 100 / e.total);
+            } else {
+                console.warn('getLocal: Unable to compute progress information since the total size is unknown');
+            }
+        });
+
+        oReq.addEventListener("error", function(e) {
+            console.error("getLocal: An error occurred.");
+        });
+
+        oReq.addEventListener("abort", function(e) {
+            console.warn("getLocal: Transfer canceled by the user.");
+        });
+
+        oReq.addEventListener("load", function(e) {
+            console.log("getLocal: Transfer complete.");
+
+            // register local
+            if (e.target.status === 200) {
+                local = JSON.parse(e.target.response);
+                console.log(local);
+            }
+
+            // Lets get the forecast for location
+            getForecast();
+        });
+
+        oReq.open('POST', 'http://localhost:5000/v1/location', true);
+        oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        oReq.send(oReqParam);
     }
 
-    function onRequestFailed(e) {
-        console.log("An error occurred while transferring the file.");
-    }
-
-    function onRequestCanceled(e) {
-        console.log("The transfer has been canceled by the user.");
-    }
-
-    function onRequestComplete(e) {
-        console.log("The transfer is complete.");
-
-        /**
-         * All done let's init
-         *
-         * @since 0.0.1
-         */
-        init();
-    }
-
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("onreadystatechange", onRequestReady);
-    oReq.addEventListener("progress", onRequestProgress);
-    oReq.addEventListener("load", onRequestComplete);
-    oReq.addEventListener("error", onRequestFailed);
-    oReq.addEventListener("abort", onRequestCanceled);
-    oReq.open('Get', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/Bio.txt');
-    oReq.send();
+    // Lets start with getting local information
+    // getLocal('85.139.5.121');
+    getLocal('47.90.96.247'); //Alibaba - Asia/Hong_Kong
 })();
