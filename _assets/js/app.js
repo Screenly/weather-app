@@ -30,7 +30,7 @@
      *
      * @since 0.0.1
      */
-    var local, forecast;
+    var local, forecast, today;
     var sunSpeed = 10 * 60000; // As in 10 minutes (winter)
     var sunriseTimeUnix, sunsetTimeUnix;
     var sunriseTimeConcat, sunriseEndTimeConcat, sunsetTimeConcat, sunsetEndTimeConcat;
@@ -50,7 +50,7 @@
         elCity.innerHTML = (local.region_name || local.country_name) + ', ';
 
 
-        var mmt = moment(forecast.daily.data[1]);
+        var mmt = moment(today.time);
         mmt.tz(local.time_zone);
 
         var elToday = document.querySelector("#location-today .today");
@@ -91,8 +91,8 @@
         var mmt = moment();
         mmt.tz(local.time_zone);
 
-        sunriseTimeUnix = Number(html.getAttribute('data-sunrise'));
-        sunsetTimeUnix = Number(html.getAttribute('data-sunset'));
+        sunriseTimeUnix = today.sunriseTime;
+        sunsetTimeUnix = today.sunsetTime;
 
         // Sunrise
         var sunMoment = moment(sunriseTimeUnix * 1000);
@@ -194,6 +194,7 @@
             // register local
             if (e.target.status === 200) {
                 forecast = JSON.parse(e.target.response);
+                today = forecast.daily.data[1];
                 console.log(forecast);
 
                 // Lets start changing DOM
