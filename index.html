@@ -9,26 +9,20 @@ layout: default
                     <span class="location"></span>
                     <span class="today"></span>
                 </div>
+
                 <!-- TEMPERATURE - MAX MIN -->
                 <div id="temperatures">
-                    <h1 id="temp">XX<sup>º</sup></h1>
-                    <p id="temp-max">XXº<b>high</b></p>
-                    <p id="temp-min">XXº<b>low</b></p>
+                    <h1 id="temp"></h1>
+                    <p id="temp-max"></p>
+                    <p id="temp-min"></p>
                 </div>
+
+                <!-- SUMMARY -->
                 <div id="weather">
-                    <i id="icon_current" class="wi wi-forecast-io-XXXXXXXX"></i>
-                    <b>XX</b>
+                    <i class="wi"></i><b></b>
                 </div>
             </div>
 
             <!-- NEXT DAYS -->
-            <div id="next-days" class="right">
-                <ul>
-                    <li>
-                        <b>XXXXXXXX</b>
-                        <b><i class="wi wi-forecast-io-<?php echo $week[$i]->icon ?>"></i></b>
-                        <b>XXº</b>
-                    </li>
-                </ul>
-            </div>
+            <div id="next-days" class="right"></div>
         </section>

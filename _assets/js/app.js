@@ -30,6 +30,9 @@
      *
      * @since 0.0.1
      */
+    var units = {
+        temp: { us: 'F', si: 'º', ca: 'º', uk2: 'º', auto: 'º' }
+    };
     var local, forecast, today;
     var sunSpeed = 10 * 60000; // As in 10 minutes (winter)
     var sunriseTimeUnix, sunsetTimeUnix;
@@ -44,17 +47,47 @@
     function init() {
 
         /**
-         * Fill DOM with local info like city name and date
+         * Fill DOM with local info like city name, date, temperatures and next days forecast...
          */
         var elCity = document.querySelector("#location-today .location");
         elCity.innerHTML = (local.region_name || local.country_name) + ', ';
 
-
-        var mmt = moment(today.time);
+        var mmt = moment(today.time * 1000);
         mmt.tz(local.time_zone);
 
         var elToday = document.querySelector("#location-today .today");
         elToday.innerHTML = mmt.format('ddd D');
+
+        var elTemp = document.querySelector("#temp");
+        elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>' + units.temp[forecast.flags.units] + '</sup>';
+
+        var elTempMax = document.querySelector("#temp-max");
+        elTempMax.innerHTML = Math.round(today.apparentTemperatureMax) + units.temp[forecast.flags.units] + ' <b>max</b>';
+
+        var elTempMin = document.querySelector("#temp-min");
+        elTempMin.innerHTML = Math.round(today.apparentTemperatureMin) + units.temp[forecast.flags.units] + ' <b>min</b>';
+
+        var elWeatherIcon = document.querySelector("#weather .wi");
+        elWeatherIcon.className += ' wi-forecast-io-' + forecast.currently.icon;
+
+        var elWeatherSum = document.querySelector("#weather b");
+        elWeatherSum.innerHTML = forecast.currently.summary;
+
+        var day, dayMmt, nextDaysList = '<ul>', 
+        elNextDays = document.querySelector("#next-days");
+
+        for (var i = 1; i < 5; i++) {
+            day = forecast.daily.data[i];
+            dayMmt = moment(day.time * 1000);
+            dayMmt.tz(local.time_zone);
+            nextDaysList += '<li>';
+            nextDaysList += dayMmt.format('[<b>]ddd[</b>]');
+            nextDaysList += '<b><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
+            nextDaysList += '<b>' + Math.round(day.apparentTemperatureMax) + units.temp[forecast.flags.units] + '</b>';
+            nextDaysList += '</li>';
+        }
+        nextDaysList += '</ul>';
+        elNextDays.innerHTML = nextDaysList;
 
 
 
@@ -169,7 +202,7 @@
      */
     function getForecast() {
 
-        var oReqParam = JSON.stringify({ lat: local.latitude, long: local.longitude});
+        var oReqParam = JSON.stringify({ lat: local.latitude, long: local.longitude });
         var oReq = new XMLHttpRequest();
 
         oReq.addEventListener("progress", function(e) {
@@ -189,16 +222,16 @@
         });
 
         oReq.addEventListener("load", function(e) {
-            console.log("getForecast: Transfer complete.");
+            // console.log("getForecast: Transfer complete.");
 
             // register local
             if (e.target.status === 200) {
                 forecast = JSON.parse(e.target.response);
-                today = forecast.daily.data[1];
-                console.log(forecast);
+                today = forecast.daily.data[0];
+                // console.log(forecast);
 
                 // Lets start changing DOM
-                init ();
+                init();
             }
         });
 
@@ -237,7 +270,7 @@
         });
 
         oReq.addEventListener("load", function(e) {
-            console.log("getLocal: Transfer complete.");
+            // console.log("getLocal: Transfer complete.");
 
             // register local
             if (e.target.status === 200) {
