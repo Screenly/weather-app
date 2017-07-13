@@ -4,15 +4,20 @@
 //= require vendor/moment-with-locales.min
 //= require vendor/moment-timezone-with-data
 
+
+
 /**
  * App utils
  */
 //= require app.utils
+//= require app.getLocalData
+//= require app.getForecast
+
+
 
 /**
  * This file should hold global script. Use app.utils for utilities.
  *
-
  * @since    0.0.1
  */
 (function() {
@@ -196,98 +201,33 @@
 
 
     /**
-     * Get forecast information
-     *
-     * @since 0.0.1
-     */
-    function getForecast() {
-
-        var oReqParam = JSON.stringify({ lat: local.latitude, long: local.longitude });
-        var oReq = new XMLHttpRequest();
-
-        oReq.addEventListener("progress", function(e) {
-            if (e.lengthComputable) {
-                var percent = Math.round(e.loaded * 100 / e.total);
-            } else {
-                console.warn('getForecast: Unable to compute progress information since the total size is unknown');
-            }
-        });
-
-        oReq.addEventListener("error", function(e) {
-            console.error("getForecast: An error occurred.");
-        });
-
-        oReq.addEventListener("abort", function(e) {
-            console.warn("getForecast: Transfer canceled by the user.");
-        });
-
-        oReq.addEventListener("load", function(e) {
-            // console.log("getForecast: Transfer complete.");
-
-            // register local
-            if (e.target.status === 200) {
-                forecast = JSON.parse(e.target.response);
-                today = forecast.daily.data[0];
-                // console.log(forecast);
-
-                // Lets start changing DOM
-                init();
-            }
-        });
-
-        oReq.open('POST', 'http://localhost:5000/v1/weather', true);
-        oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
-        oReq.send(oReqParam);
-    }
-
-
-
-
-    /**
      * Get local information
      *
      * @since 0.0.1
      */
-    function getLocal(ip) {
+    // var ip = '85.139.5.121'; //Lisbon - Europe/Portugal
+    var ip = '47.90.96.247'; //Alibaba - Asia/Hong_Kong
 
-        var oReqParam = JSON.stringify({ ip: ip });
-        var oReq = new XMLHttpRequest();
-
-        oReq.addEventListener("progress", function(e) {
-            if (e.lengthComputable) {
-                var percent = Math.round(e.loaded * 100 / e.total);
-            } else {
-                console.warn('getLocal: Unable to compute progress information since the total size is unknown');
-            }
-        });
-
-        oReq.addEventListener("error", function(e) {
-            console.error("getLocal: An error occurred.");
-        });
-
-        oReq.addEventListener("abort", function(e) {
-            console.warn("getLocal: Transfer canceled by the user.");
-        });
-
-        oReq.addEventListener("load", function(e) {
-            // console.log("getLocal: Transfer complete.");
-
+    var oReqLocal = window.srly.getLocalData (ip);
+    if (oReqLocal) {
+        oReqLocal.addEventListener("load", function(e) {
             // register local
             if (e.target.status === 200) {
                 local = JSON.parse(e.target.response);
-                console.log(local);
+
+                // Lets get the forecast for location
+                var oReqForecast = window.srly.getForecast(local.latitude, local.longitude);
+                oReqForecast.addEventListener("load", function(e) {
+                    // register local
+                    if (e.target.status === 200) {
+                        forecast = JSON.parse(e.target.response);
+                        today = forecast.daily.data[0];
+
+                        // Lets start changing DOM
+                        init();
+                    }
+                });
             }
-
-            // Lets get the forecast for location
-            getForecast();
         });
-
-        oReq.open('POST', 'http://localhost:5000/v1/location', true);
-        oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
-        oReq.send(oReqParam);
     }
-
-    // Lets start with getting local information
-    // getLocal('85.139.5.121');
-    getLocal('47.90.96.247'); //Alibaba - Asia/Hong_Kong
 })();
