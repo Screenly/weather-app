@@ -5,16 +5,29 @@
     /**
      * Get local data like city, geo locaiton, etc based on IP
      *
-     * @param {string} [ip] Required. The ip to base our location.
+     * @param {object} [arg] Optional. Object containing either ip or lat and lng 
+     * variables to base our location. If no argument is suplied an ip autodetect
+     * will be used to get location.
+     * 
      * @since 0.0.1
      *
      * @return {XMLHttpRequest}
      */
-    window.srly.getLocalData = function(ip) {
+    window.srly.getLocalData = function(arg) {
 
-        if (!ip)  {
-            console.warn('srly.getLocal: IP parameter is required');
-            return;
+        var param = {};
+
+        if ('ip' in arg) {
+            param.ip = arg.ip;
+            param = JSON.stringify(param);
+        } else if ('lat' in arg && 'lng' in arg) {
+            if (arg.lat !== '' && arg.lng !== '') {
+                param.lat = arg.lat;
+                param.lng = arg.lng;
+                param = JSON.stringify(param);
+            }
+        } else {
+            param = null;
         }
 
         var oReq = new XMLHttpRequest();
@@ -35,11 +48,12 @@
 
         oReq.addEventListener("load", function(e) {
             console.log("srly.getLocal: Transfer complete.");
+            console.log(JSON.parse(e.target.response));
         });
 
-        oReq.open('POST', 'http://localhost:5000/v1/location', true);
+        oReq.open(param ? 'POST' : 'GET', param ? 'http://localhost:5000/v1/location' : 'https://weather-backend-stage.srly.io/v1/location');
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
-        oReq.send(JSON.stringify({ ip: ip }));
+        oReq.send(param);
 
         return oReq;
     };

@@ -14,7 +14,7 @@
     window.srly.getForecast = function(lat, lng) {
 
         if (!lat && !lng)  {
-            console.warn('srly.getForecast: lat and lng are required parameters');
+            console.warn('srly.getForecast: "lat" and "lng" are required parameters');
             return;
         }
 
@@ -36,11 +36,12 @@
 
         oReq.addEventListener("load", function(e) {
             console.log("srly.getForecast: Transfer complete.");
+            console.log(JSON.parse(e.target.response));
         });
 
         oReq.open('POST', 'http://localhost:5000/v1/weather', true);
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
-        oReq.send(JSON.stringify({ lat: lat, long: lng }));
+        oReq.send(JSON.stringify({ lat: lat, lng: lng }));
 
         return oReq;
     };
