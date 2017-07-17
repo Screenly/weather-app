@@ -32,6 +32,9 @@
     var clockDom = document.getElementById('footer-clock');
 
 
+
+
+
     /**
      * Global vars
      *
@@ -45,6 +48,9 @@
     var lng = window.srly.getQueryVar('lng');
     var ip = window.srly.getQueryVar('ip');
     // ip tests '85.139.5.121'; //Lisbon - Europe/Portugal | '47.90.96.247'; //Alibaba - Asia/Hong_Kong
+
+
+
 
 
     /**
@@ -65,7 +71,8 @@
             localName = '';
         }
         var elLocationToday = document.querySelector("#location-today");
-        elLocationToday.innerHTML = localName + (localName? ', ' : '') + mmt.format('ddd D');
+        elLocationToday.innerHTML = '<b>' + localName + (localName? ', ' : '') + mmt.format('ddd D') + '</b>';
+        window.srly.scaleElementFontSize(document.querySelector("#location-today b"));
 
         var elTemp = document.querySelector("#temp");
         elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
@@ -99,6 +106,8 @@
         elNextDays.innerHTML = nextDaysList;
 
 
+
+
         /**
          * Run time process for first time
          *
@@ -114,6 +123,9 @@
          */
         setInterval(checkTime, 1000);
     }
+
+
+
 
 
 

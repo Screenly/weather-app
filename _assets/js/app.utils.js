@@ -5,9 +5,14 @@
     /**
      * Check the full width of an element including its children's width.
      *
+     * @param {Element} [el] Required.
+     * 
      * @since 0.0.1
+     *
+     * @return {boolean}
      */
-    window.srly.getInnerWidth = function(el) {
+    window.srly.getElementInnerWidth = function(el) {
+
         if (!el) {
             return 0;
         }
@@ -32,21 +37,41 @@
      * Reduce the size of an element by reducing it's font size
      *
      * @since 0.0.1
+     *
+     * @return {boolean}
      */
-    window.srly.scalableFonts = function() {
+    window.srly.scaleElementFontSize = function(el) {
+
+        if (!el) {
+            return false;
+        }
+
+        var parent = el.parentElement;
+        var parentWidth = parent.offsetWidth;
+        var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
+        var fontSize = parseFloat(style); console.log (parentWidth, window.srly.getElementInnerWidth(el));
+        while (parentWidth < window.srly.getElementInnerWidth(el)) {
+            fontSize -= 0.5;
+            el.style.fontSize = fontSize + 'px';
+        }
+
+        return true;
+    };
+
+
+
+
+    /**
+     * Get all element with class `.scale-font` and reduce font size.
+     *
+     * @since 0.0.1
+     */
+    window.srly.scaleElementsFontSize = function() {
         var scalableFonts = document.querySelectorAll(".scale-font");
         if (scalableFonts.length > 0) {
             for (var i = 0; i < scalableFonts.length; i++) {
-                var el = scalableFonts[i];
-                var parent = el.parentElement;
-                var parentWidth = parent.offsetWidth;
-                var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
-                var fontSize = parseFloat(style);
-                while (parentWidth < window.srly.getInnerWidth(el)) {
-                    fontSize -= 0.5;
-                    el.style.fontSize = fontSize + 'px';
-                }
+                window.srly.scaleElementFontSize(scalableFonts[i]);
             }
         }
-    }();
+    };
 })();
