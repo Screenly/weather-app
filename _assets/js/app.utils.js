@@ -49,10 +49,22 @@
         var parent = el.parentElement;
         var parentWidth = parent.offsetWidth;
         var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style); console.log (parentWidth, window.srly.getElementInnerWidth(el));
-        while (parentWidth < window.srly.getElementInnerWidth(el)) {
-            fontSize -= 0.5;
-            el.style.fontSize = fontSize + 'px';
+        var fontSize = parseFloat(style);
+
+        // REDUCE
+        if (parentWidth < window.srly.getElementInnerWidth(el)) {
+            while (parentWidth < window.srly.getElementInnerWidth(el)) {
+                fontSize -= 0.5;
+                el.style.fontSize = fontSize + 'px';
+            }
+        }
+
+        // INCREASE
+        if (parentWidth > window.srly.getElementInnerWidth(el)) {
+            while (parentWidth > window.srly.getElementInnerWidth(el)) {
+                fontSize += 0.5;
+                el.style.fontSize = fontSize + 'px';
+            }
         }
 
         return true;
@@ -66,12 +78,10 @@
      *
      * @since 0.0.1
      */
+    var scalableFonts = document.querySelectorAll(".scale-font");
     window.srly.scaleElementsFontSize = function() {
-        var scalableFonts = document.querySelectorAll(".scale-font");
-        if (scalableFonts.length > 0) {
-            for (var i = 0; i < scalableFonts.length; i++) {
-                window.srly.scaleElementFontSize(scalableFonts[i]);
-            }
+        for (var i = 0; i < scalableFonts.length; i++) {
+            window.srly.scaleElementFontSize(scalableFonts[i]);
         }
     };
 })();
