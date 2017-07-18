@@ -17,9 +17,10 @@ footer
     font-size: 0;
     line-height: 0;
     position: fixed;
-    left: $padding;
-    right: $padding;
+    left: 0;
+    right: 0;
     bottom: $padding/2;
+    padding: 0 3%;
 
     .left, .right
     {
@@ -68,12 +69,13 @@ footer
 
 
 
-@media screen and (max-width: 1440px)
+@media screen and (max-width: 768px)
 {
     footer
     {
-        left: 10%;
-        right: 10%;
+        left: 9%;
+        right: 9%;
+        padding: 0;
 
         .left
         {
@@ -87,6 +89,7 @@ footer
 
         span, img
         {
+            line-height: 1.3em;
         }
 
         .logo
@@ -97,6 +100,11 @@ footer
             {
                 width: 40px;
             }
+        }
+
+        #app-name {
+            margin-left: 0;
+            display: block;
         }
 
 
