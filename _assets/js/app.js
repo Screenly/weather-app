@@ -73,15 +73,19 @@
         var elLocationToday = document.querySelector("#location-today");
         elLocationToday.innerHTML = '<b>' + localName + (localName? ', ' : '') + mmt.format('ddd D') + '</b>';
         window.srly.scaleElementFontSize(document.querySelector("#location-today b"));
+        var elLocationTodayB = document.querySelector("#location-today b");
+        window.addEventListener('resize', function(e){
+            window.srly.scaleElementFontSize(elLocationTodayB);
+        });
 
         var elTemp = document.querySelector("#temp");
         elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
 
         var elTempMax = document.querySelector("#temp-max");
-        elTempMax.innerHTML = Math.round(today.apparentTemperatureMax) + 'º <b>max</b>';
+        elTempMax.innerHTML = Math.round(today.apparentTemperatureMax) + 'º <b>max&nbsp;</b>';
 
         var elTempMin = document.querySelector("#temp-min");
-        elTempMin.innerHTML = Math.round(today.apparentTemperatureMin) + 'º <b>min</b>';
+        elTempMin.innerHTML = Math.round(today.apparentTemperatureMin) + 'º <b>min&nbsp;</b>';
 
         var elWeatherIcon = document.querySelector("#weather .wi");
         elWeatherIcon.className += ' wi-forecast-io-' + forecast.currently.icon;
@@ -92,6 +96,10 @@
         var day, dayMmt, nextDaysList = '<ul>',
             elNextDays = document.querySelector("#next-days");
 
+
+        /**
+         * Next days
+         */
         for (var i = 1; i < 5; i++) {
             day = forecast.daily.data[i];
             dayMmt = moment(day.time * 1000);
