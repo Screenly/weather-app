@@ -175,7 +175,10 @@ highlighter: rouge
 # docs http://www.rubydoc.info/gems/jekyll-assets/
 assets:
   cache: false
-  prefix: "/assets/"
+  cachebust: hard
+  debug: false
+  digest: true
+  prefix: "/assets"
   compress:
     css:  true
     js:   uglifier
