@@ -2,6 +2,18 @@
 
     window.srly = window.srly || {};
 
+
+
+
+    /**
+     * GLOBAL VARS
+     */
+     var API_URL = 'https://weather-backend-stage.srly.io/v1';
+
+
+
+
+
     /**
      * Get local data like city, geo locaiton, etc based on IP
      *
@@ -51,7 +63,7 @@
             console.log(JSON.parse(e.target.response));
         });
 
-        oReq.open(param ? 'POST' : 'GET', param ? 'http://localhost:5000/v1/location' : 'https://weather-backend-stage.srly.io/v1/location');
+        oReq.open(param ? 'POST' : 'GET', API_URL + '/location');
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
         oReq.send(param);
 

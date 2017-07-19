@@ -2,6 +2,18 @@
 
     window.srly = window.srly || {};
 
+
+
+
+    /**
+     * GLOBAL VARS
+     */
+     var API_URL = 'https://weather-backend-stage.srly.io/v1';
+
+
+
+
+
     /**
      * Get forecast for the locaiton provided in latitude and longitude.
      *
@@ -39,7 +51,7 @@
             console.log(JSON.parse(e.target.response));
         });
 
-        oReq.open('POST', 'http://localhost:5000/v1/weather', true);
+        oReq.open('POST', API_URL + '/weather', true);
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
         oReq.send(JSON.stringify({ lat: lat, lng: lng }));
 
