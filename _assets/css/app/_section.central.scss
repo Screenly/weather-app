@@ -115,23 +115,26 @@ section#central {
 
 
     #weather {
+        font-size: 0;
+        line-height: 0;
         text-align: left;
-        margin-top: 60px;
+        margin-top: 108px;
         position: relative;
 
         .wi {
             font-size: 110px;
-            line-height: 1em;
+            line-height: 0;
+            vertical-align: middle;
         }
 
         b {
-            top: 50%;
-            right: 0;
-            max-width: 50%;
+            line-height: 1em;
+            float: right;
+            vertical-align: middle;
+            max-width: 60%;
             font-size: 40px;
             font-weight: bold;
             text-align: right;
-            position: absolute;
             text-transform: uppercase;
             transform: translateY(-50%);
         }
@@ -154,7 +157,7 @@ section#central {
 
             li {
                 line-height: 0;
-                margin: 42px 0;
+                margin: 50px 0;
 
                 &:after {
                     width: 100%;
@@ -164,7 +167,7 @@ section#central {
                 }
 
                 &:first-of-type {
-                    margin-top: 90px;
+                    margin-top: 96px;
                 }
 
                 b {
