@@ -18,5 +18,5 @@ Screenly app for weather forecast.
 ## Deploying
 
 ```
-heroku builds:create -a screenly-weather-app
+./bin/deploy.sh
 ```
