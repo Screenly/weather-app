@@ -280,7 +280,7 @@ html.bg-night section#central #location-today {
 
 
         #weather {
-            margin-top: 25px;
+            margin-top: 50px;
 
             .wi {
                 font-size: 60px;
@@ -290,7 +290,6 @@ html.bg-night section#central #location-today {
 
             b {
                 font-size: 25px;
-                position: absolute;
                 text-transform: none;
             }
         }
@@ -380,6 +379,7 @@ html.bg-night section#central #location-today {
 
 
         #weather {
+            margin: 70px 0;
 
             .wi {}
 
