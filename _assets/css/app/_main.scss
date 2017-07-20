@@ -11,6 +11,11 @@ html
     @include font();
     overflow: hidden;
 
+    &:not(.debug) {
+        user-select:none;
+        pointer-events: none;
+    }
+
     &:before
     {
         top: 0;
