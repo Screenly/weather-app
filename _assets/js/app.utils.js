@@ -47,9 +47,11 @@
         }
 
         var parent = el.parentElement;
-        var parentWidth = parent.offsetWidth;
-        var style = window.getComputedStyle(el, null).getPropertyValue('font-size');
-        var fontSize = parseFloat(style);
+        var parentStyle = window.getComputedStyle(parent, null);
+        var parentWidth = parent.offsetWidth - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight) - parseFloat(parentStyle.borderLeftWidth) - parseFloat(parentStyle.borderRightWidth);
+        var style = window.getComputedStyle(el, null);
+        var fontSize = parseFloat(style.getPropertyValue('font-size'));
+
 
         // REDUCE
         if (parentWidth < window.srly.getElementInnerWidth(el)) {

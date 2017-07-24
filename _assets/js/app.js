@@ -30,6 +30,7 @@
      */
     var html = document.querySelector("html");
     var clockDom = document.getElementById('footer-clock');
+    var creditsYearDom = document.querySelector('#credits-year');
 
 
 
@@ -155,6 +156,13 @@
          * Draw DOM clock
          */
         clockDom.innerHTML = mmt.format('HH:mm');
+
+
+
+        /**
+         * Credits year
+         */
+        creditsYearDom.innerHTML = mmt.format('YYYY');
 
 
 
