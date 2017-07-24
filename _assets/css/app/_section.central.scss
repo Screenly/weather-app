@@ -61,11 +61,12 @@ section#central {
         line-height: 1;
         color: #123e51;
         font-size: 48px;
-        font-weight: 600;
+        font-weight: 400;
         white-space: nowrap;
 
         b {
             margin-bottom: 26px;
+            font-weight: 300;
             /*display: block;*/
         }
     }
@@ -76,20 +77,19 @@ section#central {
 
     #temp {
         margin: 30px 0;
-        font-size: 320px;
+        font-size: 280px;
         /*font-size: 22vw;*/
         line-height: .8em;
-        @include font_number();
+        font-weight: 200;
 
         sup {
             font-size: 150px;
             font-weight: 100;
             vertical-align: super;
             line-height: 0;
-            margin-left: 20px;
-            transform: translateX(-50%);
-            -webkit-transform: translateX(-50%);
+            margin-left: -10px;
             display: inline-block;
+            transform: translateY(10px);
         }
     }
 
@@ -98,9 +98,9 @@ section#central {
     #temp-max {
         right: 0;
         bottom: 0;
-        @include font();
         font-size: 50px;
         position: absolute;
+        font-weight: 300;
 
         sup {
             font-size: 20px;
@@ -114,7 +114,7 @@ section#central {
     }
 
     #temp-max {
-        top: 15px;
+        top: 8px;
         bottom: auto;
     }
 
@@ -162,7 +162,7 @@ section#central {
 
             li {
                 line-height: 0;
-                margin: 50px 0;
+                margin: 40px 0;
 
                 &:after {
                     width: 100%;
@@ -177,7 +177,7 @@ section#central {
 
                 b {
                     width: 33.333333%;
-                    font-weight: lighter;
+                    font-weight: 300;
                     display: inline-block;
                     vertical-align: middle;
 
@@ -188,7 +188,6 @@ section#central {
                     &:last-of-type {
                         line-height: 1;
                         position: relative;
-                        @include font_number();
                         font-weight: bolder;
                         text-align: right;
                     }
@@ -264,6 +263,7 @@ html.bg-night section#central #location-today {
 
             sup {
                 font-size: 80px;
+                transform: translateY(3px);
             }
         }
 

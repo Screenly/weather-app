@@ -15,12 +15,5 @@ $padding: 60px;
 @mixin font ()
 {
     font-weight: 100;
-    font-family: 'Muli', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
-
-@mixin font_number ()
-{
-    font-weight: 100;
-    font-family: 'Kanit', sans-serif;
-}
-
