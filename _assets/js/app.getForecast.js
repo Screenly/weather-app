@@ -8,7 +8,7 @@
     /**
      * GLOBAL VARS
      */
-     var API_URL = '//weather-backend-stage.srly.io/v1';
+     var API_URL = '//weather-backend-stage.srly.io/v1/weather';
 
 
 
@@ -51,7 +51,7 @@
             console.log(JSON.parse(e.target.response));
         });
 
-        oReq.open('POST', API_URL + '/weather', true);
+        oReq.open('POST', API_URL, true);
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
         oReq.send(JSON.stringify({ lat: lat, lng: lng }));
 
