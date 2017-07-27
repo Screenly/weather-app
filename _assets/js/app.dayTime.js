@@ -11,7 +11,7 @@
     /**
      * Global vars
      */
-
+    var mmt;
     var sunSpeed = 10 * 60000; // As in 10 minutes (winter)
     var sunriseTimeUnix, sunsetTimeUnix;
     var sunriseTimeConcat, sunriseEndTimeConcat, sunsetTimeConcat, sunsetEndTimeConcat;
@@ -32,23 +32,22 @@
      */
     window.srly.getDayTime = function(timezone, sunrise, sunset) {
 
+        // Object to be returned
         var daytime = {
             sunrise: false,
             sunset: false,
             daylight: false,
-            night: false
+            night: false,
+            timezone: timezone
         };
 
-        if (!timezone || !sunrise || !sunset) {
-            console.warn("srly.getDayTime: Missing parameters:[timezone, sunrise, sunset]");
-            return daytime;
-        }
-
+        // Our time class
         mmt = moment();
         if (timezone) {
             mmt.tz(timezone);
         }
 
+        moment().fromNow();
         var mmtTimeConcat = Number(mmt.format('HHmm'));
 
         if (!sunriseTimeConcat ||
@@ -59,22 +58,22 @@
             // Sunrise
             var sunMoment = moment(sunrise * 1000);
             sunMoment.tz(timezone);
-            sunriseTimeConcat = sunMoment.format('Hmm');
+            sunriseTimeConcat = !sunrise ? 600 : Number(sunMoment.format('Hmm'));
 
             // Sunrise end point
             sunMoment = moment(sunrise * 1000 + sunSpeed);
             sunMoment.tz(timezone);
-            sunriseEndTimeConcat = sunMoment.format('Hmm');
+            sunriseEndTimeConcat = !sunrise ? 610 : Number(sunMoment.format('Hmm'));
 
             // Sunset
             sunMoment = moment(sunset * 1000);
             sunMoment.tz(timezone);
-            sunsetTimeConcat = sunMoment.format('Hmm');
+            sunsetTimeConcat = !sunset ? 1800 : Number(sunMoment.format('Hmm'));
 
             // Sunset end point
             sunMoment = moment(sunset * 1000 + sunSpeed);
             sunMoment.tz(timezone);
-            sunsetEndTimeConcat = sunMoment.format('Hmm');
+            sunsetEndTimeConcat = !sunset ? 1810 : Number(sunMoment.format('Hmm'));
 
             sunMoment = null; // Clean it, we're not using it anymore
         }
