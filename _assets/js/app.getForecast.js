@@ -8,7 +8,7 @@
     /**
      * GLOBAL VARS
      */
-     var API_URL = 'https://weather-backend-stage.srly.io/v1';
+     var API_URL = '//weather-backend-stage.srly.io/v1';
 
 
 

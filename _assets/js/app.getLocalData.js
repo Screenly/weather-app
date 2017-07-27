@@ -8,7 +8,7 @@
     /**
      * GLOBAL VARS
      */
-     var API_URL = 'https://weather-backend-stage.srly.io/v1';
+     var API_URL = '//weather-backend-stage.srly.io/v1';
 
 
 
@@ -17,10 +17,10 @@
     /**
      * Get local data like city, geo locaiton, etc based on IP
      *
-     * @param {object} [arg] Optional. Object containing either ip or lat and lng 
+     * @param {object} [arg] Optional. Object containing either ip or lat and lng
      * variables to base our location. If no argument is suplied an ip autodetect
      * will be used to get location.
-     * 
+     *
      * @since 0.0.1
      *
      * @return {XMLHttpRequest}
