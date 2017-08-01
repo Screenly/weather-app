@@ -85,11 +85,10 @@ section#central {
         sup {
             font-size: 150px;
             font-weight: 100;
-            vertical-align: super;
-            line-height: 0;
+            vertical-align: top;
+            line-height: 1;
             margin-left: -10px;
             display: inline-block;
-            transform: translateY(10px);
         }
     }
 
@@ -104,7 +103,7 @@ section#central {
 
         sup {
             font-size: 20px;
-            vertical-align: super;
+            vertical-align: top;
         }
 
         b {
@@ -122,7 +121,6 @@ section#central {
     #weather {
         font-size: 0;
         line-height: 0;
-        text-align: left;
         margin-top: 108px;
         position: relative;
 
@@ -133,27 +131,18 @@ section#central {
         }
 
         b {
+            top: 0;
+            right: 0;
+            display: block;
+            position: absolute;
             line-height: 1em;
-            float: right;
-            vertical-align: middle;
-            max-width: 60%;
+            width: 60%;
             font-size: 40px;
             font-weight: bold;
             text-align: right;
+            vertical-align: middle;
             text-transform: uppercase;
             transform: translateY(-50%);
-        }
-
-
-        /* CLEARFIX */
-        zoom: 1;
-        &:before,
-        &:after {
-            content: "";
-            display: table;
-        } 
-        &:after {
-            clear: both;
         }
     }
 
