@@ -83,10 +83,10 @@
         elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
 
         var elTempMax = document.querySelector("#temp-max");
-        elTempMax.innerHTML = Math.round(today.apparentTemperatureMax) + 'º<i class="mdi mdi-arrow-up"></i>';
+        elTempMax.innerHTML = '<i class="mdi mdi-arrow-up"></i>' + Math.round(today.apparentTemperatureMax) + 'º';
 
         var elTempMin = document.querySelector("#temp-min");
-        elTempMin.innerHTML = Math.round(today.apparentTemperatureMin) + 'º<i class="mdi mdi-arrow-down"></i>';
+        elTempMin.innerHTML = '<i class="mdi mdi-arrow-down"></i>' + Math.round(today.apparentTemperatureMin) + 'º';
 
         var elWeatherIcon = document.querySelector("#weather .wi");
         elWeatherIcon.className += ' wi-forecast-io-' + forecast.currently.icon;
