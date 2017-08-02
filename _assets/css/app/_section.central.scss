@@ -95,9 +95,9 @@ section#central {
 
     #temp-min,
     #temp-max {
-        right: 0;
-        bottom: 0;
-        font-size: 50px;
+        right: -6px;
+        bottom: 10px;
+        font-size: 36px;
         position: absolute;
         font-weight: 300;
 
@@ -343,7 +343,7 @@ html.bg-night section#central #location-today {
 }
 
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 900px) {
     section#central {
         &:after {}
 
