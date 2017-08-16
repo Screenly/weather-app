@@ -10,6 +10,6 @@ services:
     volumes:
       - ./_site:/usr/share/nginx/html
     ports:
-      - 8080:80
+      - 3000:80
     depends_on:
       - jekyll
