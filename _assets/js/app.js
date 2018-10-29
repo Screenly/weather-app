@@ -131,6 +131,8 @@
          * @since 0.0.1
          */
         setInterval(checkTime, 1000);
+
+        showScreenlyBanner();
     }
 
 
@@ -184,6 +186,20 @@
         }
     }
 
+
+
+
+
+    /**
+     * Display a Screenly banner if not a Screenly-Pro player
+     */
+    var showScreenlyBanner = function() {
+        var screenlyUserAgent = 'SCREENLYPRO USER AGENT';
+        var playerUserAgent = navigator.userAgent;
+        if (screenlyUserAgent !== playerUserAgent) {
+            document.querySelector("#banner").style.visibility = 'visible';
+        }
+    };
 
 
 
