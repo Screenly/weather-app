@@ -148,6 +148,20 @@ section#central {
     }
 
 
+    #wind {
+        font-size: 0;
+        line-height: 0;
+        margin-top: 108px;
+        position: relative;
+
+        b {
+            display: block;
+            line-height: 1em;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    }
+
 
 
     /*
@@ -193,6 +207,9 @@ section#central {
                         text-align: right;
                     }
                 }
+                b.hd {
+                    width: 25%;
+                }
 
                 sup {
                     top: 0;
@@ -201,6 +218,12 @@ section#central {
                     font-weight: 200;
                     position: absolute;
                 }
+            }
+            li.hd {
+                &:first-of-type {
+                    margin-top: 30px;
+                }
+                margin: 85px 0;
             }
         }
     }

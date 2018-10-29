@@ -79,6 +79,8 @@
             window.srly.scaleElementFontSize(elLocationTodayB);
         });
 
+        var greater_then_1080 = window.srly.isFullHDResolution();
+
         var elTemp = document.querySelector("#temp");
         elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
 
@@ -94,6 +96,11 @@
         var elWeatherSum = document.querySelector("#weather b");
         elWeatherSum.innerHTML = forecast.currently.summary;
 
+        if (greater_then_1080){
+            var elWindSpeed = document.querySelector("#wind b");
+            elWindSpeed.innerHTML = forecast.currently.windSpeed + ' m/s';
+        }
+
         var day, dayMmt, nextDaysList = '<ul>',
             elNextDays = document.querySelector("#next-days");
 
@@ -101,14 +108,18 @@
         /**
          * Next days
          */
+        var hd_class = greater_then_1080 ? 'class="hd"' : '';
         for (var i = 1; i < 5; i++) {
             day = forecast.daily.data[i];
             dayMmt = moment(day.time * 1000);
             dayMmt.tz(forecast.timezone);
-            nextDaysList += '<li>';
-            nextDaysList += dayMmt.format('[<b>]ddd[</b>]');
-            nextDaysList += '<b><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
-            nextDaysList += '<b>' + Math.round(day.apparentTemperatureMax) + 'º</b>';
+            nextDaysList += '<li ' + hd_class + '>';
+            nextDaysList += dayMmt.format('[<b ' + hd_class + '>]ddd[</b>]');
+            nextDaysList += '<b ' + hd_class + '><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
+            if (greater_then_1080) {
+                nextDaysList += '<b ' + hd_class + '>' + Math.round(day.windSpeed) + ' m/s</b>';
+            }
+            nextDaysList += '<b ' + hd_class + '>' + Math.round(day.apparentTemperatureMax) + 'º</b>';
             nextDaysList += '</li>';
         }
         nextDaysList += '</ul>';

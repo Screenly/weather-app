@@ -31,6 +31,16 @@
     };
 
 
+    /**
+     * Checks if the resolution of use display is greater than 1080.
+     *
+     * @return {boolean}
+     */
+    window.srly.isFullHDResolution = function() {
+        return (window.screen.availHeight >= 1080 && window.screen.availWidth >= 1920);
+    };
+
+
 
 
     /**
