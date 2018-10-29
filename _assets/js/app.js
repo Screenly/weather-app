@@ -61,6 +61,10 @@
      */
     function init() {
 
+        if ('country_lang' in forecast) {
+            moment.locale(forecast.country_lang);
+        }
+
         var mmt = moment(today.time * 1000);
         mmt.tz(forecast.timezone);
 
@@ -155,7 +159,7 @@
         /**
          * Draw DOM clock
          */
-        clockDom.innerHTML = mmt.format('HH:mm');
+        clockDom.innerHTML = mmt.format('LT');
 
 
 
