@@ -194,9 +194,9 @@
      * Display a Screenly banner if not a Screenly-Pro player
      */
     var showScreenlyBanner = function() {
-        var screenlyUserAgent = 'SCREENLYPRO USER AGENT';
+        var screenlyUserAgent = 'screenly-viewer';
         var playerUserAgent = navigator.userAgent;
-        if (screenlyUserAgent !== playerUserAgent) {
+        if (!(playerUserAgent.includes(screenlyUserAgent))) {
             document.querySelector("#banner").style.visibility = 'visible';
         }
     };
