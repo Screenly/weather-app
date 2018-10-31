@@ -207,7 +207,7 @@ section#central {
                         text-align: right;
                     }
                 }
-                b.hd {
+                b.with_wind_speed {
                     width: 25%;
                 }
 
@@ -219,7 +219,7 @@ section#central {
                     position: absolute;
                 }
             }
-            li.hd {
+            li.with_wind_speed {
                 &:first-of-type {
                     margin-top: 30px;
                 }

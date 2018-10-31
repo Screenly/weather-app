@@ -61,6 +61,7 @@
      */
     function init() {
 
+        var wind_speed_display;
         var mmt = moment(today.time * 1000);
         mmt.tz(forecast.timezone);
 
@@ -79,7 +80,11 @@
             window.srly.scaleElementFontSize(elLocationTodayB);
         });
 
-        var greater_then_1080 = window.srly.isFullHDResolution();
+        if ('wind_speed_display' in forecast) {
+            wind_speed_display = Boolean(parseInt(forecast.wind_speed_display));
+        } else {
+            wind_speed_display = false;
+        }
 
         var elTemp = document.querySelector("#temp");
         elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
@@ -96,7 +101,7 @@
         var elWeatherSum = document.querySelector("#weather b");
         elWeatherSum.innerHTML = forecast.currently.summary;
 
-        if (greater_then_1080){
+        if (wind_speed_display){
             var elWindSpeed = document.querySelector("#wind b");
             elWindSpeed.innerHTML = forecast.currently.windSpeed + ' m/s';
         }
@@ -108,18 +113,18 @@
         /**
          * Next days
          */
-        var hd_class = greater_then_1080 ? 'class="hd"' : '';
+        var with_wind_speed_class = wind_speed_display ? 'class="with_wind_speed"' : '';
         for (var i = 1; i < 5; i++) {
             day = forecast.daily.data[i];
             dayMmt = moment(day.time * 1000);
             dayMmt.tz(forecast.timezone);
-            nextDaysList += '<li ' + hd_class + '>';
-            nextDaysList += dayMmt.format('[<b ' + hd_class + '>]ddd[</b>]');
-            nextDaysList += '<b ' + hd_class + '><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
-            if (greater_then_1080) {
-                nextDaysList += '<b ' + hd_class + '>' + Math.round(day.windSpeed) + ' m/s</b>';
+            nextDaysList += '<li ' + with_wind_speed_class + '>';
+            nextDaysList += dayMmt.format('[<b ' + with_wind_speed_class + '>]ddd[</b>]');
+            nextDaysList += '<b ' + with_wind_speed_class + '><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
+            if (wind_speed_display) {
+                nextDaysList += '<b ' + with_wind_speed_class + '>' + Math.round(day.windSpeed) + ' m/s</b>';
             }
-            nextDaysList += '<b ' + hd_class + '>' + Math.round(day.apparentTemperatureMax) + 'º</b>';
+            nextDaysList += '<b ' + with_wind_speed_class + '>' + Math.round(day.apparentTemperatureMax) + 'º</b>';
             nextDaysList += '</li>';
         }
         nextDaysList += '</ul>';
