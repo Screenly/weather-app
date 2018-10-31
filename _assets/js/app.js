@@ -32,6 +32,8 @@
     var clockDom = document.getElementById('footer-clock');
     var creditsYearDom = document.querySelector('#credits-year');
 
+    window.srly.clock_format_24h = null;
+
 
 
 
@@ -159,7 +161,18 @@
         /**
          * Draw DOM clock
          */
-        clockDom.innerHTML = mmt.format('LT');
+        switch (window.srly.clock_format_24h) {
+            case 1:
+                clockDom.innerHTML = mmt.format('HH:mm');
+                break;
+            case 0:
+                clockDom.innerHTML = mmt.format('hh:mm a');
+                break;
+            default:
+                clockDom.innerHTML = mmt.format('LT');
+                break;
+
+        }
 
 
 
