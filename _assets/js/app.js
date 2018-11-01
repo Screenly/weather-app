@@ -63,6 +63,8 @@
      */
     function init() {
 
+        var wind_speed;
+
         if ('country_lang' in forecast) {
             moment.locale(forecast.country_lang);
         }
@@ -85,6 +87,12 @@
             window.srly.scaleElementFontSize(elLocationTodayB);
         });
 
+        if ('wind_speed' in forecast) {
+            wind_speed = Boolean(parseInt(forecast.wind_speed));
+        } else {
+            wind_speed = false;
+        }
+
         var elTemp = document.querySelector("#temp");
         elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
 
@@ -100,6 +108,11 @@
         var elWeatherSum = document.querySelector("#weather b");
         elWeatherSum.innerHTML = forecast.currently.summary;
 
+        if (wind_speed){
+            var elWindSpeed = document.querySelector("#wind b");
+            elWindSpeed.innerHTML = forecast.currently.windSpeed + ' m/s';
+        }
+
         var day, dayMmt, nextDaysList = '<ul>',
             elNextDays = document.querySelector("#next-days");
 
@@ -107,14 +120,18 @@
         /**
          * Next days
          */
+        var with_wind_speed_class = wind_speed ? 'class="with_wind_speed"' : '';
         for (var i = 1; i < 5; i++) {
             day = forecast.daily.data[i];
             dayMmt = moment(day.time * 1000);
             dayMmt.tz(forecast.timezone);
-            nextDaysList += '<li>';
-            nextDaysList += dayMmt.format('[<b>]ddd[</b>]');
-            nextDaysList += '<b><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
-            nextDaysList += '<b>' + Math.round(day.apparentTemperatureMax) + 'º</b>';
+            nextDaysList += '<li ' + with_wind_speed_class + '>';
+            nextDaysList += dayMmt.format('[<b ' + with_wind_speed_class + '>]ddd[</b>]');
+            nextDaysList += '<b ' + with_wind_speed_class + '><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
+            if (wind_speed) {
+                nextDaysList += '<b ' + with_wind_speed_class + '>' + Math.round(day.windSpeed) + ' m/s</b>';
+            }
+            nextDaysList += '<b ' + with_wind_speed_class + '>' + Math.round(day.apparentTemperatureMax) + 'º</b>';
             nextDaysList += '</li>';
         }
         nextDaysList += '</ul>';
