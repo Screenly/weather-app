@@ -1,0 +1,20 @@
+#banner {
+  visibility: hidden;
+  background-color: white;
+  color: #500083;
+  font-size: 1.2em;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 15px 60px;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    pointer-events: auto;
+  }
+  span:last-of-type {
+    float: right;
+    font-weight: 400;
+  }
+}
