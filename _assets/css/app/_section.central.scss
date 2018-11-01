@@ -31,7 +31,7 @@ section#central {
     /*
         CENTER VERTICALLY
     */
-    top: 55%;
+    top: 50%;
     transform: translateY(-55%);
     -webkit-transform: translateY(-55%);
 
@@ -250,11 +250,12 @@ html.bg-night section#central #location-today {
     MEDIA QUERIES
 */
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1200px), screen and (max-height: 1080px) {
     section#central {
         /*top: 0;*/
         padding: 0;
         /*transform: none;*/
+        top: 55%;
         &:after {}
 
         /*
@@ -276,7 +277,6 @@ html.bg-night section#central #location-today {
         #location-today {
             min-width: 310px;
             margin-left: 9px;
-            margin-bottom: 20px;
         }
 
         #temperatures {}
@@ -325,6 +325,15 @@ html.bg-night section#central #location-today {
             }
         }
 
+        #wind {
+            margin-top: 50px;
+
+            b {
+                font-size: 25px;
+                text-transform: none;
+            }
+        }
+
 
 
 
@@ -356,95 +365,11 @@ html.bg-night section#central #location-today {
 
                     sup {}
                 }
-            }
-
-            #app-name {}
-
-            small {}
-        }
-    }
-}
-
-
-@media screen and (max-width: 799px) {
-    section#central {
-        &:after {}
-
-        /*
-            CENTER VERTICALLY
-        */
-        .left,
-        .right {
-            width: 100%;
-            min-width: 0;
-            display: block;
-        }
-
-        .left {
-            padding:0;
-        }
-
-        .right {
-            padding:0;
-        }
-
-        #location-today {
-            width: 100%;
-            min-width: 0;
-            display: block;
-            text-align: center;
-            padding: 0 0 0 5px;
-            margin: 0 auto 40px;
-        }
-
-        #temperatures {}
-
-        #temp {
-            sup {}
-        }
-
-
-        #temp-min,
-        #temp-max {
-            sup {}
-
-            b {}
-        }
-
-        #temp-max {}
-
-
-        #weather {
-            margin: 70px 0;
-
-            .wi {}
-
-            canvas {}
-
-            b {}
-        }
-
-
-
-
-        /*
-            NEXT DAYS PREVISION
-        */
-        #next-days {
-
-            ul {
-                li {
-                    &:after {}
-
-                    &:first-of-type {}
-
-                    b {
-                        &+b {}
-
-                        &:last-of-type {}
+                li.with_wind_speed {
+                    &:first-of-type {
+                        margin-top: 0;
                     }
-
-                    sup {}
+                    margin: 45px 0;
                 }
             }
 
@@ -454,3 +379,96 @@ html.bg-night section#central #location-today {
         }
     }
 }
+
+
+/*
+    At the moment I comment this code, because I do not see the point in it.
+*/
+//@media screen and (max-width: 799px) {
+//    section#central {
+//        &:after {}
+//
+//        /*
+//            CENTER VERTICALLY
+//        */
+//        .left,
+//        .right {
+//            width: 100%;
+//            min-width: 0;
+//            display: block;
+//        }
+//
+//        .left {
+//            padding:0;
+//        }
+//
+//        .right {
+//            padding:0;
+//        }
+//
+//        #location-today {
+//            width: 100%;
+//            min-width: 0;
+//            display: block;
+//            text-align: center;
+//            padding: 0 0 0 5px;
+//            margin: 0 auto 40px;
+//        }
+//
+//        #temperatures {}
+//
+//        #temp {
+//            sup {}
+//        }
+//
+//
+//        #temp-min,
+//        #temp-max {
+//            sup {}
+//
+//            b {}
+//        }
+//
+//        #temp-max {}
+//
+//
+//        #weather {
+//            margin: 70px 0;
+//
+//            .wi {}
+//
+//            canvas {}
+//
+//            b {}
+//        }
+//
+//
+//
+//
+//        /*
+//            NEXT DAYS PREVISION
+//        */
+//        #next-days {
+//
+//            ul {
+//                li {
+//                    &:after {}
+//
+//                    &:first-of-type {}
+//
+//                    b {
+//                        &+b {}
+//
+//                        &:last-of-type {}
+//                    }
+//
+//                    sup {}
+//                }
+//            }
+//
+//            #app-name {}
+//
+//            small {}
+//        }
+//    }
+//}
