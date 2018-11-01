@@ -65,9 +65,9 @@
 
         var wind_speed;
 
-        if ('country_lang' in forecast) {
-            moment.locale(forecast.country_lang);
-        }
+        // if ('country_lang' in forecast) {
+            // moment.locale(forecast.country_lang);
+        // }
 
         var mmt = moment(today.time * 1000);
         mmt.tz(forecast.timezone);
