@@ -19,3 +19,15 @@
     font-weight: 400;
   }
 }
+
+@media screen and (max-width: 1200px) {
+  #banner {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #banner {
+    font-size: 0.8em;
+  }
+}
