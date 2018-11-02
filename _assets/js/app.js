@@ -32,8 +32,6 @@
     var clockDom = document.getElementById('footer-clock');
     var creditsYearDom = document.querySelector('#credits-year');
 
-    window.srly.clock_format_24h = null;
-
 
 
 
@@ -50,6 +48,9 @@
     var lat = window.srly.getQueryVar('lat');
     var lng = window.srly.getQueryVar('lng');
     var ip = window.srly.getQueryVar('ip');
+    var wind_speed = window.srly.getQueryVar('wind_speed')  === '1';
+    var clock_format_24h = window.srly.getQueryVar('24h') === '1';
+    var localization = window.srly.getQueryVar('localization') === '1';
     // ip tests '85.139.5.121'; //Lisbon - Europe/Portugal | '47.90.96.247'; //Alibaba - Asia/Hong_Kong
 
 
@@ -63,9 +64,7 @@
      */
     function init() {
 
-        var wind_speed;
-
-        if ('country_lang' in forecast) {
+        if (localization && 'country_lang' in forecast) {
             moment.locale(forecast.country_lang);
         }
 
@@ -86,12 +85,6 @@
         window.addEventListener('resize', function(e){
             window.srly.scaleElementFontSize(elLocationTodayB);
         });
-
-        if ('wind_speed' in forecast) {
-            wind_speed = Boolean(parseInt(forecast.wind_speed));
-        } else {
-            wind_speed = false;
-        }
 
         var elTemp = document.querySelector("#temp");
         elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
@@ -180,17 +173,10 @@
         /**
          * Draw DOM clock
          */
-        switch (window.srly.clock_format_24h) {
-            case 1:
-                clockDom.innerHTML = mmt.format('HH:mm');
-                break;
-            case 0:
-                clockDom.innerHTML = mmt.format('hh:mm a');
-                break;
-            default:
-                clockDom.innerHTML = mmt.format('LT');
-                break;
-
+        if (clock_format_24h) {
+            clockDom.innerHTML = mmt.format('HH:mm')
+        } else {
+            clockDom.innerHTML = mmt.format('LT');
         }
 
 
@@ -243,10 +229,10 @@
      *
      * @since 0.0.1
      */
-    var getForecast = function(lat, lng) {
+    var getForecast = function(lat, lng, lang) {
 
         // Lets get the forecast for location
-        var oReqForecast = window.srly.getForecast(lat, lng);
+        var oReqForecast = window.srly.getForecast(lat, lng, lang);
         oReqForecast.addEventListener("load", function(e) {
             // register local
             if (e.target.status === 200) {
@@ -272,12 +258,17 @@
     var getLocalData = function() {
 
         var param = {};
+        var lang = null;
 
         if (lat && lng) {
             param.lat = lat;
             param.lng = lng;
         } else if (ip) {
             param.ip = ip;
+        }
+
+        if (!(localization)) {
+            lang = 'en'
         }
 
         var oReq = window.srly.getLocalData(param);
@@ -288,10 +279,10 @@
                     var json = JSON.parse(e.target.response);
                     local = json.properties;
                     if ('lat' in local && 'lng' in local) {
-                        getForecast(local.lat, local.lng);
+                        getForecast(local.lat, local.lng, lang);
                     } else {
                         var latlng = local.location.split(',');
-                        getForecast(latlng[0], latlng[1]);
+                        getForecast(latlng[0], latlng[1], lang);
                     }
                 }
             });
