@@ -19,11 +19,12 @@
      *
      * @param {string || number} [lat] Required. GEO Coordinates for latitude
      * @param {string || number} [lng] Required. GEO Coordinates for longitude
+     * @param {string} [lang] Non-required. Language
      * @since 0.0.1
      *
      * @return {XMLHttpRequest}
      */
-    window.srly.getForecast = function(lat, lng) {
+    window.srly.getForecast = function(lat, lng, lang) {
 
         if (!lat && !lng)  {
             console.warn('srly.getForecast: "lat" and "lng" are required parameters');
@@ -53,7 +54,7 @@
 
         oReq.open('POST', API_URL, true);
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
-        oReq.send(JSON.stringify({ lat: lat, lng: lng }));
+        oReq.send(JSON.stringify({ lat: lat, lng: lng , lang: lang}));
 
         return oReq;
     };
