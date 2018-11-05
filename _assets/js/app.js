@@ -184,7 +184,7 @@
             case '1':
                 clockDom.innerHTML = mmt.format('HH:mm');
                 break;
-            case '2':
+            case '0':
                 clockDom.innerHTML = mmt.format('hh:mm A');
                 break;
             default:
