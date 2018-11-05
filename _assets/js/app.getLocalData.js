@@ -29,6 +29,10 @@
 
         var param = {};
 
+        if ('lang' in arg) {
+            param.lang = arg.lang;
+        }
+
         if ('ip' in arg) {
             param.ip = arg.ip;
             param = JSON.stringify(param);
@@ -39,7 +43,7 @@
                 param = JSON.stringify(param);
             }
         } else {
-            param = null;
+            param = (Object.keys(param).length > 0) ? JSON.stringify(param) : null;
         }
 
         var oReq = new XMLHttpRequest();

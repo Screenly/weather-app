@@ -49,8 +49,8 @@
     var lng = window.srly.getQueryVar('lng');
     var ip = window.srly.getQueryVar('ip');
     var wind_speed = window.srly.getQueryVar('wind_speed')  === '1';
-    var clock_format_24h = window.srly.getQueryVar('24h') === '1';
-    var localization = window.srly.getQueryVar('localization') === '1';
+    var clock_format_24h = window.srly.getQueryVar('24h');
+    var lang = window.srly.getQueryVar('lang');
     // ip tests '85.139.5.121'; //Lisbon - Europe/Portugal | '47.90.96.247'; //Alibaba - Asia/Hong_Kong
 
 
@@ -64,7 +64,7 @@
      */
     function init() {
 
-        if (localization && 'country_lang' in forecast) {
+        if ('country_lang' in forecast) {
             moment.locale(forecast.country_lang);
         }
 
@@ -74,12 +74,15 @@
         /**
          * Fill DOM with local info like city name, date, temperatures and next days forecast...
          */
-        var localName = local.city || local.county || local.state || local.country_long;
-        if (typeof localName === "undefined"){
-            localName = '';
-        }
+        var localName = local.city || local.country || local.continent;
         var elLocationToday = document.querySelector("#location-today");
-        elLocationToday.innerHTML = '<b>' + localName + (localName? ', ' : '') + mmt.format('ddd D') + '</b>';
+        if (typeof localName === "undefined"){
+            elLocationToday.style['width'] = '25%';
+            elLocationToday.style['min-width'] = '25%';
+            elLocationToday.innerHTML = '<b>' + mmt.format('ddd D') + '</b>';
+        } else {
+            elLocationToday.innerHTML = '<b>' + localName + (localName? ', ' : '') + mmt.format('ddd D') + '</b>';
+        }
         window.srly.scaleElementFontSize(document.querySelector("#location-today b"));
         var elLocationTodayB = document.querySelector("#location-today b");
         window.addEventListener('resize', function(e){
@@ -98,8 +101,13 @@
         var elWeatherIcon = document.querySelector("#weather .wi");
         elWeatherIcon.className += ' wi-forecast-io-' + forecast.currently.icon;
 
-        var elWeatherSum = document.querySelector("#weather b");
-        elWeatherSum.innerHTML = forecast.currently.summary;
+        var elWeatherSum = document.querySelector("#weather-summary");
+        elWeatherSum.innerHTML = '<b>' + forecast.currently.summary + '</b>';
+        var elWeatherSumB = document.querySelector("#weather-summary b");
+        window.srly.scaleElementFontSize(elWeatherSumB);
+        window.addEventListener('resize', function(e){
+            window.srly.scaleElementFontSize(elWeatherSumB);
+        });
 
         if (wind_speed){
             var elWindSpeed = document.querySelector("#wind b");
@@ -129,7 +137,6 @@
         }
         nextDaysList += '</ul>';
         elNextDays.innerHTML = nextDaysList;
-
 
 
 
@@ -173,10 +180,16 @@
         /**
          * Draw DOM clock
          */
-        if (clock_format_24h) {
-            clockDom.innerHTML = mmt.format('HH:mm')
-        } else {
-            clockDom.innerHTML = mmt.format('LT');
+        switch (clock_format_24h) {
+            case '1':
+                clockDom.innerHTML = mmt.format('HH:mm');
+                break;
+            case '0':
+                clockDom.innerHTML = mmt.format('hh:mm A');
+                break;
+            default:
+                clockDom.innerHTML = mmt.format('LT');
+                break;
         }
 
 
@@ -258,7 +271,6 @@
     var getLocalData = function() {
 
         var param = {};
-        var lang = null;
 
         if (lat && lng) {
             param.lat = lat;
@@ -267,8 +279,8 @@
             param.ip = ip;
         }
 
-        if (!(localization)) {
-            lang = 'en'
+        if (lang) {
+            param.lang = lang;
         }
 
         var oReq = window.srly.getLocalData(param);
@@ -279,10 +291,10 @@
                     var json = JSON.parse(e.target.response);
                     local = json.properties;
                     if ('lat' in local && 'lng' in local) {
-                        getForecast(local.lat, local.lng, lang);
+                        getForecast(local.lat, local.lng, local.lang);
                     } else {
                         var latlng = local.location.split(',');
-                        getForecast(latlng[0], latlng[1], lang);
+                        getForecast(latlng[0], latlng[1], 'en');
                     }
                 }
             });

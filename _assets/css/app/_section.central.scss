@@ -31,7 +31,7 @@ section#central {
     /*
         CENTER VERTICALLY
     */
-    top: 50%;
+    top: 55%;
     transform: translateY(-55%);
     -webkit-transform: translateY(-55%);
 
@@ -131,19 +131,20 @@ section#central {
             vertical-align: middle;
         }
 
-        b {
+        #weather-summary {
             top: 0;
             right: 0;
             display: block;
             position: absolute;
-            line-height: 1em;
             width: 60%;
-            font-size: 40px;
-            font-weight: bold;
-            text-align: right;
-            vertical-align: middle;
-            text-transform: uppercase;
-            transform: translateY(-50%);
+            b {
+                font-size: 40px;
+                font-weight: bold;
+                text-align: right;
+                vertical-align: middle;
+                text-transform: uppercase;
+                transform: translateY(-50%);
+            }
         }
     }
 
@@ -250,12 +251,11 @@ html.bg-night section#central #location-today {
     MEDIA QUERIES
 */
 
-@media screen and (max-width: 1200px), screen and (max-height: 1080px) {
+@media screen and (max-width: 1366px){
     section#central {
         /*top: 0;*/
         padding: 0;
         /*transform: none;*/
-        top: 55%;
         &:after {}
 
         /*
@@ -277,6 +277,7 @@ html.bg-night section#central #location-today {
         #location-today {
             min-width: 310px;
             margin-left: 9px;
+            margin-bottom: 20px;
         }
 
         #temperatures {}
