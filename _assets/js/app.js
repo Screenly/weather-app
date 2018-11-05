@@ -50,7 +50,7 @@
     var ip = window.srly.getQueryVar('ip');
     var wind_speed = window.srly.getQueryVar('wind_speed')  === '1';
     var clock_format_24h = window.srly.getQueryVar('24h');
-    var localization = window.srly.getQueryVar('localization') === '1';
+    var lang = window.srly.getQueryVar('lang');
     // ip tests '85.139.5.121'; //Lisbon - Europe/Portugal | '47.90.96.247'; //Alibaba - Asia/Hong_Kong
 
 
@@ -64,7 +64,7 @@
      */
     function init() {
 
-        if (localization && 'country_lang' in forecast) {
+        if ('country_lang' in forecast) {
             moment.locale(forecast.country_lang);
         }
 
@@ -271,7 +271,6 @@
     var getLocalData = function() {
 
         var param = {};
-        var lang = null;
 
         if (lat && lng) {
             param.lat = lat;
@@ -280,8 +279,8 @@
             param.ip = ip;
         }
 
-        if (localization) {
-            param.localization = localization;
+        if (lang) {
+            param.lang = lang;
         }
 
         var oReq = window.srly.getLocalData(param);

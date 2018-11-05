@@ -29,8 +29,8 @@
 
         var param = {};
 
-        if ('localization' in arg) {
-            param.localization = arg.localization;
+        if ('lang' in arg) {
+            param.lang = arg.lang;
         }
 
         if ('ip' in arg) {
