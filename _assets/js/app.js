@@ -226,10 +226,10 @@
     /**
      * Display a Screenly banner if not a Screenly-Pro player
      */
-    var showScreenlyBanner = function() {
+    var showScreenlyBanner = function () {
         var partOfScreenlyUserAgent = 'screenly-viewer';
         var playerUserAgent = navigator.userAgent;
-        if (!(playerUserAgent.includes(partOfScreenlyUserAgent))) {
+        if (playerUserAgent.indexOf(partOfScreenlyUserAgent) === -1) {
             document.querySelector("#banner").style.visibility = 'visible';
         }
     };
