@@ -162,8 +162,8 @@ JB:
 include: ["pages"]
 permalink: /:title/
 
-# Gems
-gems:
+# Plugins
+plugins:
   - jekyll-assets
 
 

@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
-gem 'jekyll', '~>3.4.3'
+gem 'jekyll', '~>3.8.5'
 
 #
 # jekyll-assets plugin itself
 #
 
-gem "jekyll-assets", '~>2.2.8'
+gem "jekyll-assets", '~>2.4.0'
 
 #
 # Additional gems for jekyll-assets
