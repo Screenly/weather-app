@@ -1,12 +1,16 @@
 version: '3'
 services:
   jekyll:
-    image: jekyll/jekyll
-    command: jekyll build --watch --incremental
+    build: .
+    # command: jekyll build --watch # Without incremental allows better local dev troubleshooting
+    command: jekyll build --watch --incremental --config _config.yml,_config_dev.yml
+    image: weather_srly_io:latest
     volumes:
-      - .:/srv/jekyll
+      - .:/usr/src/app:delegated
+    environment:
+      - JEKYLL_ENV=development
   nginx:
-    image: nginx
+    image: nginx:stable-alpine
     volumes:
       - ./_site:/usr/share/nginx/html
     ports:
