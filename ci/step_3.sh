@@ -19,7 +19,7 @@ if [ "$GITBRANCH" == 'master' ]; then
     curl https://sentry.stage.screenlyapp.com/api/hooks/release/builtin/6/262be118d8a5acc15d956804ff422acb116766b609f20f3c376eb9596de2de0b/ \
         -X POST \
         -H 'Content-Type: application/json' \
-        -d '{"version": "$GITHASH"}'
+        -d "{\"version\": \"$GITHASH\"}"
 
 elif [ "$GITBRANCH" == 'production' ]; then
     DSTFOLDER="weather.srly.io"
