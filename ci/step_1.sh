@@ -8,8 +8,10 @@ docker-compose build
 
 if [ "$GITBRANCH" == 'master' ]; then
     BUILDARGS="_config.yml,_config_stage.yml"
-    find _assets/ -type f -exec \
-        sed -i 's/weather-backend/stage-weather-backend/g' {} +
+
+    # Use staging server
+    sed -i 's/weather-backend/stage-weather-backend/g' _assets/js/app.getForecast.js
+    sed -i 's/weather-backend/stage-weather-backend/g' _assets/js/app.getLocalData.js
 elif [ "$GITBRANCH" == 'production' ]; then
     BUILDARGS="_config.yml"
 else
