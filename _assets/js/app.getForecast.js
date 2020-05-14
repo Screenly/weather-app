@@ -8,7 +8,7 @@
     /**
      * GLOBAL VARS
      */
-     var API_URL = '//weather-app-backend-dot-srly-stage.appspot.com/v1/weather';
+     var API_URL = '//weather-backend.srly.io/v1/weather';
 
 
 

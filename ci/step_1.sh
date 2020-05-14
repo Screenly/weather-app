@@ -8,6 +8,8 @@ docker-compose build
 
 if [ "$GITBRANCH" == 'master' ]; then
     BUILDARGS="_config.yml,_config_stage.yml"
+    find assets/ -type f -exec \
+        sed -i 's/weather-backend/stage-weather-backend/g' {} +
 elif [ "$GITBRANCH" == 'production' ]; then
     BUILDARGS="_config.yml"
 else
