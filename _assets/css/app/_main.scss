@@ -26,37 +26,33 @@ html
         content: '';
         position: absolute;
         background-size: cover;
-        background-color: black;
+        background-color: white;
         transition: background 1s;
         background-repeat: no-repeat;
         background-position: center center;
-        background-image: url(asset_path('bg-day.jpg'));
+        // background-image: url(asset_path('bg-day.jpg'));
     }
 
-    &.bg-day:before {
-        background-image: url(asset_path('bg-day.jpg'));
-    }
+    // &.bg-day:before {
+    //     background-image: url(asset_path('bg-day.jpg'));
+    // }
 
-    &.bg-sunset:before {
-        background-image: url(asset_path('bg-sunset.jpg'));
-    }
+    // &.bg-sunset:before {
+    //     background-image: url(asset_path('bg-sunset.jpg'));
+    // }
 
-    &.bg-night:before {
-        background-image: url(asset_path('bg-night.jpg'));
-    }
+    // &.bg-night:before {
+    //     background-image: url(asset_path('bg-night.jpg'));
+    // }
 
 
 
     body
     {
-        padding: 60px;
+        padding: 57px 0;
         overflow: hidden;
         box-sizing: border-box;
     }
-
-
-
-
 
     /*
         SECTION
@@ -69,13 +65,18 @@ html
 
 
 
-@media screen and (max-width: 1100px)
-{
-    html
-    {
-        body
-        {
-            padding: 8% 10% 10% 10%;
+@media screen and (max-width: 1366px) {
+        html {
+            body {
+                padding: 38px 0;
+            }
+        }
+}
+
+@media screen and (max-width: 800px) {
+    html {
+        body {
+            padding: 24px 0;
         }
     }
 }

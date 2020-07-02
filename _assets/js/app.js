@@ -29,7 +29,7 @@
      * @since 0.0.1
      */
     var html = document.querySelector("html");
-    var clockDom = document.getElementById('footer-clock');
+    var clockDom = document.getElementById('top-clock');
     var creditsYearDom = document.querySelector('#credits-year');
 
 
@@ -47,6 +47,7 @@
     var local, forecast, today;
     var lat = window.srly.getQueryVar('lat');
     var lng = window.srly.getQueryVar('lng');
+    //var ip = '85.139.5.121';
     var ip = window.srly.getQueryVar('ip');
     var wind_speed = window.srly.getQueryVar('wind_speed')  === '1';
     var clock_format_24h = window.srly.getQueryVar('24h');
@@ -75,39 +76,52 @@
          * Fill DOM with local info like city name, date, temperatures and next days forecast...
          */
         var localName = local.city || local.country || local.continent;
-        var elLocationToday = document.querySelector("#location-today");
+        var elToday = document.querySelector("#today");
+
+        var elLocation = document.querySelector('#location');
         if (typeof localName === "undefined"){
-            elLocationToday.style['width'] = '25%';
-            elLocationToday.style['min-width'] = '25%';
-            elLocationToday.innerHTML = '<b>' + mmt.format('ddd D') + '</b>';
+            elToday.style['width'] = '25%';
+            elToday.style['min-width'] = '25%';
+            elToday.innerHTML = '<span class="font-size">' + mmt.format('D MMM YYYY') + '</span>';
+            elLocation.innerHTML = '<b>' + localName + (localName? ', ' : '') + '</b>';
         } else {
-            elLocationToday.innerHTML = '<b>' + localName + (localName? ', ' : '') + mmt.format('ddd D') + '</b>';
+            elToday.innerHTML = '<span>' + mmt.format('D MMM YYYY') + '</span>';
+            elLocation.innerHTML = '<b>' + localName + (localName ? '' : '') + '</b>';
         }
-        window.srly.scaleElementFontSize(document.querySelector("#location-today b"));
-        var elLocationTodayB = document.querySelector("#location-today b");
+
+        window.srly.scaleElementFontSize(document.querySelector("#location b"));
+        var elLocationB = document.querySelector("#location b");
         window.addEventListener('resize', function(e){
-            window.srly.scaleElementFontSize(elLocationTodayB);
+            window.srly.scaleElementFontSize(elLocationB);
         });
 
+        var descProbability = document.querySelector('#desc-probability');
+        var descHumidity = document.querySelector('#desc-humidity');
+        descProbability.innerText = 'PRECIPITATION';
+        descHumidity.innerText = 'HUMIDITY';
+
         var elTemp = document.querySelector("#temp");
-        elTemp.innerHTML = Math.round(forecast.currently.temperature) + '<sup>º</sup>';
+        elTemp.innerHTML =  Math.round(forecast.currently.temperature) + '<sup>&deg;C</sup>';
 
-        var elTempMax = document.querySelector("#temp-max");
-        elTempMax.innerHTML = '<i class="mdi mdi-arrow-up"></i>' + Math.round(today.apparentTemperatureMax) + 'º';
+        var elHumidity = document.querySelector("#humidity");
+        console.log(today.humidity, "humidity");
+        elHumidity.innerHTML = (today.humidity * 100) + '%';
 
-        var elTempMin = document.querySelector("#temp-min");
-        elTempMin.innerHTML = '<i class="mdi mdi-arrow-down"></i>' + Math.round(today.apparentTemperatureMin) + 'º';
+        var elProbability = document.querySelector("#probability");
+        console.log(today.precipProbability, 'elProbability');
+        elProbability.innerHTML = (today.precipProbability * 100) + '%';
+
+        // var elTempMax = document.querySelector("#temp-max");
+        // elTempMax.innerHTML = '<i class="mdi mdi-arrow-up"></i>' + Math.round(today.apparentTemperatureMax) + '&#176;';
+
+        // var elTempMin = document.querySelector("#temp-min");
+        // elTempMin.innerHTML = '<i class="mdi mdi-arrow-down"></i>' + Math.round(today.apparentTemperatureMin) + '&#176;';
 
         var elWeatherIcon = document.querySelector("#weather .wi");
         elWeatherIcon.className += ' wi-forecast-io-' + forecast.currently.icon;
 
         var elWeatherSum = document.querySelector("#weather-summary");
         elWeatherSum.innerHTML = '<b>' + forecast.currently.summary + '</b>';
-        var elWeatherSumB = document.querySelector("#weather-summary b");
-        window.srly.scaleElementFontSize(elWeatherSumB);
-        window.addEventListener('resize', function(e){
-            window.srly.scaleElementFontSize(elWeatherSumB);
-        });
 
         if (wind_speed){
             var elWindSpeed = document.querySelector("#wind b");
@@ -122,17 +136,19 @@
          * Next days
          */
         var with_wind_speed_class = wind_speed ? 'class="with_wind_speed"' : '';
-        for (var i = 1; i < 5; i++) {
+        for (var i = 1; i < 6; i++) {
             day = forecast.daily.data[i];
+            console.log(day, 'day');
+            console.log(forecast, 'forecast');
             dayMmt = moment(day.time * 1000);
             dayMmt.tz(forecast.timezone);
             nextDaysList += '<li ' + with_wind_speed_class + '>';
-            nextDaysList += dayMmt.format('[<b ' + with_wind_speed_class + '>]ddd[</b>]');
             nextDaysList += '<b ' + with_wind_speed_class + '><i class="wi wi-forecast-io-' + day.icon + '"></i></b>';
+            nextDaysList += '<p><b ' + with_wind_speed_class + '>' + Math.round(day.apparentTemperatureMax) + '&#176;</b> <b class="min-temp-day">' + Math.round(day.apparentTemperatureMin) + '&#176;</b></p>';
             if (wind_speed) {
                 nextDaysList += '<b ' + with_wind_speed_class + '>' + Math.round(day.windSpeed) + ' m/s</b>';
             }
-            nextDaysList += '<b ' + with_wind_speed_class + '>' + Math.round(day.apparentTemperatureMax) + 'º</b>';
+            nextDaysList += dayMmt.format('[<b ' + with_wind_speed_class + '>]ddd[</b>]');
             nextDaysList += '</li>';
         }
         nextDaysList += '</ul>';

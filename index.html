@@ -1,31 +1,48 @@
 ---
 layout: default
 ---
-        <!-- SECTION -->
-        <section id="central">
-
-            <!-- CURRENT DAY WITH LOCATION & DATE -->
-            <div id="location-today"></div>
-
-            <div id="current-day" class="left">
-                <!-- TEMPERATURE - MAX MIN -->
-                <div id="temperatures">
-                    <h1 id="temp"></h1>
-                    <p id="temp-max"></p>
-                    <p id="temp-min"></p>
-                </div>
-
-                <!-- SUMMARY -->
-                <div id="weather">
-                    <i class="wi"></i><span id="weather-summary"></span>
-                </div>
-
-                <div id="wind">
-                    <b></b>
-                </div>
-
+<!-- SECTION -->
+<!-- <div> -->
+<section id="central">
+   <!-- CURRENT DAY WITH LOCATION & DATE -->
+   <div id="current-day" class="top-block">
+      <!-- TEMPERATURE - MAX MIN -->
+      <div class="w-100">
+         <div class="block-day">
+            <div id="temperatures">
+               <div>
+                  <div class="date-data font-size">
+                     <span id="today"></span>
+                     <span id="top-clock"></span>
+                  </div>
+                  <div class="temp-location-block">
+                     <h1 id="temp"></h1>
+                     <span id="location"></span>
+                  </div>
+               </div>
+               <div class="detaile-block font-size">
+                  <div class="d-flex detaile detaile-first">
+                     <div id="desc-probability"></div>
+                     <div id="probability"></div>
+                  </div>
+                  <div class="d-flex detaile">
+                     <div id="desc-humidity"></div>
+                     <div id="humidity"></div>
+                  </div>
+               </div>
+               <!-- <p id="temp-max"></p>
+               <p id="temp-min"></p> -->
             </div>
-
-            <!-- NEXT DAYS -->
-            <div id="next-days" class="right"></div>
-        </section>
+            <!-- SUMMARY -->
+            <div id="weather">
+               <i class="wi"></i><span id="weather-summary"></span>
+            </div>
+            <div id="wind">
+               <b></b>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- NEXT DAYS -->
+   <div id="next-days" class="bottom-block"></div>
+</section>

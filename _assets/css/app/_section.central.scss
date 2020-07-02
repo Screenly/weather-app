@@ -1,475 +1,215 @@
 /*
     STYLES
-*/
-
-html {}
-
-
-
-/*
     SECTIONS
 */
 
 section#central {
     z-index: 99;
-    /*padding: 8%;*/
     font-size: 0;
     line-height: 0;
     position: relative;
     text-align: justify;
-    max-width: 1300px;
+    width: 100%;
     margin: 0 auto;
     white-space: nowrap;
 
-    &:after {
-        width: 100%;
-        content: ".";
-        visibility: hidden;
-        display: inline-block;
+    #current-day {
+        background-color: #21263b;
     }
 
-    /*
-        CENTER VERTICALLY
-    */
-    top: 55%;
-    transform: translateY(-55%);
-    -webkit-transform: translateY(-55%);
-
-    .left,
-    .right {
-        width: 50%;
+    .top-block {
+        padding: 0 8rem;
+        color: #ffffff;
+        position: relative;
+        height: 64vh;
+        display: flex;
+        align-items: center;
+        width: 100%;
         min-width: 480px;
         margin: 0 auto;
         line-height: 1;
-        max-width: 650px;
+    }
+
+    .bottom-block {
+        padding: 0 8rem;
+        color: #21263b;
+        width: 100%;
+        height: 27vh;
+        min-width: 480px;
+        margin: 0 auto;
+        line-height: 1;
         display: inline-block;
         vertical-align: top;
     }
 
-    .left {
-        padding-right: 5%;
-    }
-
-    .right {
-        padding-left: 5%;
-    }
-
-    #location-today {
-        width: 50%;
-        max-width: 650px;
-        padding-right: 40px;
-        margin-left: 20px;
-        line-height: 1;
-        color: #123e51;
-        font-size: 48px;
-        font-weight: 400;
-        white-space: nowrap;
-
-        b {
-            margin-bottom: 26px;
-            font-weight: 300;
-            /*display: block;*/
+    .date-data {
+        margin-bottom: 10px;
+        #today {
+            text-transform: uppercase;
+            padding-right: 24px;
+            white-space: nowrap;
         }
     }
 
-    #temperatures {
+    .block-day {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         position: relative;
     }
 
-    #temp {
-        margin: 30px 0;
-        font-size: 280px;
-        /*font-size: 22vw;*/
-        line-height: .8em;
-        font-weight: 200;
+    #location {
+        width: 100%;
+        max-width: 650px;
+        margin-left: 26px;
+        line-height: 1;
+        font-size: 120px;
+        white-space: nowrap;
+        display: inline-block;
+        span {
+            max-width: 600px;
+            font-size: 120px;
+        }
+    }
+
+   #temp {
+        font-size: 200px;
+        font-weight: 300;
+        display: inline-block;
+        position: relative;
 
         sup {
-            font-size: 150px;
-            font-weight: 100;
+            font-size: 43px;
+            font-weight: 300;
             vertical-align: top;
-            line-height: 1;
-            margin-left: -10px;
+            line-height: 2.5;
             display: inline-block;
         }
     }
 
-
-    #temp-min,
-    #temp-max {
-        right: -6px;
-        bottom: 10px;
-        font-size: 36px;
-        position: absolute;
-        font-weight: 300;
-
-        sup {
-            font-size: 20px;
-            vertical-align: top;
+    .detaile-block {
+        display: block;
+        max-width: 400px;
+        .detaile-first {
+            margin: 54px 0 40px 0;
         }
 
-        b {
-            display: block;
-            font-size: 28px;
-        }
-    }
+        .detaile {
+            display: flex;
+            justify-content: space-between;
 
-    #temp-max {
-        top: 8px;
-        bottom: auto;
+            #probability, #humidity {
+                display: block;
+                font-weight: 500;
+                margin-left: 20px;
+
+                }
+            }
     }
 
 
     #weather {
-        font-size: 0;
-        line-height: 0;
-        margin-top: 108px;
-        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         .wi {
-            font-size: 110px;
-            line-height: 0;
+            font-size: 260px;
             vertical-align: middle;
         }
 
         #weather-summary {
-            top: 0;
-            right: 0;
+            margin-top: 32px;
             display: block;
-            position: absolute;
-            width: 60%;
-            b {
-                font-size: 40px;
-                font-weight: bold;
-                text-align: right;
-                vertical-align: middle;
-                text-transform: uppercase;
-                transform: translateY(-50%);
-            }
+            white-space: normal;
+            text-align: center;
         }
-    }
-
-
-    #wind {
-        font-size: 0;
-        line-height: 0;
-        margin-top: 108px;
-        position: relative;
 
         b {
-            display: block;
-            line-height: 1em;
-            font-size: 40px;
-            font-weight: bold;
+            font-size: 86px;
         }
     }
-
-
 
     /*
         NEXT DAYS PREVISION
     */
     #next-days {
-        font-size: 56px;
-        font-weight: lighter;
+        // font-size: 46px;
+        align-items: center;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 40px;
 
         ul {
-            margin: 0 auto;
             white-space: nowrap;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
 
             li {
-                line-height: 0;
-                margin: 40px 0;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
 
-                &:after {
-                    width: 100%;
-                    content: ".";
-                    visibility: hidden;
-                    display: inline-block;
+                .wi {
+                    font-size: 100px;
+                    padding-bottom: 10%;
+                    position: relative;
+                    top: -5px;
                 }
-
-/*                &:first-of-type {
-                    margin-top: 96px;
-                }*/
 
                 b {
-                    width: 33.333333%;
-                    font-weight: 300;
+                    font-weight: 500;
                     display: inline-block;
                     vertical-align: middle;
+                    text-transform: uppercase;
+                    font-size: 54px;
 
-                    &+b {
-                        text-align: center;
+                    sup {
+                        top: 0;
+                        right: 0;
+                        font-size: 23px;
+                        font-weight: 200;
+                        position: absolute;
                     }
 
-                    &:last-of-type {
-                        line-height: 1;
-                        position: relative;
-                        font-weight: bolder;
-                        text-align: right;
+                    &:nth-child(3) {
+                        color: #21263b;
+                        opacity: 0.6;
+                        font-size: 46px;
+                        padding-top: 10%;
                     }
                 }
-                b.with_wind_speed {
-                    width: 25%;
+
+              p {
+                .min-temp-day {
+                   color: #21263b;
+                   opacity: 0.6;
+                   margin-left: 10px;
+                    }
+
                 }
 
-                sup {
-                    top: 0;
-                    right: 0;
-                    font-size: 23px;
-                    font-weight: 200;
-                    position: absolute;
-                }
-            }
-            li.with_wind_speed {
-                &:first-of-type {
-                    margin-top: 30px;
-                }
-                margin: 85px 0;
             }
         }
     }
 }
 
-
-
-
-
-html.bg-night section#central #location-today {
-    color: white;
+.font-size {
+    font-size: 42px;
 }
 
 
+ .w-100 {
+     width: 100%;
+ }
 
+ .d-flex {
+     display: flex;
+ }
 
-
-
-
-
-
-
-/*
-    MEDIA QUERIES
-*/
-
-@media screen and (max-width: 1366px){
-    section#central {
-        /*top: 0;*/
-        padding: 0;
-        /*transform: none;*/
-        &:after {}
-
-        /*
-            CENTER VERTICALLY
-        */
-        .left,
-        .right {
-            min-width: 310px;
-        }
-
-        .left {
-            padding-right: 1%;
-        }
-
-        .right {
-            padding-left: 8%;
-        }
-
-        #location-today {
-            min-width: 310px;
-            margin-left: 9px;
-            margin-bottom: 20px;
-        }
-
-        #temperatures {}
-
-        #temp {
-            margin: 0;
-            font-size: 170px;
-
-            sup {
-                font-size: 80px;
-                transform: translateY(3px);
-            }
-        }
-
-
-        #temp-min,
-        #temp-max {
-            font-size: 35px;
-            text-align: right;
-            text-transform: capitalize;
-
-            sup {
-                font-size: 35px;
-            }
-
-            b {
-                font-size: 17px;
-            }
-        }
-
-        #temp-max {}
-
-
-        #weather {
-            margin-top: 50px;
-
-            .wi {
-                font-size: 60px;
-            }
-
-            canvas {}
-
-            b {
-                font-size: 25px;
-                text-transform: none;
-            }
-        }
-
-        #wind {
-            margin-top: 50px;
-
-            b {
-                font-size: 25px;
-                text-transform: none;
-            }
-        }
-
-
-
-
-        /*
-            NEXT DAYS PREVISION
-        */
-        #next-days {
-
-            font-size: 31px;
-
-            ul {
-                padding: 0;
-                max-width: 100%;
-
-                li {
-                    margin: 23px 0;
-
-                    &:after {}
-
-                    &:first-of-type {
-                        margin-top: 8px;
-                    }
-
-                    b {
-                        &+b {}
-
-                        &:last-of-type {}
-                    }
-
-                    sup {}
-                }
-                li.with_wind_speed {
-                    &:first-of-type {
-                        margin-top: 0;
-                    }
-                    margin: 45px 0;
-                }
-            }
-
-            #app-name {}
-
-            small {}
-        }
-    }
-}
-
-
-/*
-    At the moment I comment this code, because I do not see the point in it.
-*/
-//@media screen and (max-width: 799px) {
-//    section#central {
-//        &:after {}
-//
-//        /*
-//            CENTER VERTICALLY
-//        */
-//        .left,
-//        .right {
-//            width: 100%;
-//            min-width: 0;
-//            display: block;
-//        }
-//
-//        .left {
-//            padding:0;
-//        }
-//
-//        .right {
-//            padding:0;
-//        }
-//
-//        #location-today {
-//            width: 100%;
-//            min-width: 0;
-//            display: block;
-//            text-align: center;
-//            padding: 0 0 0 5px;
-//            margin: 0 auto 40px;
-//        }
-//
-//        #temperatures {}
-//
-//        #temp {
-//            sup {}
-//        }
-//
-//
-//        #temp-min,
-//        #temp-max {
-//            sup {}
-//
-//            b {}
-//        }
-//
-//        #temp-max {}
-//
-//
-//        #weather {
-//            margin: 70px 0;
-//
-//            .wi {}
-//
-//            canvas {}
-//
-//            b {}
-//        }
-//
-//
-//
-//
-//        /*
-//            NEXT DAYS PREVISION
-//        */
-//        #next-days {
-//
-//            ul {
-//                li {
-//                    &:after {}
-//
-//                    &:first-of-type {}
-//
-//                    b {
-//                        &+b {}
-//
-//                        &:last-of-type {}
-//                    }
-//
-//                    sup {}
-//                }
-//            }
-//
-//            #app-name {}
-//
-//            small {}
-//        }
-//    }
-//}
+ #temp-max, #temp-min, #wind {
+     display: none;
+ }
