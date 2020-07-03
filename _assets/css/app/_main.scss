@@ -30,22 +30,7 @@ html
         transition: background 1s;
         background-repeat: no-repeat;
         background-position: center center;
-        // background-image: url(asset_path('bg-day.jpg'));
     }
-
-    // &.bg-day:before {
-    //     background-image: url(asset_path('bg-day.jpg'));
-    // }
-
-    // &.bg-sunset:before {
-    //     background-image: url(asset_path('bg-sunset.jpg'));
-    // }
-
-    // &.bg-night:before {
-    //     background-image: url(asset_path('bg-night.jpg'));
-    // }
-
-
 
     body
     {
@@ -53,24 +38,16 @@ html
         overflow: hidden;
         box-sizing: border-box;
     }
-
-    /*
-        SECTION
-    */
-
-    section
-    {
-    }
 }
 
 
 
 @media screen and (max-width: 1366px) {
-        html {
-            body {
-                padding: 38px 0;
-            }
+    html {
+        body {
+            padding: 38px 0;
         }
+    }
 }
 
 @media screen and (max-width: 800px) {
