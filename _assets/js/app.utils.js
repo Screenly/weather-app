@@ -49,11 +49,8 @@
         var parent = el.parentElement;
         var parentStyle = window.getComputedStyle(parent, null);
         var parentWidth = parent.offsetWidth - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight) - parseFloat(parentStyle.borderLeftWidth) - parseFloat(parentStyle.borderRightWidth);
-        console.log(parentWidth, "parentWidth");
         var style = window.getComputedStyle(el, null);
-        console.log(style, 'style');
         var fontSize = parseFloat(style.getPropertyValue('font-size'));
-        console.log(fontSize, 'fontSize');
 
 
         // REDUCE

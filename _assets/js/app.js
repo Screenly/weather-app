@@ -47,7 +47,6 @@
     var local, forecast, today;
     var lat = window.srly.getQueryVar('lat');
     var lng = window.srly.getQueryVar('lng');
-    //var ip = '85.139.5.121';
     var ip = window.srly.getQueryVar('ip');
     var wind_speed = window.srly.getQueryVar('wind_speed')  === '1';
     var clock_format_24h = window.srly.getQueryVar('24h');
@@ -104,18 +103,10 @@
         elTemp.innerHTML =  Math.round(forecast.currently.temperature) + '<sup>&deg;C</sup>';
 
         var elHumidity = document.querySelector("#humidity");
-        console.log(today.humidity, "humidity");
         elHumidity.innerHTML = (today.humidity * 100) + '%';
 
         var elProbability = document.querySelector("#probability");
-        console.log(today.precipProbability, 'elProbability');
         elProbability.innerHTML = (today.precipProbability * 100) + '%';
-
-        // var elTempMax = document.querySelector("#temp-max");
-        // elTempMax.innerHTML = '<i class="mdi mdi-arrow-up"></i>' + Math.round(today.apparentTemperatureMax) + '&#176;';
-
-        // var elTempMin = document.querySelector("#temp-min");
-        // elTempMin.innerHTML = '<i class="mdi mdi-arrow-down"></i>' + Math.round(today.apparentTemperatureMin) + '&#176;';
 
         var elWeatherIcon = document.querySelector("#weather .wi");
         elWeatherIcon.className += ' wi-forecast-io-' + forecast.currently.icon;
@@ -138,8 +129,6 @@
         var with_wind_speed_class = wind_speed ? 'class="with_wind_speed"' : '';
         for (var i = 1; i < 6; i++) {
             day = forecast.daily.data[i];
-            console.log(day, 'day');
-            console.log(forecast, 'forecast');
             dayMmt = moment(day.time * 1000);
             dayMmt.tz(forecast.timezone);
             nextDaysList += '<li ' + with_wind_speed_class + '>';

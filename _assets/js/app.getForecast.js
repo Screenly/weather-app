@@ -26,31 +26,7 @@
      */
     window.srly.getForecast = function(lat, lng, lang) {
 
-        if (!lat && !lng)  {
-            console.warn('srly.getForecast: "lat" and "lng" are required parameters');
-            return;
-        }
-
         var oReq = new XMLHttpRequest();
-
-        oReq.addEventListener("progress", function(e) {
-            if (!e.lengthComputable) {
-                console.warn('srly.getForecast: Unable to compute progress information since the total size is unknown');
-            }
-        });
-
-        oReq.addEventListener("error", function(e) {
-            console.error("srly.getForecast: An error occurred.");
-        });
-
-        oReq.addEventListener("abort", function(e) {
-            console.warn("srly.getForecast: Transfer canceled by the user.");
-        });
-
-        oReq.addEventListener("load", function(e) {
-            console.log("srly.getForecast: Transfer complete.");
-            console.log(JSON.parse(e.target.response));
-        });
 
         oReq.open('POST', API_URL, true);
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
