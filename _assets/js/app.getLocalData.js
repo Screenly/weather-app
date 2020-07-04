@@ -48,25 +48,6 @@
 
         var oReq = new XMLHttpRequest();
 
-        oReq.addEventListener("progress", function(e) {
-            if (!e.lengthComputable) {
-                console.warn('srly.getLocal: Unable to compute progress information since the total size is unknown');
-            }
-        });
-
-        oReq.addEventListener("error", function(e) {
-            console.error("srly.getLocal: An error occurred.");
-        });
-
-        oReq.addEventListener("abort", function(e) {
-            console.warn("srly.getLocal: Transfer canceled by the user.");
-        });
-
-        oReq.addEventListener("load", function(e) {
-            console.log("srly.getLocal: Transfer complete.");
-            console.log(JSON.parse(e.target.response));
-        });
-
         oReq.open(param ? 'POST' : 'GET', API_URL);
         oReq.setRequestHeader("Content-type", "application/json; charset=utf-8");
         oReq.send(param);
