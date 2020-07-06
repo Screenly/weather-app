@@ -13,7 +13,7 @@
       }
 
       #location {
-         width: 63%;
+         width: 60%;
       }
 
       .detail-block {
@@ -81,7 +81,7 @@
       }
 
       #location {
-         width: 63%;
+         width: 60%;
       }
 
       .detail-block {
@@ -159,7 +159,7 @@
       #location {
          margin-left: 10px;
          font-size: 100px;
-         width: 45%;
+         width: 60%;
       }
 
      .detail-block  {
@@ -270,7 +270,7 @@
       #location {
          font-size: 40px;
          margin-left: 15px;
-         width: 70%;
+         width: 60%;
       }
 
      .detail-block  {
@@ -372,7 +372,7 @@
       #location {
          margin-left: 11px;
          font-size: 50px;
-         width: 90%;
+         width: 60%;
       }
 
      .detail-block  {
@@ -458,7 +458,7 @@
       #location {
          margin-left: 10px;
          font-size: 150px;
-         width: 70%;
+         width: 60%;
       }
 
      .detail-block  {
@@ -484,7 +484,7 @@
       }
       #next-days {
          align-items: flex-start;
-         padding-top: 42px;
+         padding-top: 35px;
             ul {
                li {
 
@@ -539,7 +539,7 @@
       }
 
       #location {
-         width: 70%;
+         width: 60%;
          font-size: 100px;
          margin-left: 26px;
       }
@@ -633,7 +633,7 @@
       #location {
          margin-left: 10px;
          font-size: 80px;
-         width: 40%;
+         width: 50%;
       }
 
      .detail-block  {
@@ -678,7 +678,7 @@
    }
 }
 
-@media screen and (max-height: 320px) and (orientation:landscape) {
+@media screen and (max-height: 400px) and (orientation:landscape) {
    section#central {
 
       .top-block, .bottom-block {
@@ -703,8 +703,8 @@
 
       #location {
          margin-left: 10px;
-         font-size: 80px;
-         width: 40%;
+         font-size: 60px;
+         width: 50%;
       }
 
      .detail-block  {
@@ -724,25 +724,27 @@
          }
       }
       #next-days {
+         padding-top: 13px;
             ul {
                li {
 
                   .wi {
-                     font-size: 32px;
+                     font-size: 29px;
                   }
 
                  b {
                      font-size: 18px;
 
                      &:nth-child(3) {
-                        font-size: 19px;
+                        font-size: 16px;
+                        padding-top: 4px;
                      }
                  }
                }
             }
       }
       .font-size {
-         font-size: 17px;
+         font-size: 16px;
       }
    }
 }
