@@ -122,3 +122,11 @@ footer
         }
     }
 }
+
+@media screen and (max-width: 450px) {
+    footer {
+        bottom: 7px;
+        padding-left: 10px;
+    }
+}
+
