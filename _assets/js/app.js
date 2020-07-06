@@ -103,10 +103,10 @@
         elTemp.innerHTML =  Math.round(forecast.currently.temperature) + '<sup>&deg;C</sup>';
 
         var elHumidity = document.querySelector("#humidity");
-        elHumidity.innerHTML = (today.humidity * 100) + '%';
+        elHumidity.innerHTML = Math.round(today.humidity * 100) + '%';
 
         var elProbability = document.querySelector("#probability");
-        elProbability.innerHTML = (today.precipProbability * 100) + '%';
+        elProbability.innerHTML = Math.round(today.precipProbability * 100) + '%';
 
         var elWeatherIcon = document.querySelector("#weather .wi");
         elWeatherIcon.className += ' wi-forecast-io-' + forecast.currently.icon;
@@ -236,11 +236,10 @@
         var playerUserAgent = navigator.userAgent;
         if (playerUserAgent.indexOf(partOfScreenlyUserAgent) === -1) {
             document.querySelector("#banner").style.visibility = 'visible';
+        } else {
+            document.querySelector("body").style.paddingTop = '0';
         }
     };
-
-
-
 
     /**
      * Get forecast information

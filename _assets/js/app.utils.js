@@ -45,7 +45,9 @@
         if (!el) {
             return false;
         }
-
+        var elTemperature = document.getElementById('temp');
+        var styleTemperature = window.getComputedStyle(elTemperature, null).getPropertyValue('font-size');
+        var fontSizeTemperature = parseFloat(styleTemperature);
         var parent = el.parentElement;
         var parentStyle = window.getComputedStyle(parent, null);
         var parentWidth = parent.offsetWidth - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight) - parseFloat(parentStyle.borderLeftWidth) - parseFloat(parentStyle.borderRightWidth);
@@ -63,7 +65,7 @@
 
         // INCREASE
         if (parentWidth > window.srly.getElementInnerWidth(el)) {
-            while (parentWidth > window.srly.getElementInnerWidth(el)) {
+            while (parentWidth > window.srly.getElementInnerWidth(el) && fontSize < fontSizeTemperature) {
                 fontSize += 0.5;
                 el.style.fontSize = fontSize + 'px';
             }
