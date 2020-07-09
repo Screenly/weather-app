@@ -8,7 +8,6 @@
         <meta name="robots" content="noindex" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
         <link rel="apple-touch-icon" sizes="180x180" href="{% asset_path favicon/apple-touch-icon.png %}">
         <link rel="icon" type="image/png" sizes="32x32" href="{% asset_path favicon/favicon-32x32.png %}">
         <link rel="icon" type="image/png" sizes="194x194" href="{% asset_path favicon/favicon-194x194.png %}">
@@ -19,6 +18,15 @@
         <meta name="msapplication-TileColor" content="#355489">
         <meta name="msapplication-TileImage" content="{% asset_path favicon/mstile-144x144.png %}">
         <meta name="theme-color" content="#ffffff">
+        <script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous">
+        </script>
+        <script>
+            if (window.location.href === 'https://stage-weather.srly.io') {
+                Sentry.init({ dsn: 'https://f18c11755ebc481fa806317d7be10dbe@sentry.stage.screenlyapp.com/8' });
+            } else if (window.location.href === 'https://weather.srly.io') {
+                Sentry.init({ dsn: 'https://320034f4c76e405ba7802093d5b49305@sentry.screenlyapp.com/9' });
+            }
+        </script>
 
         <!-- MODRNIZR MANY STYLES AND SCRIPTS DEPEND ON IT -->
         {% javascript js/vendor/modernizr %}
