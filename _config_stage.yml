@@ -1,1 +1,3 @@
 url: https://stage-weather.srly.io
+
+sentry_dsn: https://f18c11755ebc481fa806317d7be10dbe@sentry.stage.screenlyapp.com/8

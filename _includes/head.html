@@ -18,15 +18,12 @@
         <meta name="msapplication-TileColor" content="#355489">
         <meta name="msapplication-TileImage" content="{% asset_path favicon/mstile-144x144.png %}">
         <meta name="theme-color" content="#ffffff">
-        <script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous">
-        </script>
-        <script>
-            if (window.location.href === 'https://stage-weather.srly.io') {
-                Sentry.init({ dsn: 'https://f18c11755ebc481fa806317d7be10dbe@sentry.stage.screenlyapp.com/8' });
-            } else if (window.location.href === 'https://weather.srly.io') {
-                Sentry.init({ dsn: 'https://320034f4c76e405ba7802093d5b49305@sentry.screenlyapp.com/9' });
-            }
-        </script>
+
+        {% if site.sentry_dsn %}
+            <!-- SENTRY SETUP -->
+            <script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous"></script>
+            <script>Sentry.init({ dsn: '{{site.sentry_dsn}}'});</script>
+        {% endif %}
 
         <!-- MODRNIZR MANY STYLES AND SCRIPTS DEPEND ON IT -->
         {% javascript js/vendor/modernizr %}

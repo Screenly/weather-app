@@ -53,6 +53,8 @@ excerpt_separator: "<!--more-->"
 #
 production_url: https://weather.srly.io
 url: https://weather.srly.io
+
+sentry_dsn: https://320034f4c76e405ba7802093d5b49305@sentry.screenlyapp.com/9
 #url: https://weather.srly.io
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
