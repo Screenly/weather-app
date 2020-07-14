@@ -99,10 +99,8 @@
         descProbability.innerText = 'PRECIPITATION';
         descHumidity.innerText = 'HUMIDITY';
 
-        var unitTemp = (forecast.flags.units === "us") ? 'F' : 'C';
-
         var elTemp = document.querySelector("#temp");
-        elTemp.innerHTML =  Math.round(forecast.currently.temperature) + '<sup>&deg;<span>'+ unitTemp +'</span></sup>';
+        elTemp.innerHTML =  Math.round(forecast.currently.temperature) + '<sup>&deg;</sup>';
 
         var elHumidity = document.querySelector("#humidity");
         elHumidity.innerHTML = Math.round(today.humidity * 100) + '%';
