@@ -100,7 +100,7 @@
         descHumidity.innerText = 'HUMIDITY';
 
         var elTemp = document.querySelector("#temp");
-        elTemp.innerHTML =  Math.round(forecast.currently.temperature) + '<sup>&deg;C</sup>';
+        elTemp.innerHTML =  Math.round(forecast.currently.temperature) + '<sup>&deg;</sup>';
 
         var elHumidity = document.querySelector("#humidity");
         elHumidity.innerHTML = Math.round(today.humidity * 100) + '%';
