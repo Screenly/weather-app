@@ -76,9 +76,6 @@
         var eWeatherSummary = document.querySelector('#weather-summary');
         eWeatherSummary.className = 'w-summary w-icon-' + current.data.next_1_hours.summary.symbol_code;
 
-        var eWeatherSummaryText = document.querySelector('.w-summary-text');
-        eWeatherSummaryText.innerHTML = current.data.next_1_hours.summary.symbol_code;
-        
         var eBody = document.querySelector('body');
         if (current.data.next_1_hours.summary.symbol_code.indexOf('sunny') != -1) {
             eBody.className = 'bg-sunny';
@@ -108,7 +105,11 @@
         // console.log(w_width, w_height);
         
         if (w_height < 1080 || (w_width < 800 && mode == 'portrait')) {
-            c_height = 200;
+            if (w_height <= 480) {
+                c_height = 200;
+            } else {
+                c_height = 250;
+            }
         } else {
             c_height = 400;
         }
@@ -133,6 +134,34 @@
             c_margin = -150;
             c_xaxis_y = -90;
             c_series_fontsize = 32;
+        }
+
+        if (w_width == 800) {
+            c_margin = -80;
+            c_xaxis_y = -60;
+            c_series_fontsize = 20;
+        } else if (w_width == 1920) {
+            c_height = 400;
+        } else if (w_width == 2560) {
+            c_margin = -220;
+            c_xaxis_y = -190;
+            c_series_fontsize = 64;
+            c_height = 500;
+        } else if (w_width == 1440) {
+            c_margin = -180;
+            c_xaxis_y = -180;
+            c_series_fontsize = 64;
+            c_height = 500;
+        } else if (w_width == 3840) {
+            c_margin = -300;
+            c_xaxis_y = -300;
+            c_series_fontsize = 96;
+            c_height = 700;
+        } else if (w_width == 2160) {
+            c_margin = -300;
+            c_xaxis_y = -320;
+            c_series_fontsize = 96;
+            c_height = 800;
         }
 
         var cats = [];
@@ -249,7 +278,8 @@
             tooltip: {
                 formatter: function () {
                     return 'The temperature for <strong>' + this.x[0] + '</strong> is <strong>' + this.y + '&deg;' + '</strong>';
-                }
+                },
+                enabled: false
             },
             series: [{
                 //threshold: null,

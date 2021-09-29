@@ -64,10 +64,13 @@ body {
     color: #fff;
     text-transform: uppercase;
     text-align: center;
-    font-weight: 300;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0;
+    padding: 1.5em 0;
 
     .visit-site {
-        padding-left: 10px;
+        // padding-left: 10px;
         font-weight: 500;
         color: #ffffff;
         text-decoration: none;
@@ -135,7 +138,10 @@ body {
     background: asset_url("img/icons/clear.svg") no-repeat center center;
 }
 .w-icon-lightrainshowers_night {
-    background: asset_url("img/icons/nt_rain.svg") no-repeat center center;
+    background: asset_url("img/icons/nt_chancerain.svg") no-repeat center center;
+}
+.w-icon-rainshowers_night {
+    background: asset_url("img/icons/nt_chancerain.svg") no-repeat center center;
 }
 .weather-info-text {
     p {
@@ -143,7 +149,9 @@ body {
         margin-bottom: 0;
     }
 }
-
+.w-time {
+    font-weight: 500;
+}
 .highcharts-text-outline {
     fill: #ffffff;
 	stroke-width: 0;
@@ -158,10 +166,18 @@ body {
         font-weight: 500;
     }
 }
-@media only screen and (max-width: 3840px) {
+@media only screen and (max-width: 3840px) and (orientation: landscape) {
+    .row {
+        padding: 0 337px;
+    }
+    .banner-text {
+        font-size: 72px;
+        padding: 88px 0;
+    }
     .w-summary {
         width: 378px;
         height: 378px;
+        margin-top: 86px;
     }
     .w-summary-text {
         font-size: 72px;
@@ -172,7 +188,7 @@ body {
         margin: 0 auto;
     }
     .w-time {
-        font-size: 38px;
+        font-size: 40px;
     }
     #top-clock {
         font-size: 72px;
@@ -182,13 +198,27 @@ body {
     }
     #location {
         font-size: 72px;
+        padding-left: 72px;
+    }
+    #location::before {
+        width: 64px;
+        height: 64px;
+        top: 12px;
     }
 }
 
-@media only screen and (max-width: 2560px) {
+@media only screen and (max-width: 2560px) and (orientation: landscape) {
+    .row {
+        padding: 0 200px;
+    }
+    .banner-text {
+        font-size: 64px;
+        padding: 88px 0;
+    }
     .w-summary {
         width: 294px;
         height: 294px;
+        margin-top: 86px;
     }
     .w-summary-text {
         font-size: 56px;
@@ -196,39 +226,53 @@ body {
     .w-icon {
         width: 128px;
         height: 128px;
-        margin: 0 auto;
-    }
-    .w-time {
-        font-size: 24px;
-    }
-    #top-clock {
-        font-size: 56px;
-    }
-    #temperature {
-        font-size: 224px;
-    }
-    #location {
-        font-size: 56px;
-    }
-}
-
-@media only screen and (max-width: 2160px) and (orientation : portrait) {
-    .w-summary {
-        width: 378px;
-        height: 378px;
-    }
-    .w-summary-text {
-        font-size: 72px;
-    }
-    .w-icon {
-        width: 192px;
-        height: 192px;
         margin: 0 auto;
     }
     .w-time {
         font-size: 32px;
     }
     #top-clock {
+        font-size: 56px;
+    }
+    #temperature {
+        font-size: 224px;
+    }
+    #location {
+        font-size: 56px;
+        padding-left: 64px;
+    }
+    #location::before {
+        width: 48px;
+        height: 48px;
+        top: 12px;
+    }
+}
+
+@media only screen and (max-width: 2160px) and (orientation : portrait) {
+    .row {
+        padding: 0 128px;
+    }
+    .banner-text {
+        font-size: 72px;
+        padding: 88px 0;
+    }
+    .w-summary {
+        width: 378px;
+        height: 378px;
+        margin-top: 86px;
+    }
+    .w-summary-text {
+        font-size: 72px;
+    }
+    .w-icon {
+        width: 192px;
+        height: 192px;
+        margin: 0 auto;
+    }
+    .w-time {
+        font-size: 40px;
+    }
+    #top-clock {
         font-size: 72px;
     }
     #temperature {
@@ -236,13 +280,27 @@ body {
     }
     #location {
         font-size: 72px;
+        padding-left: 72px;
+    }
+    #location::before {
+        width: 64px;
+        height: 64px;
+        top: 12px;
     }
 }
 
 @media only screen and (max-width: 1440px) and (orientation : portrait) {
+    .row {
+        padding: 0 128px;
+    }
+    .banner-text {
+        font-size: 64px;
+        padding: 80px 0;
+    }
     .w-summary {
         width: 294px;
         height: 294px;
+        margin-top: 86px;
     }
     .w-summary-text {
         font-size: 56px;
@@ -263,16 +321,22 @@ body {
     }
     #location {
         font-size: 56px;
+        padding-left: 56px;
+    }
+    #location::before {
+        width: 48px;
+        height: 48px;
+        top: 12px;
     }
 }
 
 @media only screen and (max-width: 1920px) and (orientation: landscape) {
     .row {
-        padding: 0 100px;
+        padding: 0 168px;
     }
     .banner-text {
-        font-size: 56px;
-        margin-top: 80px;
+        font-size: 48px;
+        padding: 64px 0;
     }
     .weather-info {
         margin-bottom: 30px;
@@ -280,6 +344,7 @@ body {
     .w-summary {
         width: 252px;
         height: 252px;
+        margin-top: 58px;
     }
     .w-summary-text {
         font-size: 48px;
@@ -290,7 +355,7 @@ body {
         margin: 0 auto;
     }
     .w-time {
-        font-size: 20px;
+        font-size: 24px;
     }
     #top-clock {
         font-size: 48px;
@@ -300,7 +365,7 @@ body {
     }
     #location {
         font-size: 48px;
-        padding-left: 30px;
+        padding-left: 48px;
     }
     #location::before {
         width: 32px;
@@ -311,15 +376,16 @@ body {
 
 @media only screen and (max-width: 1280px) and (orientation: landscape) {
     .row {
-        padding: 0 60px;
+        padding: 0 112px;
     }
     .banner-text {
         font-size: 32px;
-        margin-top: 80px;
+        padding: 40px 0;
     }
     .w-summary {
         width: 138px;
         height: 138px;
+        margin-top: 32px;
     }
     .w-summary-text {
         font-size: 34.91px;
@@ -330,7 +396,7 @@ body {
         margin: 0 auto;
     }
     .w-time {
-        font-size: 13.33px;
+        font-size: 16px;
     }
     #top-clock {
         font-size: 26px;
@@ -340,7 +406,7 @@ body {
     }
     #location {
         font-size: 26px;
-        padding-left: 24px;
+        padding-left: 26px;
     }
     #location::before {
         width: 20px;
@@ -349,17 +415,21 @@ body {
     }
 }
 
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 1080px) and (orientation: portrait){
+    .row {
+        padding: 0 112px;
+    }
     .weather-info {
         margin-bottom: 50px;
     }
     .banner-text {
         font-size: 48px;
-        margin-top: 80px;
+        padding: 80px 0;
     }
     .w-summary {
         width: 252px;
         height: 252px;
+        margin-top: 58px;
     }
     .w-summary-text {
         font-size: 48px;
@@ -380,7 +450,7 @@ body {
     }
     #location {
         font-size: 48px;
-        padding-left: 36px;
+        padding-left: 48px;
     }
     #location::before {
         width: 32px;
@@ -413,13 +483,17 @@ body {
     }
     #location {
         font-size: 20px;
+        padding-left: 20px;
     }
 }
 
 @media only screen and (max-width: 800px) and (orientation: landscape) {
+    .row {
+        padding: 0 72px;
+    }
     .banner-text {
-        font-size: 24px;
-        margin-top: 32px;
+        font-size: 16px;
+        padding: 24px 0;
     }
     .weather-info {
         margin-bottom: 0px;
@@ -427,6 +501,7 @@ body {
     .w-summary {
         width: 94px;
         height: 94px;
+        margin-top: 24px;
     }
     .w-summary-text {
         font-size: 24px;
@@ -437,7 +512,7 @@ body {
         margin: 0 auto;
     }
     .w-time {
-        font-size: 12px;
+        font-size: 8px;
     }
     #top-clock {
         font-size: 20px;
@@ -447,19 +522,22 @@ body {
     }
     #location {
         font-size: 20px;
-        padding-left: 24px;
+        padding-left: 20px;
     }
     #location::before {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
         top: 5px;
     }
 }
 
 @media only screen and (max-width: 720px) and (orientation: portrait) {
+    .row {
+        padding: 0 64px;
+    }
     .banner-text {
         font-size: 32px;
-        margin-top: 80px;
+        padding: 80px 0;
     }
     .weather-info {
         margin-bottom: 50px;
@@ -467,6 +545,7 @@ body {
     .w-summary {
         width: 138px;
         height: 138px;
+        margin-top: 32px;
     }
     .w-summary-text {
         font-size: 26px;
@@ -497,13 +576,17 @@ body {
 }
 
 @media only screen and (max-width: 480px) {
+    .row {
+        padding: 0 40px;
+    }
     .banner-text {
         font-size: 16px;
-        margin-top: 32px;
+        padding: 32px 0;
     }
     .w-summary {
         width: 94px;
         height: 94px;
+        margin-top: 24px;
     }
     .w-summary-text {
         font-size: 24px;
