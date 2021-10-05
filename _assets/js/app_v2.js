@@ -178,13 +178,12 @@
             var stillUtc = moment.utc(utcTime).toDate();
             var localTime = moment(stillUtc).local().format('HH:mm');
             cats.push([localTime, w]);
-            temps.push(temp);
+            temps.push(temp + 10);
             // console.log(t, localTime, w, temp);
-            if (max_temp < temp) {
-                max_temp = temp + 10;
+            if (max_temp < temp + 10) {
+                max_temp = temp + 20;
             }
         }
-
         /**
          * Run time process for first time
          *
@@ -264,7 +263,7 @@
                     dataLabels: {
                         enabled: true,
                         formatter: function() {
-                            return '<span>' + this.y + '&deg;' + '</span>';
+                            return '<span>' + (this.y - 10).toFixed(1) + '&deg;' + '</span>';
                         },
                         style: {
                             color: '#ffffff',
