@@ -6,6 +6,7 @@ body {
     margin: 0;
     font-family: 'Barlow', sans-serif;
     font-weight: 500;
+    backdrop-filter: blur(13px);
 }
 
 .bg-default {
@@ -15,6 +16,16 @@ body {
 
 .bg-rain {
     background: asset_url('img/background/rain.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.bg-rain-day {
+    background: asset_url('img/background/rain_day.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.bg-rain-night {
+    background: asset_url('img/background/rain_night.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -33,6 +44,16 @@ body {
     background-size: cover;
 }
 
+.bg-cloudy {
+    background: asset_url('img/background/cloudy.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.bg-overcast {
+    background: asset_url('img/background/overcast.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
 .bg-storm {
     background: asset_url('img/background/storm.jpg') no-repeat center center fixed;
     background-size: cover;
@@ -42,7 +63,7 @@ body {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
     padding: 0px 30px;
 }
 
@@ -65,7 +86,6 @@ body {
     text-transform: uppercase;
     text-align: center;
     font-weight: 400;
-    background: rgba(255, 255, 255, 0.1);
     margin: 0;
     padding: 1.5em 0;
 
@@ -110,8 +130,14 @@ body {
 .w-icon-partlycloudy_night {
     background: asset_url("img/icons/nt_partlycloudy.svg") no-repeat center center;
 }
+.w-icon-fair_day {
+    background: asset_url("img/icons/clear.svg") no-repeat center center;
+}
 .w-icon-fair_night {
-    background: asset_url("img/icons/nt_sunny.svg") no-repeat center center;
+    background: asset_url("img/icons/nt_clear.svg") no-repeat center center;
+}
+.w-icon-clearsky_day {
+    background: asset_url("img/icons/clear.svg") no-repeat center center;
 }
 .w-icon-clearsky_night {
     background: asset_url("img/icons/nt_clear.svg") no-repeat center center;
@@ -166,18 +192,19 @@ body {
         font-weight: 500;
     }
 }
+
 @media only screen and (max-width: 3840px) and (orientation: landscape) {
     .row {
-        padding: 0 337px;
+        padding: 0 337px 216px;
     }
     .banner-text {
         font-size: 72px;
         padding: 88px 0;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 378px;
         height: 378px;
-        margin-top: 86px;
     }
     .w-summary-text {
         font-size: 72px;
@@ -209,16 +236,16 @@ body {
 
 @media only screen and (max-width: 2560px) and (orientation: landscape) {
     .row {
-        padding: 0 200px;
+        padding: 0 200px 100px;
     }
     .banner-text {
         font-size: 64px;
         padding: 88px 0;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 294px;
         height: 294px;
-        margin-top: 86px;
     }
     .w-summary-text {
         font-size: 56px;
@@ -250,16 +277,16 @@ body {
 
 @media only screen and (max-width: 2160px) and (orientation : portrait) {
     .row {
-        padding: 0 128px;
+        padding: 0 128px 216px;
     }
     .banner-text {
         font-size: 72px;
         padding: 88px 0;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 378px;
         height: 378px;
-        margin-top: 86px;
     }
     .w-summary-text {
         font-size: 72px;
@@ -291,16 +318,16 @@ body {
 
 @media only screen and (max-width: 1440px) and (orientation : portrait) {
     .row {
-        padding: 0 128px;
+        padding: 0 128px 150px;
     }
     .banner-text {
         font-size: 64px;
         padding: 80px 0;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 294px;
         height: 294px;
-        margin-top: 86px;
     }
     .w-summary-text {
         font-size: 56px;
@@ -332,19 +359,16 @@ body {
 
 @media only screen and (max-width: 1920px) and (orientation: landscape) {
     .row {
-        padding: 0 168px;
+        padding: 0 168px 50px;
     }
     .banner-text {
         font-size: 48px;
         padding: 64px 0;
-    }
-    .weather-info {
-        margin-bottom: 30px;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 252px;
         height: 252px;
-        margin-top: 58px;
     }
     .w-summary-text {
         font-size: 48px;
@@ -376,16 +400,16 @@ body {
 
 @media only screen and (max-width: 1280px) and (orientation: landscape) {
     .row {
-        padding: 0 112px;
+        padding: 0 112px 50px;
     }
     .banner-text {
         font-size: 32px;
         padding: 40px 0;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 138px;
         height: 138px;
-        margin-top: 32px;
     }
     .w-summary-text {
         font-size: 34.91px;
@@ -417,19 +441,16 @@ body {
 
 @media only screen and (max-width: 1080px) and (orientation: portrait){
     .row {
-        padding: 0 112px;
-    }
-    .weather-info {
-        margin-bottom: 50px;
+        padding: 0 112px 100px;
     }
     .banner-text {
         font-size: 48px;
         padding: 80px 0;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 252px;
         height: 252px;
-        margin-top: 58px;
     }
     .w-summary-text {
         font-size: 48px;
@@ -489,19 +510,16 @@ body {
 
 @media only screen and (max-width: 800px) and (orientation: landscape) {
     .row {
-        padding: 0 72px;
+        padding: 0 72px 20px;
     }
     .banner-text {
         font-size: 16px;
         padding: 24px 0;
-    }
-    .weather-info {
-        margin-bottom: 0px;
+        background: linear-gradient(185.41deg, #000000 -81.5%, rgba(0, 0, 0, 0) 78.86%);
     }
     .w-summary {
         width: 94px;
         height: 94px;
-        margin-top: 24px;
     }
     .w-summary-text {
         font-size: 24px;
@@ -533,19 +551,16 @@ body {
 
 @media only screen and (max-width: 720px) and (orientation: portrait) {
     .row {
-        padding: 0 64px;
+        padding: 0 64px 50px;
     }
     .banner-text {
         font-size: 32px;
         padding: 80px 0;
-    }
-    .weather-info {
-        margin-bottom: 50px;
+        background: linear-gradient(164.87deg, #000000 -63.3%, rgba(0, 0, 0, 0) 90.65%);
     }
     .w-summary {
         width: 138px;
         height: 138px;
-        margin-top: 32px;
     }
     .w-summary-text {
         font-size: 26px;
@@ -577,16 +592,16 @@ body {
 
 @media only screen and (max-width: 480px) {
     .row {
-        padding: 0 40px;
+        padding: 0 40px 50px;
     }
     .banner-text {
         font-size: 16px;
         padding: 32px 0;
+        background: linear-gradient(185.41deg, #000000 -81.5%, rgba(0, 0, 0, 0) 78.86%);
     }
     .w-summary {
         width: 94px;
         height: 94px;
-        margin-top: 24px;
     }
     .w-summary-text {
         font-size: 24px;

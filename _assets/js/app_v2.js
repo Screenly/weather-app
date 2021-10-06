@@ -76,23 +76,37 @@
         var eWeatherSummary = document.querySelector('#weather-summary');
         eWeatherSummary.className = 'w-summary w-icon-' + current.data.next_1_hours.summary.symbol_code;
 
+        // var eWeatherSummaryText = document.querySelector('.w-summary-text');
+        // eWeatherSummaryText.innerHTML = current.data.next_1_hours.summary.symbol_code;
+        
         var eBody = document.querySelector('body');
-        if (current.data.next_1_hours.summary.symbol_code.indexOf('sunny') != -1) {
+        if (current.data.next_1_hours.summary.symbol_code.indexOf('sunny') != -1 ||
+            current.data.next_1_hours.summary.symbol_code.indexOf('clear') != -1 ||
+            current.data.next_1_hours.summary.symbol_code.indexOf('fair') != -1) {
             eBody.className = 'bg-sunny';
         } else if (current.data.next_1_hours.summary.symbol_code.indexOf('fog') != -1) {
             eBody.className = 'bg-fog';
         } else if (current.data.next_1_hours.summary.symbol_code.indexOf('rain') != -1) {
-            eBody.className = 'bg-rain';
+            if (current.data.next_1_hours.summary.symbol_code.indexOf('day') != -1) {
+                eBody.className = 'bg-rain-day';
+            } else if (current.data.next_1_hours.summary.symbol_code.indexOf('rain') != -1) {
+                eBody.className = 'bg-rain-night';
+            } else {
+                eBody.className = 'bg-rain';
+            }
         } else if (current.data.next_1_hours.summary.symbol_code.indexOf('snow') != -1) {
             eBody.className = 'bg-snow';
         } else if (current.data.next_1_hours.summary.symbol_code.indexOf('storm') != -1) {
             eBody.className = 'bg-storm';
+        } else if (current.data.next_1_hours.summary.symbol_code.indexOf('cloudy') != -1) {
+            eBody.className = 'bg-cloudy';
+        } else if (current.data.next_1_hours.summary.symbol_code.indexOf('overcast') != -1) {
+            eBody.className = 'bg-overcast';
         } else {
             eBody.className = 'bg-default';
         }
         
         // Get setting
-        
         var w_width = window.innerWidth;
         var w_height = window.innerHeight;
         var c_height = 0;
@@ -102,8 +116,6 @@
         var c_xaxis_y = -120;
         var c_series_fontsize = 24;
 
-        // console.log(w_width, w_height);
-        
         if (w_height < 1080 || (w_width < 800 && mode == 'portrait')) {
             if (w_height <= 480) {
                 c_height = 200;
@@ -167,23 +179,25 @@
         var cats = [];
         var temps = [];
         var max_temp = 0;
+        var adjust_temp = 10;
         for (var i = 0; i < s_count + 2; i++) {
             var f = forecast.properties.timeseries[i];
             var t = f.time;
             var w = f.data.next_1_hours.summary.symbol_code;
-            // var temp = Math.round(f.data.instant.details.air_temperature);
             var temp = f.data.instant.details.air_temperature;
             
             var utcTime = moment.utc(t).format('YYYY-MM-DD HH:mm:ss');
             var stillUtc = moment.utc(utcTime).toDate();
             var localTime = moment(stillUtc).local().format('HH:mm');
+            
             cats.push([localTime, w]);
-            temps.push(temp + 10);
-            // console.log(t, localTime, w, temp);
-            if (max_temp < temp + 10) {
-                max_temp = temp + 20;
+            temps.push(temp + adjust_temp);
+            
+            if (max_temp < temp) {
+                max_temp = temp + adjust_temp + 10;
             }
         }
+
         /**
          * Run time process for first time
          *
@@ -271,12 +285,20 @@
                         },
                         crop: false,
                         overflow: 'allow'
+                    },
+                    lineWidth: 0,
+                    fillColor: {
+                        linearGradient: [0, 0, 0, c_height * 2],
+                        stops: [
+                            [0, '#000000'],
+                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
                     }
-                },
+                }
             },
             tooltip: {
                 formatter: function () {
-                    return 'The temperature for <strong>' + this.x[0] + '</strong> is <strong>' + this.y + '&deg;' + '</strong>';
+                    return 'The temperature for <strong>' + this.x[0] + '</strong> is <strong>' + (this.y - 10).toFixed(1) + '&deg;' + '</strong>';
                 },
                 enabled: false
             },
