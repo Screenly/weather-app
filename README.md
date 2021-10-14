@@ -1,4 +1,14 @@
-# Screenly Weather Cast App
+# Screenly Weather App
 
+Screenly app for displaying weather data on screen.
 
-**Deprecated!** Migrated to [github.com/Screenly/weather-app](https://github.com/Screenly/weather-app)
+## Requirements
+
+* Docker
+* Docker Compose
+
+## Install
+
+* Clone the repository
+* Open terminal on project root and run `docker-compose up`
+* Navigate to http://localhost:8080
