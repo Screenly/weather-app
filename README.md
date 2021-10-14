@@ -1,22 +1,4 @@
 # Screenly Weather Cast App
 
-## Description
 
-Screenly app for weather forecast.
-
-## Requirements
-
-* Docker
-* Docker Compose
-
-## Installation
-
-* Clone or download repository.
-* Run `docker-compose up`
-* Navigate to localhost:8080
-
-## Deploying
-
-```
-./bin/deploy.sh
-```
+**Deprecated!** Migrated to [github.com/Screenly/weather-app](https://github.com/Screenly/weather-app)
