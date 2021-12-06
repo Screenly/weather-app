@@ -1,0 +1,193 @@
+header {
+	height: 90px;
+	display: grid;
+	place-items: center;
+	color: white;
+	font-size: 1.5vw;
+	font-weight: 100;
+	z-index: 10;
+}
+
+div header footer body {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0px;
+
+	/* background: grey; */
+	font-family: "Barlow", sans-serif;
+}
+
+footer {
+	background-repeat: no-repeat;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-end;
+	position: relative;
+	border-top: 1px solid black;
+	z-index: 10;
+}
+
+.app-backdrop {
+	background: asset_url("img/backdrop.png");
+	background-size: cover;
+	filter: blur(3px);
+	-webkit-filter: blur(3px);
+	position: absolute;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+}
+
+.app {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	box-sizing: border-box;
+	margin: 0px;
+	height: 100%;
+	position: relative;
+}
+
+.backdrop {
+	object-fit: cover;
+}
+
+.headline-2 {
+	font-weight: bold;
+}
+
+.main {
+	display: flex;
+	/* align-items: center; */
+	padding: 12vh 150px;
+	/* padding-bottom: 350px; */
+	justify-content: space-between;
+	z-index: 10;
+}
+
+.main-right {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* background: red; */
+}
+.main-right > div {
+	font-size: 1.7vw;
+	color: white;
+	display: flex;
+	margin-top: 10px;
+}
+.main-right > div > img {
+	width: 1.8vw;
+	margin-right: 15px;
+	object-fit: contain;
+}
+
+.date-time {
+	height: 100px;
+	color: white;
+	font-weight: 900;
+}
+
+.date-time > div:nth-of-type(1) {
+	font-weight: 500;
+	font-size: 1.8vw;
+}
+
+.date-icon {
+	width: 12vw;
+	margin-top: 20px;
+}
+
+.degrees {
+	font-size: 7vw;
+	font-weight: 400;
+	display: flex;
+}
+/* 
+.degrees > div {
+	font-size: 4vw;
+} */
+
+.city {
+	font-size: 2vw;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+}
+
+.footer-icon-cntr {
+	position: relative;
+	display: grid;
+	place-items: center;
+	margin-bottom: 15px;
+}
+.footer-icon-cntr > p {
+	color: white;
+	font-size: 10px;
+	margin-left: 15px;
+}
+.footer-icon-cntr > img {
+	width: 60px;
+	object-fit: contain;
+}
+.footer-icon-cntr > div {
+	font-size: 1.5vw;
+	/* font-weight: bold; */
+	color: white;
+	position: absolute;
+	display: flex;
+	/* right: 22; */
+}
+
+.footer-backdrop {
+	background: asset_url("img/blur.png");
+	background-size: cover;
+	/* background-size: contain; */
+	height: 150px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+
+#first {
+	top: -60;
+	left: 10;
+}
+
+#second {
+	top: -70;
+	left: 20;
+}
+
+#third {
+	top: -82;
+	/* left: 40; */
+}
+
+#fourth {
+	top: -95;
+	/* left: 40; */
+}
+
+#fifth {
+	top: -85;
+	/* left: 40; */
+}
+
+#sixth {
+	top: -75;
+}
+
+#seventh {
+	top: -75;
+}
+
+#eighth {
+	top: -55;
+}
+
+#nineth {
+	top: -48;
+}
