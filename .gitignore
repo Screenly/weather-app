@@ -1,22 +1,12 @@
-#Translations
-*.mo
-
-#Mr Developer
-.mr.developer.cfg
-
-# Emacs
-.#*
-
-# VIM
-*.swp
-*.swo
+dist
+node_modules
+worker
+package-lock.json
+yarn.lock
+.cargo-ok
 
 .DS_Store
+**/.DS_Store
 
-_gulp-version
-
-# Jekyll ignore
-_site/
-.sass-cache/
-.asset-cache/
-.jekyll-metadata
+# Output of 'npm pack'
+*.tgz

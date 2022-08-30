@@ -1,14 +1,58 @@
-# Screenly Weather App
+# Hono minimal project
 
-Screenly app for displaying weather data on screen.
+This is a minimal project with [Hono](https://github.com/honojs/hono/) for Cloudflare Workers.
 
-## Requirements
+## Features
 
-* Docker
-* Docker Compose
+- Minimal
+- TypeScript
+- Wrangler to develop and deploy.
+- [Jest](https://jestjs.io/ja/) for testing.
 
-## Install
+## Usage
 
-* Clone the repository
-* Open terminal on project root and run `docker-compose up`
-* Navigate to http://localhost:8080
+Initialize
+
+```
+npx create-cloudflare my-app https://github.com/honojs/hono-minimal
+```
+
+Install
+
+```
+yarn install
+```
+
+Develop
+
+```
+yarn dev
+```
+
+Test
+
+```
+yarn test
+```
+
+Deploy
+
+```
+yarn deploy
+```
+
+## Examples
+
+See: <https://github.com/honojs/examples>
+
+## For more information
+
+See: <https://honojs.dev>
+
+## Author
+
+Yusuke Wada <https://github.com/yusukebe>
+
+## License
+
+MIT

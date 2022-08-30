@@ -1,0 +1,13 @@
+name="screenly-weather-app"
+main="src/index.tsx"
+
+compatibility_date = "2022-07-18"
+
+[site]
+bucket = "./assets"
+
+[dev]
+port = 8888
+
+[env.dev]
+
