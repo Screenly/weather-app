@@ -99,7 +99,7 @@
   const formatDate = (dateObj) => {
     const date = String(dateObj.getDate()).padStart(2, '0')
     const month = getMonthString(dateObj.getMonth())
-    const day = getDayString(dateObj.getDay())
+    const day = window.innerWidth >= 480 ? getDayString(dateObj.getDay()) : getDayString(dateObj.getDay()).substring(0,3)
 
     return `${day}, ${month} ${date}`
   };
