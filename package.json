@@ -5,8 +5,8 @@
   "main": "src/index.tsx",
   "scripts": {
     "test": "jest --verbose",
-    "dev": "wrangler dev src/index.tsx --env dev",
-    "deploy": "wrangler publish src/index.tsx"
+    "dev": "wrangler dev",
+    "deploy": "wrangler publish --env=dev"
   },
   "license": "MIT",
   "dependencies": {

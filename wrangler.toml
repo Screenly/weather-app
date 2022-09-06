@@ -1,7 +1,7 @@
 name="screenly-weather-app"
 main="src/index.tsx"
-
 compatibility_date = "2022-07-18"
+workers_dev = true
 
 [site]
 bucket = "./assets"
@@ -10,8 +10,16 @@ bucket = "./assets"
 port = 8888
 
 [env.dev]
+workers_dev = true
 
 [env.stage]
+workers_dev = false
+route = "https://stage.weather.srly.io/"
+
 
 [env.production]
+workers_dev = false
+route = "https://weather.srly.io/"
+
+
 

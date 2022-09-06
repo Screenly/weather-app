@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { cache } from 'hono/cache'
 import { logger } from 'hono/logger'
 import { serveStatic } from 'hono/serve-static.module'
 import { jsx } from 'hono/jsx'
@@ -10,7 +11,6 @@ import { trimCoordinates } from './utils'
 const app = new Hono()
 
 app.use('*', logger())
-
 app.use('/static/*', serveStatic({ root: './' }))
 
 app.get('/', (c) => {
@@ -21,6 +21,7 @@ app.get('/', (c) => {
   return c.html(<App {...coordinates} />)
 })
 
+app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=7200' }))
 app.route('/api/weather', weather)
 
 export default app

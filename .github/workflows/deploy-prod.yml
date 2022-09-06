@@ -4,7 +4,7 @@ name: Deploy Prod
 on:
   push:
     branches:
-      - main
+      - production
 
 jobs:
   deploy:
@@ -21,4 +21,4 @@ jobs:
             OPEN_WEATHER_API_KEY
           command: publish --env production
         env:
-          OPEN_WEATHER_API_KEY: ${{ secrets.OPEN_WEATHER_API_KEY }}
+          OPEN_WEATHER_API_KEY: ${{ secrets.OPEN_WEATHER_API_KEY_PRODUCTION }}

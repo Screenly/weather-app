@@ -3,6 +3,7 @@
   let weatherTimer
   let refreshTimer
   let tz
+  let currentWeatherId
 
   const assetsPath = '/static'
   const imagesPath = `${assetsPath}/images`
@@ -39,52 +40,74 @@
   const updateAttribute = (id, attr, val) => document.querySelector(`#${id}`).setAttribute(attr, val)
 
   const loadImage = (img) => {
-    const src = `${imagesPath}/${img}`
-    const image = new Image()
-    image.addEventListener('load', () => {
-      document.body.style.backgroundImage = `url(${src})`
+    const lowResImgSrc = `${imagesPath}/${img}-low.jpg`
+    const highResImgSrc = `${imagesPath}/${img}.jpg`
+
+    const lowResImage = new Image()
+    const highResImage = new Image()
+
+    lowResImage.addEventListener('load', () => {
+      document.body.style.backgroundImage = `url(${lowResImgSrc})`
     })
-    image.src = src
+
+    highResImage.addEventListener('load', () => {
+      document.body.style.backgroundImage = `url(${highResImgSrc})`
+    })
+
+    lowResImage.src = lowResImgSrc
+    highResImage.src = highResImgSrc
   }
 
-  const getBackgroundByWeatherId = (id) => {
-    loadImage('bg-nt-clear.jpg')
-  }
-
-  const getWeatherIconById = (id = 800, dt) => {
+  const getWeatherImagesById = (id = 800, dt) => {
     // List of codes - https://openweathermap.org/weather-conditions
+    // To do - Refactor
     const isNight = checkIfNight(dt)
+    let icon;
+    let bg;
 
     if (id >= 200 && id <= 299) {
-      return !isNight ? 'tstorms' : 'nt_storm'
+      icon = 'thunderstorm'
+      bg = 'thunderstorm'
     }
 
     if (id >= 300 && id <= 399) {
-      return 'chancerain'
+      icon = 'drizzle'
+      bg = 'drizzle'
     }
 
     if (id >= 500 && id <= 599) {
-      return !isNight ? 'rain' : 'nt_rain'
+      icon = 'rain'
+      bg = 'rain'
     }
 
     if (id >= 600 && id <= 699) {
-      return 'chancesnow'
+      icon = 'snow'
+      bg = 'snow'
     }
 
     if (id >= 700 && id <= 799) {
-      return 'hazy'
+      // To do - Handle all 7xx cases
+      icon = 'hazy'
     }
 
     if (id === 800) {
-      return !isNight ? 'clear' : 'nt_clear'
+      icon = 'clear'
+      bg = 'clear'
     }
 
     if (id === 801) {
-      return !isNight ? 'mostlysunny' : 'nt_partlycloudy'
+      icon = 'partially-cloudy'
+      bg = 'cloudy'
     }
 
     if (id >= 802 && id <= 804) {
-      return !isNight ? 'mostlycloudy' : 'nt_mostlycloudy'
+      icon = 'mostly-cloudy'
+      bg = 'cloudy'
+    }
+
+    return {
+      icon: isNight ? `${icon}-night`: icon,
+      bg: isNight ? `${bg}-night`: bg,
     }
   }
 
@@ -132,8 +155,7 @@
     updateContent('city', name)
   }
 
-  const updateCurrentWeather = (dt, weatherId, desc, temp) => {
-    const icon = getWeatherIconById(weatherId, dt)
+  const updateCurrentWeather = (icon, desc, temp) => {
     updateAttribute('current-weather-icon', 'src', `${iconsPath}/${icon}.svg`)
     updateContent('current-weather-status', desc)
     updateContent('current-temp', Math.round(temp))
@@ -158,7 +180,13 @@
 
     if (Array.isArray(weather) && weather.length > 0) {
       const { id, description } = weather[0]
-      updateCurrentWeather(dt, id, description, temp)
+      const { icon, bg } = getWeatherImagesById(id, dt)
+      if (id !== currentWeatherId) {
+        loadImage(bg)
+      }
+  
+      updateCurrentWeather(icon, description, temp)
+      currentWeatherId = id
     }
 
     const weatherListContainer = document.querySelector('#weather-item-list')
@@ -166,7 +194,7 @@
     list.slice(currentIndex, currentIndex + 5).forEach((item) => {
       const { dt, main: { temp }, weather } = item
 
-      const icon = getWeatherIconById(weather[0]?.id, dt)
+      const { icon } = getWeatherImagesById(weather[0]?.id, dt)
       const dateTime = getTimeByOffset(tz, dt)
 
       const dummyNode = document.querySelector('.dummy-node')
@@ -205,7 +233,7 @@
       const data = await response.json()
       updateData(data)
     } catch (e) {
-      console.log('--------e---', e)
+      console.log(e)
     }
   }
 
@@ -216,5 +244,4 @@
   }
 
   init()
-  loadImage('bg-nt-clear.jpg')
 })()
