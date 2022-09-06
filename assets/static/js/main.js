@@ -1,8 +1,8 @@
-(function() {
-  let clockTimer;
-  let weatherTimer;
-  let refreshTimer;
-  let tz;
+(function () {
+  let clockTimer
+  let weatherTimer
+  let refreshTimer
+  let tz
 
   const assetsPath = '/static'
   const imagesPath = `${assetsPath}/images`
@@ -13,17 +13,17 @@
   const getDayString = (day) => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     return days[day]
-  };
+  }
 
   const getMonthString = (month) => {
     const months = ['Jan', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     return months[month].slice(0, 3)
-  };
+  }
 
   const getTimeByOffset = (offsetinSecs, dt) => {
-    const now = dt? new Date(dt * 1000) : new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-    return new Date(utc + (offsetinSecs * 1000));
+    const now = dt ? new Date(dt * 1000) : new Date()
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60 * 1000)
+    return new Date(utc + (offsetinSecs * 1000))
   }
 
   const checkIfNight = (dt) => {
@@ -33,7 +33,9 @@
     return hrs <= 5 || hrs >= 20
   }
 
-  const updateContent = (id, text) => document.querySelector(`#${id}`).innerText = text
+  const updateContent = (id, text) => {
+    document.querySelector(`#${id}`).innerText = text
+  }
   const updateAttribute = (id, attr, val) => document.querySelector(`#${id}`).setAttribute(attr, val)
 
   const loadImage = (img) => {
@@ -53,11 +55,11 @@
     // List of codes - https://openweathermap.org/weather-conditions
     const isNight = checkIfNight(dt)
 
-    if (id >=200 && id <= 299) {
+    if (id >= 200 && id <= 299) {
       return !isNight ? 'tstorms' : 'nt_storm'
     }
 
-    if (id >=300 && id <= 399) {
+    if (id >= 300 && id <= 399) {
       return 'chancerain'
     }
 
@@ -65,11 +67,11 @@
       return !isNight ? 'rain' : 'nt_rain'
     }
 
-    if (id >=600 && id <= 699) {
+    if (id >= 600 && id <= 699) {
       return 'chancesnow'
     }
 
-    if (id >=700 && id <= 799) {
+    if (id >= 700 && id <= 799) {
       return 'hazy'
     }
 
@@ -94,25 +96,25 @@
     const mins = String(dateObj.getMinutes()).padStart(2, '0')
 
     return `${hours}:${mins}`
-  };
+  }
 
   const formatDate = (dateObj) => {
     const date = String(dateObj.getDate()).padStart(2, '0')
     const month = getMonthString(dateObj.getMonth())
-    const day = window.innerWidth >= 480 ? getDayString(dateObj.getDay()) : getDayString(dateObj.getDay()).substring(0,3)
+    const day = window.innerWidth >= 480 ? getDayString(dateObj.getDay()) : getDayString(dateObj.getDay()).substring(0, 3)
 
     return `${day}, ${month} ${date}`
-  };
+  }
 
   const initDateTime = (tzOffset) => {
     tz = tzOffset
     clearTimeout(clockTimer)
     const today = getTimeByOffset(tzOffset)
-    
+
     updateContent('time', formatTime(today))
     updateContent('date', formatDate(today))
 
-    clockTimer = setTimeout(() => initDateTime(tzOffset), 30000);
+    clockTimer = setTimeout(() => initDateTime(tzOffset), 30000)
   }
 
   const getLocation = () => {
@@ -135,10 +137,10 @@
     updateAttribute('current-weather-icon', 'src', `${iconsPath}/${icon}.svg`)
     updateContent('current-weather-status', desc)
     updateContent('current-temp', Math.round(temp))
-  };
+  }
 
   const findCurrentWeatherItem = (list) => {
-    const currentUTC = Math.round (new Date().getTime() / 1000)
+    const currentUTC = Math.round(new Date().getTime() / 1000)
     let itemIndex = 0
 
     while (itemIndex < list.length - 1 && list[itemIndex].dt < currentUTC) {
@@ -158,7 +160,7 @@
       const { id, description } = weather[0]
       updateCurrentWeather(dt, id, description, temp)
     }
-    
+
     const weatherListContainer = document.querySelector('#weather-item-list')
     const frag = document.createDocumentFragment()
     list.slice(currentIndex, currentIndex + 5).forEach((item) => {
@@ -175,21 +177,21 @@
       node.querySelector('.item-time').innerText = formatTime(dateTime)
 
       frag.appendChild(node)
-    });
+    })
 
     weatherListContainer.innerHTML = ''
     weatherListContainer.appendChild(frag)
     // Refresh weather from local list every 15 mins
-    weatherTimer = setTimeout(() => updateWeather(list), 15 * 60 * 1000);
+    weatherTimer = setTimeout(() => updateWeather(list), 15 * 60 * 1000)
   }
 
   const updateData = (data) => {
-    const { cnt, city: { name, timezone },  list } = data;
+    const { city: { name, timezone }, list } = data
 
     updateLocation(name)
     initDateTime(timezone)
     updateWeather(list)
-  };
+  }
 
   /**
    * Fetch weather
@@ -205,11 +207,11 @@
     } catch (e) {
       console.log('--------e---', e)
     }
-  };
+  }
 
   const init = () => {
     fetchWeather()
-  // Refresh weather from server every 2 hours
+    // Refresh weather from server every 2 hours
     refreshTimer = setTimeout(fetchWeather, 120 * 60 * 1000)
   }
 
