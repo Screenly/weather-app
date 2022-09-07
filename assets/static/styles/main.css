@@ -27,7 +27,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  font-family: "Barlow", sans-serif;
+  font-family: Barlow, sans-serif;
 }
 
 body::before {
@@ -339,7 +339,7 @@ body::before {
   .header-item + .header-item {
     margin-left: 0;
   }
-  
+
   .header-item img {
     width: 0.9rem;
   }
@@ -403,7 +403,7 @@ body::before {
   .header-item + .header-item {
     margin-left: 2rem;
   }
-  
+
   .header-item img {
     width: 1.2rem;
   }

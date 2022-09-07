@@ -1,58 +1,39 @@
-# Hono minimal project
+# Screenly Weather App
 
-This is a minimal project with [Hono](https://github.com/honojs/hono/) for Cloudflare Workers.
+This app has been built with [Hono](https://github.com/honojs/hono/) for Cloudflare Workers.
 
-## Features
+## Requirements
 
-- Minimal
-- TypeScript
-- Wrangler to develop and deploy.
-- [Jest](https://jestjs.io/ja/) for testing.
+Install [Wrangler](https://developers.cloudflare.com/workers/wrangler/)
 
-## Usage
-
-Initialize
-
-```
-npx create-cloudflare my-app https://github.com/honojs/hono-minimal
+```bash
+npm install -g wrangler
 ```
 
-Install
+Login to Cloudflare
 
-```
-yarn install
-```
-
-Develop
-
-```
-yarn dev
+```bash
+wrangler login
 ```
 
-Test
+## Scripts
 
+Run the project in dev mode
+
+```bash
+wrangler dev
+
+or
+
+npm run dev
 ```
-yarn test
+
+Publish worker
+
+```bash
+wrangler publish --env [environment name]
+
+or
+
+npm run deploy // Deploy to dev env
 ```
-
-Deploy
-
-```
-yarn deploy
-```
-
-## Examples
-
-See: <https://github.com/honojs/examples>
-
-## For more information
-
-See: <https://honojs.dev>
-
-## Author
-
-Yusuke Wada <https://github.com/yusukebe>
-
-## License
-
-MIT

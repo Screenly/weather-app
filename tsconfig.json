@@ -3,5 +3,8 @@
     "jsx": "react",
     "jsxFactory": "jsx",
     "jsxFragmentFactory": "Fragment"
-  }
+  },
+  "include": [
+    "src"
+  ]
 }
