@@ -62,8 +62,8 @@
     // List of codes - https://openweathermap.org/weather-conditions
     // To do - Refactor
     const isNight = checkIfNight(dt)
-    let icon;
-    let bg;
+    let icon
+    let bg
 
     if (id >= 200 && id <= 299) {
       icon = 'thunderstorm'
@@ -106,8 +106,8 @@
     }
 
     return {
-      icon: isNight ? `${icon}-night`: icon,
-      bg: isNight ? `${bg}-night`: bg,
+      icon: isNight ? `${icon}-night` : icon,
+      bg: isNight ? `${bg}-night` : bg
     }
   }
 
@@ -184,7 +184,7 @@
       if (id !== currentWeatherId) {
         loadImage(bg)
       }
-  
+
       updateCurrentWeather(icon, description, temp)
       currentWeatherId = id
     }

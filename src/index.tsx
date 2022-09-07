@@ -6,7 +6,7 @@ import { jsx } from 'hono/jsx'
 import App from './components/App'
 import weather from './routes/weather'
 import { locationHeaders, locationQueryParams, defaultLocation } from './constants'
-import { trimCoordinates } from './utils'
+import { trimCoordinates } from './utils/utils'
 
 const app = new Hono()
 
