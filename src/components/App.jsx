@@ -3,7 +3,7 @@ import Layout from './Layout'
 import Header from './Header'
 import Footer from './Footer'
 
-const App = (props: { lat: string, lng: string }) => (
+const App = (props) => (
   <Layout>
     <div class='content'>
       <Header />

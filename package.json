@@ -2,7 +2,7 @@
   "name": "screenly-weather-app",
   "private": true,
   "version": "0.0.1",
-  "main": "src/index.tsx",
+  "main": "src/index.jsx",
   "scripts": {
     "test": "jest --verbose",
     "dev": "wrangler dev",

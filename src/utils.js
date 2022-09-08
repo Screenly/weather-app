@@ -1,4 +1,4 @@
-export const trimCoordinates = (location: { lat: string, lng: string }): { lat: string, lng: string } => {
+export const trimCoordinates = (location) => {
   const { lat, lng } = location
   return {
     lat: parseFloat(lat).toFixed(2),
