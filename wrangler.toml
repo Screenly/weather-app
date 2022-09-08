@@ -14,7 +14,7 @@ workers_dev = true
 
 [env.stage]
 workers_dev = false
-route = "https://stage.weather.srly.io/"
+route = "http://stage-weather.srly.io"
 
 
 [env.production]

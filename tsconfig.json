@@ -5,6 +5,6 @@
     "jsxFragmentFactory": "Fragment"
   },
   "include": [
-    "src"
+    "src/**/*"
   ]
 }
