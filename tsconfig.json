@@ -2,7 +2,8 @@
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "jsx",
-    "jsxFragmentFactory": "Fragment"
+    "jsxFragmentFactory": "Fragment",
+    "strictNullChecks": true
   },
   "include": [
     "./src/**/*"

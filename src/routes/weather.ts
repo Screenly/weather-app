@@ -14,12 +14,11 @@ weather.get('/', async (c) => {
     return c.json(json)
   } catch (e) {
     // To do - Handle error
-    console.log(e);
+    console.log(e)
     return c.json({
       error: true
     })
   }
-  
 })
 
 export default weather
