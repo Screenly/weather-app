@@ -58,7 +58,7 @@
     highResImage.src = highResImgSrc
   }
 
-  const checkIfInRange = (ranges, code) => ranges.reduce((acc, range) => acc || ( code >= range[0] && code <= range[1] ))
+  const checkIfInRange = (ranges, code) => ranges.reduce((acc, range) => acc || (code >= range[0] && code <= range[1]))
 
   const getWeatherImagesById = (id = 800, dt) => {
     // List of codes - https://openweathermap.org/weather-conditions
