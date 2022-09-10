@@ -58,7 +58,7 @@
     highResImage.src = highResImgSrc
   }
 
-  const checkIfInRange = (ranges, code) => ranges.reduce((acc, range) => acc || code >= range[0] && code <= range[1])
+  const checkIfInRange = (ranges, code) => ranges.reduce((acc, range) => acc || ( code >= range[0] && code <= range[1] ))
 
   const getWeatherImagesById = (id = 800, dt) => {
     // List of codes - https://openweathermap.org/weather-conditions
@@ -93,18 +93,18 @@
       icon = 'haze'
 
       if (id === 701 || id === 721 || id === 741) {
-        bg = "haze"
+        bg = 'haze'
       } else if (id === 711) {
-        bg = "smoke"
+        bg = 'smoke'
       } else if (id === 731 || id === 751 || id === 761) {
-        bg = "sand"
+        bg = 'sand'
       } else if (id === 762) {
-        bg = "volcanic-ash"
+        bg = 'volcanic-ash'
       } else if (id === 771) {
         // To do - change image squall
-        bg = "volcanic-ash"
+        bg = 'volcanic-ash'
       } else if (id === 781) {
-        bg = "tornado"
+        bg = 'tornado'
       }
     }
 
