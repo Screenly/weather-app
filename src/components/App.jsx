@@ -9,6 +9,9 @@ const App = (props) => (
       <Header />
       <Footer />
     </div>
+    <div class="watermark">
+      <img src="/static/images/watermark.png" />
+    </div>
     <span id='location-data' data-location-lat={props.lat} data-location-lng={props.lng} />
   </Layout>
 )

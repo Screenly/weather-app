@@ -58,10 +58,13 @@
     highResImage.src = highResImgSrc
   }
 
+  const checkIfInRange = (ranges, code) => ranges.reduce((acc, range) => acc || code >= range[0] && code <= range[1])
+
   const getWeatherImagesById = (id = 800, dt) => {
     // List of codes - https://openweathermap.org/weather-conditions
     // To do - Refactor
     const isNight = checkIfNight(dt)
+    const hasNightBg = checkIfInRange([[200, 399], [500, 699], [800, 804]], id)
     let icon
     let bg
 
@@ -87,7 +90,22 @@
 
     if (id >= 700 && id <= 799) {
       // To do - Handle all 7xx cases
-      icon = 'hazy'
+      icon = 'haze'
+
+      if (id === 701 || id === 721 || id === 741) {
+        bg = "haze"
+      } else if (id === 711) {
+        bg = "smoke"
+      } else if (id === 731 || id === 751 || id === 761) {
+        bg = "sand"
+      } else if (id === 762) {
+        bg = "volcanic-ash"
+      } else if (id === 771) {
+        // To do - change image squall
+        bg = "volcanic-ash"
+      } else if (id === 781) {
+        bg = "tornado"
+      }
     }
 
     if (id === 800) {
@@ -107,7 +125,7 @@
 
     return {
       icon: isNight ? `${icon}-night` : icon,
-      bg: isNight ? `${bg}-night` : bg
+      bg: isNight && hasNightBg ? `${bg}-night` : bg
     }
   }
 

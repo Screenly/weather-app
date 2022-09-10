@@ -47,6 +47,7 @@ body::before {
   justify-content: space-between;
   position: relative;
   height: 100%;
+  z-index: 99;
 }
 
 .header {
@@ -101,6 +102,20 @@ body::before {
   justify-content: center;
   align-items: center;
   row-gap: 0.5rem;
+}
+
+.watermark {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  max-height: 100%;
+  opacity: 0.1;
+  overflow: hidden;
+}
+
+.watermark img {
+  height: 100%;
 }
 
 @media screen and (min-width: 800px) {
