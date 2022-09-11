@@ -21,7 +21,7 @@ app.get('/', (c) => {
   return c.html(<App {...coordinates} />)
 })
 
-app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=7200' }))
+app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))
 app.route('/api/weather', weather)
 
 export default app
