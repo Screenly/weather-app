@@ -14,12 +14,8 @@ workers_dev = true
 
 [env.stage]
 workers_dev = false
-route = "stage-weather.srly.io/*"
-
+route = { pattern = "stage-weather.srly.io", custom_domain = true }
 
 [env.production]
 workers_dev = false
-route = "weather.srly.io/*"
-
-
-
+route = { pattern = "weather.srly.io", custom_domain = true }
