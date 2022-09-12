@@ -13,9 +13,6 @@ const App = (props) => {
         <Header />
         <Footer />
       </div>
-      <div class="watermark">
-        <img src="/static/images/watermark.png" />
-      </div>
       <span id='location-data' data-location-lat={lat} data-location-lng={lng} />
     </Layout>
   )
