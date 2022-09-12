@@ -18,7 +18,8 @@ app.get('/', (c) => {
   const lng = c.req.header(locationHeaders.lng) || c.req.query(locationQueryParams.lng) || defaultLocation.lng
 
   const coordinates = trimCoordinates({ lat, lng })
-  return c.html(<App {...coordinates} />)
+  const env = c.env.ENV
+  return c.html(<App {...coordinates} env={env} />)
 })
 
 app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))
