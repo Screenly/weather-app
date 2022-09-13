@@ -25,20 +25,10 @@ body {
   background-color: gray;
   background-position: center;
   background-repeat: no-repeat;
+  background-image: url("/static/images/bg/default-min.jpg");
   background-size: cover;
   color: #fff;
   font-family: Barlow, sans-serif;
-}
-
-body::before {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0 0 0 / 40%);
 }
 
 .content {

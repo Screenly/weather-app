@@ -8,6 +8,10 @@ const Layout = (props) => html`<!DOCTYPE html>
       <link rel="preload" href="/static/fonts/Barlow-Regular.woff" as="font" />
       <link rel="stylesheet" href="/static/styles/main.css" />
       <script src="/static/js/main.js" async defer></script>
+      <script
+        src="https://js.sentry-cdn.com/${props.sentryId}.min.js"
+        crossorigin="anonymous"
+      ></script>
     </head>
     <body>
       ${props.children}
