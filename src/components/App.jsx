@@ -2,13 +2,14 @@ import { jsx } from 'hono/jsx'
 import Layout from './Layout'
 import Header from './Header'
 import Footer from './Footer'
-import { sentryIds } from '../constants'
+import { sentryIds, gaIds } from '../constants'
 
 const App = (props) => {
   const { env, lat, lng } = props
   const sentryId = sentryIds[env]
+  const gaId = gaIds[env]
   return (
-    <Layout sentryId={sentryId}>
+    <Layout sentryId={sentryId} gaId={gaId}>
       <div class='content'>
         <Header />
         <Footer />
