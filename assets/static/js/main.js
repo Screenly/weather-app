@@ -12,7 +12,7 @@
    * Utility Functions
    */
   const generateAnalyticsEvent = (name, payload) => {
-    typeof gtag !== 'undefined' && gtag('event', name, payload)
+    typeof gtag !== 'undefined' && gtag('event', name, payload) // eslint-disable-line no-undef
   }
 
   const getDayString = (day) => {
@@ -257,10 +257,10 @@
       const data = await response.json()
       updateData(data)
       generateAnalyticsEvent('cache_status', {
-        'app_name': 'Screenly Weather App',
-        'cached': isCacheHit,
-        'lat': lat,
-        'lng': lng
+        app_name: 'Screenly Weather App',
+        cached: isCacheHit,
+        lat,
+        lng
       })
     } catch (e) {
       console.log(e)
