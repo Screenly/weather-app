@@ -5,9 +5,9 @@
   let tz
   let currentWeatherId
 
-  const assetsPath = '/static'
-  const imagesPath = `${assetsPath}/images`
-  const iconsPath = `${assetsPath}/images/icons`
+  const imagesPath = '/static/images'
+  const iconsPath = `${imagesPath}/icons`
+  const bgPath = `${imagesPath}/bg`
   /**
    * Utility Functions
    */
@@ -39,9 +39,9 @@
   }
   const updateAttribute = (id, attr, val) => document.querySelector(`#${id}`).setAttribute(attr, val)
 
-  const loadImage = (img) => {
-    const lowResImgSrc = `${imagesPath}/${img}-low.jpg`
-    const highResImgSrc = `${imagesPath}/${img}.jpg`
+  const loadImage = (img = 'default') => {
+    const lowResImgSrc = `${bgPath}/${img}-min.jpg`
+    const highResImgSrc = `${bgPath}/${img}.jpg`
 
     const lowResImage = new Image()
     const highResImage = new Image()
