@@ -11,6 +11,10 @@
   /**
    * Utility Functions
    */
+  const generateAnalyticsEvent = (name, payload) => {
+    typeof gtag !== 'undefined' && gtag('event', name, payload) // eslint-disable-line no-undef
+  }
+
   const getDayString = (day) => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     return days[day]
@@ -37,6 +41,7 @@
   const updateContent = (id, text) => {
     document.querySelector(`#${id}`).innerText = text
   }
+
   const updateAttribute = (id, attr, val) => document.querySelector(`#${id}`).setAttribute(attr, val)
 
   const loadImage = (img = 'default') => {
@@ -248,8 +253,15 @@
     try {
       const { lat, lng } = getLocation()
       const response = await fetch(`/api/weather?lat=${lat}&lng=${lng}`)
+      const isCacheHit = response.headers.get('cf-cache-status') === 'HIT'
       const data = await response.json()
       updateData(data)
+      generateAnalyticsEvent('cache_status', {
+        app_name: 'Screenly Weather App',
+        cached: isCacheHit,
+        lat,
+        lng
+      })
     } catch (e) {
       console.log(e)
     }
