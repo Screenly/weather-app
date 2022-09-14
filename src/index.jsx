@@ -13,15 +13,45 @@ const app = new Hono()
 app.use('*', logger())
 app.use('/static/*', serveStatic({ root: './' }))
 
-app.get('/', (c) => {
-  const lat = c.req.header(locationHeaders.lat) || c.req.query(locationQueryParams.lat) || defaultLocation.lat
-  const lng = c.req.header(locationHeaders.lng) || c.req.query(locationQueryParams.lng) || defaultLocation.lng
-  const userAgent = c.req.header('user-agent')
-  const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
+app.get('/', async (c) => {
+  const qLat = c.req.query(locationQueryParams.lat)
+  const qLng = c.req.query(locationQueryParams.lng)
 
-  const coordinates = trimCoordinates({ lat, lng })
-  const env = c.env.ENV
-  return c.html(<App {...coordinates} env={env} showCTA={!isScreenlyViewerReq} />)
+  if (!(qLat || qLng)) {
+    const lat = c.req.header(locationHeaders.lat) || defaultLocation.lat
+    const lng = c.req.header(locationHeaders.lng) || defaultLocation.lng
+    const coordinates = trimCoordinates({ lat, lng })
+    //const userAgent = c.req.header('user-agent')
+    //const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
+
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: `${c.req.url}?lat=${coordinates.lat}&lng=${coordinates.lng}`
+      },
+    })
+  } else {
+    const cache = caches.default
+    const key = c.req
+    let response = await cache.match(key)
+
+    if (!response) {
+      console.log("-----cache miss-----", JSON.stringify(c.req))
+      const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
+      const env = c.env.ENV
+      response = new Response(<App {...coordinates} env={env} showCTA={false} />, {
+        status: 200,
+        headers: {
+          'Cache-Control': 's-maxage=43200',
+          'Content-Type': 'text/html; charset=UTF-8'
+        }
+      })
+
+      c.executionCtx.waitUntil(cache.put(key, response.clone()))
+    }
+
+    return response
+  }
 })
 
 app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))
