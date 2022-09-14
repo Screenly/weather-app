@@ -51,9 +51,15 @@ body::before {
 
 .header {
   display: flex;
+  justify-content: space-between;
 }
 
-.header-item {
+.location {
+  display: flex;
+  flex: 1;
+}
+
+.location-item {
   display: flex;
   column-gap: 10px;
   justify-content: center;
@@ -61,12 +67,26 @@ body::before {
   max-width: fit-content;
 }
 
-.header-item + .header-item {
+.location-item + .location-item {
   margin-left: 2rem;
 }
 
-.header-item img {
+.location-item img {
   width: 0.9rem;
+}
+
+.upgrade-banner {
+  background: #7732b7;
+  border-radius: 60px;
+  color: #fff;
+  font-size: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.hidden {
+  display: none;
 }
 
 .footer {
@@ -108,7 +128,7 @@ body::before {
     padding: 4rem;
   }
 
-  .header {
+  .location {
     font-size: 0.875rem;
   }
 
@@ -152,8 +172,13 @@ body::before {
     padding: 3.3rem;
   }
 
-  .header {
+  .location {
     font-size: 0.75rem;
+  }
+
+  .upgrade-banner {
+    font-size: 16px;
+    padding: 10px 30px;
   }
 
   .weather-condition {
@@ -195,8 +220,12 @@ body::before {
     padding: 2.25rem;
   }
 
-  .header {
+  .location {
     font-size: 0.6rem;
+  }
+
+  .upgrade-banner {
+    font-size: 24px;
   }
 
   .weather-condition {
@@ -238,8 +267,12 @@ body::before {
     padding: 3.125rem;
   }
 
-  .header {
+  .location {
     font-size: 0.66rem;
+  }
+
+  .upgrade-banner {
+    font-size: 32px;
   }
 
   .weather-condition {
@@ -281,8 +314,12 @@ body::before {
     padding: 3.125rem;
   }
 
-  .header {
+  .location {
     font-size: 0.75rem;
+  }
+
+  .upgrade-banner {
+    font-size: 48px;
   }
 
   .weather-condition {
@@ -321,27 +358,38 @@ body::before {
   }
 
   .content {
-    padding: 3.5rem 1.1rem 1.1rem;
+    padding: 1rem 1.1rem 1.1rem;
   }
 
   .header {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .location {
     flex-direction: column;
     row-gap: 0.3rem;
     font-size: 0.9rem;
     column-gap: 0.3rem;
     justify-content: center;
+    margin-top: 1.2rem;
+    width: 100%;
   }
 
-  .header-item {
+  .location-item {
     column-gap: 5px;
   }
 
-  .header-item + .header-item {
+  .location-item + .location-item {
     margin-left: 0;
   }
 
-  .header-item img {
+  .location-item img {
     width: 0.9rem;
+  }
+
+  .upgrade-banner {
+    font-size: 0.6rem;
   }
 
   .weather-condition {
@@ -387,24 +435,25 @@ body::before {
   }
 
   .content {
-    padding: 5.5rem 2.5rem 2.5rem;
+    padding: 2rem 2.5rem 2.5rem;
   }
 
-  .header {
+  .location {
     flex-direction: row;
     font-size: 0.875rem;
     column-gap: 0.5rem;
+    margin-top: 1.6rem;
   }
 
-  .header-item {
+  .location-item {
     column-gap: 10px;
   }
 
-  .header-item + .header-item {
+  .location-item + .location-item {
     margin-left: 2rem;
   }
 
-  .header-item img {
+  .location-item img {
     width: 1.2rem;
   }
 
@@ -445,10 +494,10 @@ body::before {
   }
 
   .content {
-    padding: 5.83rem 2.7rem 2.7rem;
+    padding: 2.66rem 2.7rem 2.7rem;
   }
 
-  .header {
+  .location {
     font-size: 0.875rem;
   }
 
@@ -489,14 +538,14 @@ body::before {
   }
 
   .content {
-    padding: 6rem 2.1rem 2.1rem;
+    padding: 3.25rem 2.1rem 2.1rem;
   }
 
-  .header {
+  .location {
     font-size: 0.9rem;
   }
 
-  .header-item + .header-item {
+  .location-item + .location-item {
     margin-left: 1rem;
   }
 
@@ -537,11 +586,12 @@ body::before {
   }
 
   .content {
-    padding: 6.5rem 2.66rem 2.66rem;
+    padding: 2.66rem;
   }
 
-  .header {
+  .location {
     font-size: 0.66rem;
+    margin-top: 1.8rem;
   }
 
   .weather-condition {
@@ -581,14 +631,15 @@ body::before {
   }
 
   .content {
-    padding: 5.5rem 2.5rem 2.5rem;
+    padding: 3.24rem 2.5rem 2.5rem;
   }
 
-  .header {
+  .location {
     font-size: 0.9rem;
+    margin-top: 1.42rem;
   }
 
-  .header-item {
+  .location-item {
     column-gap: 20px;
   }
 

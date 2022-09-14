@@ -6,7 +6,7 @@ import Footer from './Footer'
 const App = (props) => (
   <Layout>
     <div class='content'>
-      <Header />
+      <Header showCTA={props.showCTA} />
       <Footer />
     </div>
     <span id='location-data' data-location-lat={props.lat} data-location-lng={props.lng} />
