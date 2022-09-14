@@ -1,22 +1,39 @@
-# Screenly Weather Cast App
+# Screenly Weather App
 
-## Description
-
-Screenly app for weather forecast.
+This app has been built with [Hono](https://github.com/honojs/hono/) for Cloudflare Workers.
 
 ## Requirements
 
-* Docker
-* Docker Compose
+Install [Wrangler](https://developers.cloudflare.com/workers/wrangler/)
 
-## Installation
-
-* Clone or download repository.
-* Run `docker-compose up`
-* Navigate to localhost:8080
-
-## Deploying
-
+```bash
+npm install -g wrangler
 ```
-./bin/deploy.sh
+
+Login to Cloudflare
+
+```bash
+wrangler login
+```
+
+## Scripts
+
+Run the project in dev mode
+
+```bash
+wrangler dev
+
+or
+
+npm run dev
+```
+
+Publish worker
+
+```bash
+wrangler publish --env [environment name]
+
+or
+
+npm run deploy // Deploy to dev env
 ```
