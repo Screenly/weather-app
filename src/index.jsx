@@ -13,31 +13,47 @@ const app = new Hono()
 app.use('*', logger())
 app.use('/static/*', serveStatic({ root: './' }))
 
-app.get('/', (c) => {
+app.get('/', async (c) => {
   const qLat = c.req.query(locationQueryParams.lat)
   const qLng = c.req.query(locationQueryParams.lng)
 
   if (!(qLat || qLng)) {
     const lat = c.req.header(locationHeaders.lat) || defaultLocation.lat
     const lng = c.req.header(locationHeaders.lng) || defaultLocation.lng
-
+    const coordinates = trimCoordinates({ lat, lng })
     //const userAgent = c.req.header('user-agent')
     //const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
 
     return new Response(null, {
       status: 301,
       headers: {
-        Location: `${c.req.url}?lat=${lat}&lng=${lng}`
+        Location: `${c.req.url}?lat=${coordinates.lat}&lng=${coordinates.lng}`
       },
     })
   } else {
-    const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
-    const env = c.env.ENV
-    return c.html(<App {...coordinates} env={env} showCTA={false} />)
+    const cache = caches.default
+    const key = c.req
+    let response = await cache.match(key)
+
+    if (!response) {
+      console.log("-----cache miss-----", JSON.stringify(c.req))
+      const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
+      const env = c.env.ENV
+      response = new Response(<App {...coordinates} env={env} showCTA={false} />, {
+        status: 200,
+        headers: {
+          'Cache-Control': 's-maxage=43200',
+          'Content-Type': 'text/html; charset=UTF-8'
+        }
+      })
+
+      c.executionCtx.waitUntil(cache.put(key, response.clone()))
+    }
+
+    return response
   }
 })
 
-app.get('/?lat=*&lng=*', cache({ cacheName: 'default', cacheControl: 's-maxage=43200' }))
 app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))
 app.route('/api/weather', weather)
 
