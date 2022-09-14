@@ -14,16 +14,30 @@ app.use('*', logger())
 app.use('/static/*', serveStatic({ root: './' }))
 
 app.get('/', (c) => {
-  const lat = c.req.header(locationHeaders.lat) || c.req.query(locationQueryParams.lat) || defaultLocation.lat
-  const lng = c.req.header(locationHeaders.lng) || c.req.query(locationQueryParams.lng) || defaultLocation.lng
-  const userAgent = c.req.header('user-agent')
-  const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
+  const qLat = c.req.query(locationQueryParams.lat)
+  const qLng = c.req.query(locationQueryParams.lng)
 
-  const coordinates = trimCoordinates({ lat, lng })
-  const env = c.env.ENV
-  return c.html(<App {...coordinates} env={env} showCTA={!isScreenlyViewerReq} />)
+  if (!(qLat || qLng)) {
+    const lat = c.req.header(locationHeaders.lat) || defaultLocation.lat
+    const lng = c.req.header(locationHeaders.lng) || defaultLocation.lng
+
+    //const userAgent = c.req.header('user-agent')
+    //const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
+
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: `${c.req.url}?lat=${lat}&lng=${lng}`
+      },
+    })
+  } else {
+    const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
+    const env = c.env.ENV
+    return c.html(<App {...coordinates} env={env} showCTA={false} />)
+  }
 })
 
+app.get('/?lat=*&lng=*', cache({ cacheName: 'default', cacheControl: 's-maxage=43200' }))
 app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))
 app.route('/api/weather', weather)
 
