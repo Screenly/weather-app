@@ -27,6 +27,7 @@ app.get('/', async (c) => {
     return new Response(null, {
       status: 301,
       headers: {
+        'Cache-Control': 'no-cache',
         Location: `${c.req.url}?lat=${coordinates.lat}&lng=${coordinates.lng}`
       },
     })
