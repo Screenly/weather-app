@@ -18,8 +18,8 @@ const Header = ({ showCTA }) => html`
         <span id="date"></span>
       </span>
     </div>
-    <a href="https://screenly.io/apps/weather" target="_blank" class="upgrade-banner ${!showCTA ? 'hidden' : ''}">
-      Upgrade to the new app at Screenly.io/apps/weather
+    <a href="https://screenly.io" target="_blank" class="upgrade-banner ${!showCTA ? 'hidden' : ''}">
+      For a simple and secure display solution, visit Screenly.io
     </a>
   </section>
   `
