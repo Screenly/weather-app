@@ -16,10 +16,12 @@ app.use('/static/*', serveStatic({ root: './' }))
 app.get('/', (c) => {
   const lat = c.req.header(locationHeaders.lat) || c.req.query(locationQueryParams.lat) || defaultLocation.lat
   const lng = c.req.header(locationHeaders.lng) || c.req.query(locationQueryParams.lng) || defaultLocation.lng
+  const userAgent = c.req.header('user-agent')
+  const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
 
   const coordinates = trimCoordinates({ lat, lng })
   const env = c.env.ENV
-  return c.html(<App {...coordinates} env={env} />)
+  return c.html(<App {...coordinates} env={env} showCTA={!isScreenlyViewerReq} />)
 })
 
 app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))

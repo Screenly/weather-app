@@ -1,21 +1,26 @@
 import { html } from 'hono/html'
 
-const Header = () => html`
+const Header = ({ showCTA }) => html`
   <section class="header">
-    <span class="header-item">
-      <img src="/static/images/icons/map-pin.svg" />
-      <span id="city"></span>
-    </span>
+    <div class="location">
+      <span class="location-item">
+        <img src="/static/images/icons/map-pin.svg" />
+        <span id="city"></span>
+      </span>
 
-    <span class="header-item">
-      <img src="/static/images/icons/clock.svg" />
-      <span id="time"></span>
-    </span>
+      <span class="location-item">
+        <img src="/static/images/icons/clock.svg" />
+        <span id="time"></span>
+      </span>
 
-    <span class="header-item">
-      <img src="/static/images/icons/calendar.svg" />
-      <span id="date"></span>
-    </span>
+      <span class="location-item">
+        <img src="/static/images/icons/calendar.svg" />
+        <span id="date"></span>
+      </span>
+    </div>
+    <a href="https://screenly.io" target="_blank" class="upgrade-banner ${!showCTA ? 'hidden' : ''}">
+      For a simple and secure display solution, visit Screenly.io
+    </a>
   </section>
   `
 
