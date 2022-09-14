@@ -20,14 +20,14 @@ app.get('/', (c) => {
   if (!(qLat || qLng)) {
     const lat = c.req.header(locationHeaders.lat) || defaultLocation.lat
     const lng = c.req.header(locationHeaders.lng) || defaultLocation.lng
-
+    const coordinates = trimCoordinates({ lat, lng })
     //const userAgent = c.req.header('user-agent')
     //const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
 
     return new Response(null, {
       status: 301,
       headers: {
-        Location: `${c.req.url}?lat=${lat}&lng=${lng}`
+        Location: `${c.req.url}?lat=${coordinates.lat}&lng=${coordinates.lng}`
       },
     })
   } else {
@@ -37,7 +37,6 @@ app.get('/', (c) => {
   }
 })
 
-app.get('/?lat=*&lng=*', cache({ cacheName: 'default', cacheControl: 's-maxage=43200' }))
 app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))
 app.route('/api/weather', weather)
 
