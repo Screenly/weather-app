@@ -20,10 +20,11 @@ app.get('/', (c) => {
   const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
 
   const coordinates = trimCoordinates({ lat, lng })
-  return c.html(<App {...coordinates} showCTA={!isScreenlyViewerReq} />)
+  const env = c.env.ENV
+  return c.html(<App {...coordinates} env={env} showCTA={!isScreenlyViewerReq} />)
 })
 
-app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=7200' }))
+app.get('/api/weather/*', cache({ cacheName: 'default', cacheControl: 's-maxage=10800' }))
 app.route('/api/weather', weather)
 
 export default app

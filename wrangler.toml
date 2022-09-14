@@ -16,6 +16,12 @@ workers_dev = true
 workers_dev = false
 route = { pattern = "stage-weather.srly.io", custom_domain = true }
 
+[env.stage.vars]
+ENV = "stage"
+
 [env.production]
 workers_dev = false
 route = { pattern = "weather.srly.io", custom_domain = true }
+
+[env.production.vars]
+ENV = "production"
