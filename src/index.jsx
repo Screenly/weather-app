@@ -13,7 +13,7 @@ const app = new Hono()
 app.use('*', logger())
 app.use('/static/*', serveStatic({ root: './' }))
 
-app.get('/', (c) => {
+app.get('/', async (c) => {
   const qLat = c.req.query(locationQueryParams.lat)
   const qLng = c.req.query(locationQueryParams.lng)
 
@@ -31,9 +31,26 @@ app.get('/', (c) => {
       },
     })
   } else {
-    const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
-    const env = c.env.ENV
-    return c.html(<App {...coordinates} env={env} showCTA={false} />)
+    const cache = caches.default
+    const key = c.req
+    let response = await cache.match(key)
+
+    if (!response) {
+      console.log("-----cache miss-----", JSON.stringify(c.req))
+      const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
+      const env = c.env.ENV
+      response = new Response(<App {...coordinates} env={env} showCTA={false} />, {
+        status: 200,
+        headers: {
+          'Cache-Control': 's-maxage=43200',
+          'Content-Type': 'text/html; charset=UTF-8'
+        }
+      })
+
+      c.executionCtx.waitUntil(cache.put(key, response.clone()))
+    }
+
+    return response
   }
 })
 
