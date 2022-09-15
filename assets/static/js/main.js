@@ -4,10 +4,27 @@
   let refreshTimer
   let tz
   let currentWeatherId
+  let tempScale = 'C'
 
   const imagesPath = '/static/images'
   const iconsPath = `${imagesPath}/icons`
   const bgPath = `${imagesPath}/bg`
+
+  /**
+   * Countries using F scale
+   * United States
+   * Bahamas.
+   * Cayman Islands.
+   * Liberia.
+   * Palau.
+   * The Federated States of Micronesia.
+   * Marshall Islands.
+   */
+
+  const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
+  const celsiusToFahrenheit = (temp) => ((1.8 * temp) + 32)
+
+  const getTemp = (temp) => Math.round(tempScale === 'C' ? temp : celsiusToFahrenheit(temp))
   /**
    * Utility Functions
    */
@@ -181,7 +198,8 @@
   const updateCurrentWeather = (icon, desc, temp) => {
     updateAttribute('current-weather-icon', 'src', `${iconsPath}/${icon}.svg`)
     updateContent('current-weather-status', desc)
-    updateContent('current-temp', Math.round(temp))
+    updateContent('current-temp', getTemp(temp))
+    updateContent('current-temp-scale', `°${tempScale}`)
   }
 
   const findCurrentWeatherItem = (list) => {
@@ -223,7 +241,7 @@
       const dummyNode = document.querySelector('.dummy-node')
       const node = dummyNode.cloneNode(true)
       node.classList.remove('dummy-node')
-      node.querySelector('.item-temp').innerText = Math.round(temp)
+      node.querySelector('.item-temp').innerText = getTemp(temp)
       node.querySelector('.item-icon').setAttribute('src', `${iconsPath}/${icon}.svg`)
       node.querySelector('.item-time').innerText = formatTime(dateTime)
 
@@ -237,8 +255,8 @@
   }
 
   const updateData = (data) => {
-    const { city: { name, timezone }, list } = data
-
+    const { city: { name, country, timezone }, list } = data
+    tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
     updateLocation(name)
     initDateTime(timezone)
     updateWeather(list)
