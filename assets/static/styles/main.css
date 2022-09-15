@@ -85,6 +85,10 @@ body {
   justify-content: space-between;
 }
 
+#current-temp {
+  vertical-align: top;
+}
+
 .weather-condition {
   display: flex;
   align-items: center;
