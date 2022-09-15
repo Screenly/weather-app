@@ -8,7 +8,8 @@ const Footer = () => html`
         <span id="current-weather-status"></span>
       </div>
       <div class="temperature">
-        <span id="current-temp"></span><sup>°</sup>
+        <span id="current-temp"></span>
+        <span id="current-temp-scale"></span>
       </div>
     </div>
     <div id="weather-item-list">

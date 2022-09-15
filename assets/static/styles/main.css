@@ -130,9 +130,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 7.5rem;
     line-height: 6rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.5rem;
   }
 
   #weather-item-list {
@@ -179,9 +183,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 8.3rem;
     line-height: 7rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.75rem;
   }
 
   #weather-item-list {
@@ -226,9 +234,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 8.3rem;
     line-height: 7rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.75rem;
   }
 
   #weather-item-list {
@@ -273,9 +285,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 8.3rem;
     line-height: 7rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.75rem;
   }
 
   #weather-item-list {
@@ -320,9 +336,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 8.3rem;
     line-height: 7rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.75rem;
   }
 
   #weather-item-list {
@@ -390,9 +410,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 6rem;
     line-height: 4.5rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2rem;
   }
 
   #weather-item-list {
@@ -455,9 +479,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 7.5rem;
     line-height: 6rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.5rem;
   }
 
   #weather-item-list {
@@ -499,9 +527,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 8.33rem;
     line-height: 6.5rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.75rem;
   }
 
   #weather-item-list {
@@ -547,9 +579,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 8.5rem;
     line-height: 6.5rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.75rem;
   }
 
   #weather-item-list {
@@ -592,9 +628,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 8.33rem;
     line-height: 6.5rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.75rem;
   }
 
   #weather-item-list {
@@ -642,9 +682,13 @@ body {
     width: 2rem;
   }
 
-  .temperature {
+  #current-temp {
     font-size: 7.8rem;
     margin-bottom: 2rem;
+  }
+
+  #current-temp-scale {
+    font-size: 2.5rem;
   }
 
   #weather-item-list {
