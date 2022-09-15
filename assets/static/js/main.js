@@ -5,9 +5,9 @@
   let tz
   let currentWeatherId
   let tempScale = 'C'
-  const timeFormat = (function() {
+  const timeFormat = (function () {
     const locale = navigator?.language || 'en-US'
-    return Intl.DateTimeFormat(locale,  { hour: 'numeric' }).resolvedOptions().hourCycle || 'h12'
+    return Intl.DateTimeFormat(locale, { hour: 'numeric' }).resolvedOptions().hourCycle || 'h12'
   })()
 
   const imagesPath = '/static/images'
@@ -171,7 +171,7 @@
     if (is12HrFormat) {
       fmtHrs = convert24to12format(hrs)
     }
-    
+
     const timeString = `${padTime(fmtHrs)}:${padTime(mins)}`
     return is12HrFormat ? `${timeString} ${AmOrPm}` : timeString
   }
