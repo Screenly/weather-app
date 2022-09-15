@@ -5,6 +5,10 @@
   let tz
   let currentWeatherId
   let tempScale = 'C'
+  const timeFormat = (function() {
+    const locale = navigator?.language || 'en-US'
+    return Intl.DateTimeFormat(locale,  { hour: 'numeric' }).resolvedOptions().hourCycle || 'h12'
+  })()
 
   const imagesPath = '/static/images'
   const iconsPath = `${imagesPath}/icons`
@@ -154,12 +158,25 @@
   /**
    * Update Local Time and Date
    */
-  const formatTime = (dateObj) => {
-    const hours = String(dateObj.getHours()).padStart(2, '0')
-    const mins = String(dateObj.getMinutes()).padStart(2, '0')
 
-    return `${hours}:${mins}`
+  const convert24to12format = (hrs) => hrs > 12 ? hrs - 12 : hrs
+
+  const padTime = (time) => String(time).padStart(2, '0')
+
+  const formatTimeByLocale = (hrs, mins) => {
+    const is12HrFormat = timeFormat === 'h11' || timeFormat === 'h12'
+    const AmOrPm = hrs < 12 ? 'AM' : 'PM'
+    let fmtHrs = hrs
+
+    if (is12HrFormat) {
+      fmtHrs = convert24to12format(hrs)
+    }
+    
+    const timeString = `${padTime(fmtHrs)}:${padTime(mins)}`
+    return is12HrFormat ? `${timeString} ${AmOrPm}` : timeString
   }
+
+  const formatTime = (dateObj) => formatTimeByLocale(dateObj.getHours(), dateObj.getMinutes())
 
   const formatDate = (dateObj) => {
     const date = String(dateObj.getDate()).padStart(2, '0')
