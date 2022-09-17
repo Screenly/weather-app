@@ -230,6 +230,15 @@
       itemIndex++
     }
 
+    if (itemIndex > 0) {
+      const timeDiffFromPrev = currentUTC - list[itemIndex - 1].dt
+      const timeDiffFromCurrent = list[itemIndex].dt - currentUTC
+
+      if (timeDiffFromPrev < timeDiffFromCurrent) {
+        itemIndex = itemIndex - 1
+      }
+    }
+
     return itemIndex
   }
 
@@ -252,7 +261,9 @@
 
     const weatherListContainer = document.querySelector('#weather-item-list')
     const frag = document.createDocumentFragment()
-    list.slice(currentIndex, currentIndex + 5).forEach((item) => {
+    const windowSize = 5
+    const currentWindow = list.slice(currentIndex, currentIndex <= windowSize - 1 ? currentIndex + windowSize : list.length - 1)
+    currentWindow.forEach((item, index) => {
       const { dt, main: { temp }, weather } = item
 
       const { icon } = getWeatherImagesById(weather[0]?.id, dt)
@@ -263,7 +274,7 @@
       node.classList.remove('dummy-node')
       node.querySelector('.item-temp').innerText = getTemp(temp)
       node.querySelector('.item-icon').setAttribute('src', `${iconsPath}/${icon}.svg`)
-      node.querySelector('.item-time').innerText = formatTime(dateTime)
+      node.querySelector('.item-time').innerText = index === 0 ? 'Current' : formatTime(dateTime)
 
       frag.appendChild(node)
     })
@@ -271,7 +282,7 @@
     weatherListContainer.innerHTML = ''
     weatherListContainer.appendChild(frag)
     // Refresh weather from local list every 15 mins
-    weatherTimer = setTimeout(() => updateWeather(list), 15 * 60 * 1000)
+    weatherTimer = setTimeout(() => updateWeather(list), 10 * 60 * 1000)
   }
 
   const updateData = (data) => {
