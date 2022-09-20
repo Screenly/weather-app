@@ -21,8 +21,6 @@ app.get('/', async (c) => {
     const lat = c.req.header(locationHeaders.lat) || defaultLocation.lat
     const lng = c.req.header(locationHeaders.lng) || defaultLocation.lng
     const coordinates = trimCoordinates({ lat, lng })
-    //const userAgent = c.req.header('user-agent')
-    //const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
 
     return new Response(null, {
       status: 301,
@@ -36,10 +34,11 @@ app.get('/', async (c) => {
     let response = await cache.match(key)
 
     if (!response) {
-      console.log("-----cache miss-----", JSON.stringify(c.req))
+      const userAgent = c.req.header('user-agent')
+      const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
       const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
       const env = c.env.ENV
-      response = new Response(<App {...coordinates} env={env} showCTA={false} />, {
+      response = new Response(<App {...coordinates} env={env} showCTA={!isScreenlyViewerReq} />, {
         status: 200,
         headers: {
           'Cache-Control': 's-maxage=43200',
