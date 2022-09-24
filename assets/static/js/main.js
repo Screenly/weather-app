@@ -162,7 +162,7 @@
    * Update Local Time and Date
    */
 
-  const convert24to12format = (hrs) => hrs > 12 ? hrs - 12 : hrs
+  const convert24to12format = (hrs) => hrs % 12 || 12
 
   const padTime = (time) => String(time).padStart(2, '0')
 
