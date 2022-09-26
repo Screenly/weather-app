@@ -317,8 +317,18 @@
     }
   }
 
+  const setBanner = () => {
+    const banner = document.querySelector('.upgrade-banner')
+    const { userAgent } = navigator
+
+    if (!userAgent.includes('screenly-viewer')) {
+      banner.classList.add('visible')
+    }
+  }
+
   const init = () => {
     fetchWeather()
+    setBanner()
     // Refresh weather from server every 2 hours
     refreshTimer = setTimeout(fetchWeather, 120 * 60 * 1000)
   }
