@@ -1,6 +1,6 @@
 import { html } from 'hono/html'
 
-const Header = () => html`
+const Header = ({ showCTA }) => html`
   <section class="header">
     <div class="location">
       <span class="location-item">
@@ -18,7 +18,7 @@ const Header = () => html`
         <span id="date"></span>
       </span>
     </div>
-    <a href="https://screenly.io" target="_blank" class="upgrade-banner">
+    <a href="https://screenly.io" target="_blank" class="upgrade-banner ${!showCTA ? 'hidden' : ''}">
       For a simple and secure display solution, visit Screenly.io
     </a>
   </section>

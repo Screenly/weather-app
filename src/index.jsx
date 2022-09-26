@@ -34,9 +34,11 @@ app.get('/', async (c) => {
     let response = await cache.match(key)
 
     if (!response) {
+      const userAgent = c.req.header('user-agent')
+      const isScreenlyViewerReq = userAgent.includes('screenly-viewer')
       const coordinates = trimCoordinates({ lat: qLat, lng: qLng })
       const env = c.env.ENV
-      response = new Response(<App {...coordinates} env={env} />, {
+      response = new Response(<App {...coordinates} env={env} showCTA={!isScreenlyViewerReq} />, {
         status: 200,
         headers: {
           'Cache-Control': 's-maxage=43200',
