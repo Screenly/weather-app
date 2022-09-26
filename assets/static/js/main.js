@@ -320,10 +320,16 @@
   const setBanner = () => {
     const banner = document.querySelector('.upgrade-banner')
     const { userAgent } = navigator
+    const isScreenlyDevice = userAgent.includes('screenly-viewer')
 
-    if (!userAgent.includes('screenly-viewer')) {
+    if (!isScreenlyDevice) {
       banner.classList.add('visible')
     }
+
+    generateAnalyticsEvent('device', {
+      app_name: 'Screenly Weather App',
+      screenly_device: isScreenlyDevice
+    })
   }
 
   const init = () => {
