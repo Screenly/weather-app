@@ -3,9 +3,6 @@
   "private": true,
   "version": "0.0.1",
   "main": "src/index.jsx",
-  "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "test": "jest --verbose",
     "dev": "wrangler dev",
