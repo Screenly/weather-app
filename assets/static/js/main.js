@@ -162,7 +162,7 @@
    * Update Local Time and Date
    */
 
-  const convert24to12format = (hrs) => hrs > 12 ? hrs - 12 : hrs
+  const convert24to12format = (hrs) => hrs % 12 || 12
 
   const padTime = (time) => String(time).padStart(2, '0')
 
@@ -317,8 +317,24 @@
     }
   }
 
+  const setBanner = () => {
+    const banner = document.querySelector('.upgrade-banner')
+    const { userAgent } = navigator
+    const isScreenlyDevice = userAgent.includes('screenly-viewer')
+
+    if (!isScreenlyDevice) {
+      banner.classList.add('visible')
+    }
+
+    generateAnalyticsEvent('device', {
+      app_name: 'Screenly Weather App',
+      screenly_device: isScreenlyDevice
+    })
+  }
+
   const init = () => {
     fetchWeather()
+    setBanner()
     // Refresh weather from server every 2 hours
     refreshTimer = setTimeout(fetchWeather, 120 * 60 * 1000)
   }
