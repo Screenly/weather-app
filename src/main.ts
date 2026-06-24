@@ -193,15 +193,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
-
-    if (displayErrors) {
-      const debugEl = document.createElement('div')
-      debugEl.style.cssText =
-        'position:fixed;top:0;left:0;z-index:9999;background:rgba(0,0,0,0.7);color:#fff;padding:0.5rem 1rem;font-size:0.75rem;font-family:monospace;max-width:100%'
-      debugEl.textContent = `openweathermap_api_key: ${apiKey ?? '(not set)'}`
-      document.body.appendChild(debugEl)
-    }
-
     if (!apiKey) {
       throw new Error(MISSING_API_KEY_ERROR)
     }
