@@ -191,32 +191,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const displayErrors = getSetting<string>('display_errors') === 'true'
   const reportError = createErrorReporter(displayErrors)
 
-  let debugEl: HTMLDivElement | null = null
-  if (displayErrors) {
-    debugEl = document.createElement('div')
-    debugEl.style.cssText =
-      'position:fixed;top:0;left:0;z-index:9999;background:rgba(0,0,0,0.8);color:#fff;padding:1rem 1.5rem;font-size:1.25rem;font-family:monospace;max-width:100%;line-height:1.8'
-    document.body.appendChild(debugEl)
-  }
-
-  function debugLog(line: string) {
-    if (!debugEl) return
-    debugEl.innerHTML += line + '<br>'
-  }
-
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
-
-    if (displayErrors) {
-      debugLog(`openweathermap_api_key: ${apiKey ?? '(not set)'}`)
-
-      const probeUrl = `https://api.openweathermap.org/data/2.5/weather?lat=37.77&lon=-122.42&appid=${apiKey}`
-      const probe = await fetch(probeUrl)
-      const probeBody = await probe.json()
-      debugLog(`OWM status: ${probe.status} ${probe.statusText}`)
-      debugLog(`OWM response: ${JSON.stringify(probeBody)}`)
-    }
-
     if (!apiKey) {
       throw new Error(MISSING_API_KEY_ERROR)
     }
