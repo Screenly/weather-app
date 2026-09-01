@@ -77,6 +77,21 @@ auto-scaler {
   text-shadow: var(--app-shadow);
 }
 
+.weather-brand {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.weather-clock {
+  color: var(--app-ink);
+  font-size: 2.25rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-shadow: var(--app-shadow);
+}
+
 .weather-logo {
   width: auto;
   max-height: 3.5rem;
@@ -337,6 +352,10 @@ auto-scaler {
 
   .weather-date {
     font-size: 2.25rem;
+  }
+
+  .weather-clock {
+    font-size: 2.5rem;
   }
 
   .middle {
