@@ -11,64 +11,65 @@
       reference-width="1920"
       reference-height="1080"
       orientation="auto"
+      padding="0"
     >
-      <div id="app">
-        <app-header class="header" show-date></app-header>
+      <main class="weather" id="weather">
+        <header class="weather-header">
+          <p class="weather-date" data-date></p>
+          <img class="weather-logo" data-logo alt="" />
+        </header>
 
-        <main class="content">
-          <section class="current-weather">
-            <div class="city" data-location>--</div>
-            <div class="temperature-display" data-temperature>--°</div>
-            <div class="status-pill">
-              <span class="weather-description" data-weather-description></span>
-              <div class="hi-lo">
-                <span class="hi">↑ <span data-temp-high>--°</span></span>
-                <span class="lo">↓ <span data-temp-low>--°</span></span>
-              </div>
-            </div>
+        <div class="middle">
+          <section class="now">
+            <p class="now-place" data-location>--</p>
+            <p class="now-temp" data-temperature>--°</p>
+            <p class="now-condition">
+              <span class="now-description" data-weather-description></span>
+              <span class="now-range">
+                <span class="now-high" data-temp-high>--°</span>
+                <span class="now-low" data-temp-low>--°</span>
+              </span>
+            </p>
           </section>
 
-          <section class="forecast-card" data-forecast-card>
-            <div class="forecast-header">
-              <img
-                class="forecast-header-icon"
-                data-forecast-header-icon
-                alt=""
-              />
-              <span>Forecast by Hour</span>
-            </div>
-            <div class="forecast-divider"></div>
-            <div class="forecast-items" data-forecast-items></div>
-          </section>
-        </main>
-
-        <div id="error-screen" style="display: none">
-          <div class="error-card">
-            <div class="error-card-left">
-              <h2>Something went wrong</h2>
-              <p>
-                The weather data could not be loaded. Please check your
-                configuration or contact your administrator.
+          <section class="trend" data-trend>
+            <div class="trend-plot">
+              <svg
+                class="trend-chart"
+                data-trend-chart
+                viewBox="0 0 100 40"
+                role="img"
+                aria-label="Temperature through the day"
+              ></svg>
+              <p class="trend-scale">
+                <span class="trend-scale-high" data-trend-high></span>
+                <span class="trend-scale-low" data-trend-low></span>
               </p>
             </div>
-            <div class="error-card-right">
-              <div class="error-detail-label">Error details</div>
-              <p id="error-message" class="error-detail-message"></p>
-            </div>
-          </div>
+          </section>
         </div>
-      </div>
+
+        <section class="forecast" data-forecast-card>
+          <h2 class="forecast-label">Next hours</h2>
+          <ul class="forecast-items" data-forecast-items></ul>
+        </section>
+
+        <section class="weather-error" data-error-screen>
+          <h2>Weather unavailable</h2>
+          <p data-error-message></p>
+        </section>
+      </main>
     </auto-scaler>
 
     <template id="forecast-item-template">
-      <div class="forecast-item">
-        <span class="forecast-item-temp"></span>
-        <img class="forecast-item-icon" alt="" />
+      <li class="forecast-item">
         <span class="forecast-item-time">
           <span class="forecast-item-time-value"></span>
           <span class="forecast-item-time-period"></span>
         </span>
-      </div>
+        <img class="forecast-item-icon" alt="" />
+        <span class="forecast-item-temp"></span>
+      </li>
     </template>
 
     <script type="module" src="/src/main.ts"></script>
