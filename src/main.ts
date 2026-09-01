@@ -28,6 +28,8 @@ import { getPlaceSizeClass } from './place'
 import { buildGraphShape } from './graph'
 import { drawTrend } from './trend'
 
+const TICK_MS = 30 * 1000
+
 type ErrorReporter = (error: unknown) => void
 
 function showError(error: unknown): void {
@@ -63,6 +65,7 @@ let trendHighEl: Element | null
 let trendLowEl: Element | null
 
 let dateEl: Element | null
+let clockEl: Element | null
 let logoEl: HTMLImageElement | null
 
 // State
@@ -127,13 +130,21 @@ function renderForecastItems(items: ForecastItem[]) {
   }
 }
 
-function renderDate(): void {
-  if (!dateEl) return
+function renderHeader(): void {
+  const now = new Date()
 
-  dateEl.textContent = formatLocalizedDate(new Date(), locale, {
-    timeZone: timezone,
-    weekday: 'long',
-  })
+  if (dateEl) {
+    dateEl.textContent = formatLocalizedDate(now, locale, {
+      timeZone: timezone,
+      weekday: 'long',
+    })
+  }
+
+  if (!clockEl) return
+
+  const time = formatTime(now, locale, timezone)
+  const period = time.dayPeriod ? ` ${time.dayPeriod}` : ''
+  clockEl.textContent = `${time.hour}:${time.minute}${period}`
 }
 
 async function setupLogo(): Promise<void> {
@@ -224,6 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupTheme()
 
   dateEl = document.querySelector('[data-date]')
+  clockEl = document.querySelector('[data-clock]')
   logoEl = document.querySelector('[data-logo]')
   locationEl = document.querySelector('[data-location]')
   temperatureEl = document.querySelector('[data-temperature]')
@@ -250,7 +262,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     timezone = await getTimeZone()
     locale = await getLocale()
 
-    renderDate()
+    renderHeader()
     await setupLogo()
 
     const { cityName, countryCode } = await getCityInfo(latitude, longitude)
@@ -263,6 +275,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     measurementUnit = resolveMeasurementUnit(countryCode)
 
     await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
+
+    setInterval(renderHeader, TICK_MS)
 
     // Refresh weather every 15 minutes
     setInterval(
