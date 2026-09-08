@@ -1,6 +1,8 @@
 import './css/style.css'
 
 import {
+  formatLocalizedDate,
+  formatTime,
   getMetadata,
   getTimeZone,
   getLocale,
@@ -8,9 +10,12 @@ import {
   getSetting,
   getCityInfo,
   resolveMeasurementUnit,
+  setupBrandingLogo,
   setupErrorHandling,
+  setupTheme,
   type MeasurementUnit,
 } from '@screenly/edge-apps'
+// Side-effect import: registers <auto-scaler> as a custom element
 import '@screenly/edge-apps/components'
 import {
   getCurrentWeather,
@@ -19,19 +24,22 @@ import {
 } from './weather'
 import type { ForecastItem } from './weather'
 import { updateBackground } from './background'
-import sunIcon from '../static/images/sun.svg'
+import { getPlaceSizeClass } from './place'
+import { buildGraphShape } from './graph'
+import { drawTrend } from './trend'
+
+const TICK_MS = 30 * 1000
 
 type ErrorReporter = (error: unknown) => void
 
 function showError(error: unknown): void {
   const message = error instanceof Error ? error.message : String(error)
-  const contentEl = document.querySelector<HTMLElement>('main.content')
-  const errorScreen = document.getElementById('error-screen')
-  const errorMessage = document.getElementById('error-message')
+  const errorMessage = document.querySelector('[data-error-message]')
 
-  if (contentEl) contentEl.style.display = 'none'
-  if (errorScreen) errorScreen.style.display = 'flex'
-  if (errorMessage) errorMessage.textContent = message
+  document.getElementById('weather')?.classList.add('has-error')
+  if (errorMessage) {
+    errorMessage.textContent = message
+  }
 }
 
 function createErrorReporter(displayErrors: boolean): ErrorReporter {
@@ -51,7 +59,14 @@ let tempHighEl: Element | null
 let tempLowEl: Element | null
 let forecastItemsEl: Element | null
 let forecastCardEl: Element | null
-let forecastHeaderIconEl: HTMLImageElement | null
+let trendEl: Element | null
+let trendChartEl: SVGSVGElement | null
+let trendHighEl: Element | null
+let trendLowEl: Element | null
+
+let dateEl: Element | null
+let clockEl: Element | null
+let logoEl: HTMLImageElement | null
 
 // State
 let timezone: string = 'UTC'
@@ -73,16 +88,8 @@ function getCoordinates(): [number, number] {
   return getMetadata().coordinates
 }
 
-function showForecastCard() {
-  if (forecastCardEl) {
-    ;(forecastCardEl as HTMLElement).style.display = ''
-  }
-}
-
-function hideForecastCard() {
-  if (forecastCardEl) {
-    ;(forecastCardEl as HTMLElement).style.display = 'none'
-  }
+function setForecastVisible(visible: boolean) {
+  forecastCardEl?.classList.toggle('is-hidden', !visible)
 }
 
 function renderForecastItems(items: ForecastItem[]) {
@@ -93,8 +100,7 @@ function renderForecastItems(items: ForecastItem[]) {
   ) as HTMLTemplateElement
   if (!template) return
 
-  // Clear existing items
-  forecastItemsEl.innerHTML = ''
+  forecastItemsEl.replaceChildren()
 
   for (const item of items) {
     const clone = template.content.cloneNode(true) as DocumentFragment
@@ -124,6 +130,59 @@ function renderForecastItems(items: ForecastItem[]) {
   }
 }
 
+function renderHeader(): void {
+  const now = new Date()
+
+  if (dateEl) {
+    dateEl.textContent = formatLocalizedDate(now, locale, {
+      timeZone: timezone,
+      weekday: 'long',
+    })
+  }
+
+  if (!clockEl) return
+
+  const time = formatTime(now, locale, timezone)
+  const period = time.dayPeriod ? ` ${time.dayPeriod}` : ''
+  clockEl.textContent = `${time.hour}:${time.minute}${period}`
+}
+
+async function setupLogo(): Promise<void> {
+  if (!logoEl) return
+
+  logoEl.onerror = () => {
+    console.error('Failed to load branding logo')
+    logoEl?.classList.add('is-hidden')
+  }
+  logoEl.src = await setupBrandingLogo()
+}
+
+function renderTrend(items: ForecastItem[]): void {
+  const shape = buildGraphShape(
+    items.map((item) => ({
+      temperature: item.temperature,
+      timestamp: item.timestamp,
+    })),
+  )
+
+  trendEl?.classList.toggle('is-hidden', !shape)
+  if (!shape || !trendChartEl) return
+
+  drawTrend(trendChartEl, shape, formatHour)
+
+  if (trendHighEl) {
+    trendHighEl.textContent = `${Math.round(shape.high.temperature)}°`
+  }
+  if (trendLowEl) {
+    trendLowEl.textContent = `${Math.round(shape.low.temperature)}°`
+  }
+}
+
+function formatHour(timestamp: number): string {
+  const time = formatTime(new Date(timestamp), locale, timezone)
+  return time.dayPeriod ? `${time.hour} ${time.dayPeriod}` : `${time.hour}:00`
+}
+
 async function updateWeatherDisplay(
   latitude: number,
   longitude: number,
@@ -133,7 +192,7 @@ async function updateWeatherDisplay(
   const weather = await getCurrentWeather(latitude, longitude, tz, unit)
 
   if (!weather) {
-    hideForecastCard()
+    setForecastVisible(false)
     return
   }
 
@@ -164,17 +223,20 @@ async function updateWeatherDisplay(
     weather,
   )
 
+  setForecastVisible(forecast.length > 0)
+  renderTrend(forecast)
   if (forecast.length > 0) {
-    showForecastCard()
     renderForecastItems(forecast)
-  } else {
-    hideForecastCard()
   }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
+  setupTheme()
 
+  dateEl = document.querySelector('[data-date]')
+  clockEl = document.querySelector('[data-clock]')
+  logoEl = document.querySelector('[data-logo]')
   locationEl = document.querySelector('[data-location]')
   temperatureEl = document.querySelector('[data-temperature]')
   weatherDescriptionEl = document.querySelector('[data-weather-description]')
@@ -182,12 +244,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   tempLowEl = document.querySelector('[data-temp-low]')
   forecastItemsEl = document.querySelector('[data-forecast-items]')
   forecastCardEl = document.querySelector('[data-forecast-card]')
-  forecastHeaderIconEl = document.querySelector('[data-forecast-header-icon]')
-
-  if (forecastHeaderIconEl) {
-    forecastHeaderIconEl.src = sunIcon
-  }
-
+  trendEl = document.querySelector('[data-trend]')
+  trendChartEl = document.querySelector('[data-trend-chart]')
+  trendHighEl = document.querySelector('[data-trend-high]')
+  trendLowEl = document.querySelector('[data-trend-low]')
   const displayErrors = getSetting<string>('display_errors') === 'true'
   const reportError = createErrorReporter(displayErrors)
 
@@ -202,15 +262,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     timezone = await getTimeZone()
     locale = await getLocale()
 
+    renderHeader()
+    await setupLogo()
+
     const { cityName, countryCode } = await getCityInfo(latitude, longitude)
     if (locationEl) {
       locationEl.textContent = cityName
+      locationEl.className = `now-place ${getPlaceSizeClass(cityName)}`.trim()
     }
 
     // Get measurement unit from settings, or auto-detect based on location
     measurementUnit = resolveMeasurementUnit(countryCode)
 
     await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
+
+    setInterval(renderHeader, TICK_MS)
 
     // Refresh weather every 15 minutes
     setInterval(
