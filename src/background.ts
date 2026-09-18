@@ -1,40 +1,24 @@
-import bgSunny from '../static/images/bg-sunny.webp'
-import bgCloudy from '../static/images/bg-cloudy.webp'
-import bgRainy from '../static/images/bg-rainy.webp'
-import bgSnow from '../static/images/bg-snow.webp'
-
 // OpenWeatherMap weather condition codes:
 // https://openweathermap.org/weather-conditions
 //
-// 2xx: Thunderstorm
-// 3xx: Drizzle
-// 5xx: Rain
-// 6xx: Snow
-// 7xx: Atmosphere (mist, fog, etc.)
-// 800: Clear
-// 80x: Clouds
-function getBackgroundForWeatherId(weatherId: number): string {
-  if (weatherId >= 200 && weatherId < 600) {
-    return bgRainy
-  }
+// 2xx: Thunderstorm, 3xx: Drizzle, 5xx: Rain, 6xx: Snow,
+// 7xx: Atmosphere (mist, fog), 800: Clear, 80x: Clouds
+export const BACKGROUNDS = ['sunny', 'cloudy', 'rainy', 'snow'] as const
 
-  if (weatherId >= 600 && weatherId < 700) {
-    return bgSnow
-  }
+export type Background = (typeof BACKGROUNDS)[number]
 
-  if (weatherId >= 700 && weatherId < 800) {
-    return bgCloudy
-  }
+export function getBackgroundForWeatherId(weatherId: number): Background {
+  if (weatherId >= 200 && weatherId < 600) return 'rainy'
+  if (weatherId >= 600 && weatherId < 700) return 'snow'
+  if (weatherId === 800) return 'sunny'
 
-  if (weatherId === 800) {
-    return bgSunny
-  }
-
-  // 80x: Clouds
-  return bgCloudy
+  return 'cloudy'
 }
 
 export function updateBackground(weatherId: number): void {
-  const bg = getBackgroundForWeatherId(weatherId)
-  document.body.style.backgroundImage = `url('${bg}')`
+  const background = getBackgroundForWeatherId(weatherId)
+
+  BACKGROUNDS.forEach((candidate) =>
+    document.body.classList.toggle(`bg-${candidate}`, candidate === background),
+  )
 }
