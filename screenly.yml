@@ -1,7 +1,7 @@
 ---
 syntax: manifest_v1
 description: Displays the current weather and time
-icon: https://playground.srly.io/edge-apps/weather/static/img/icon.svg
+icon: https://playground.srly.io/edge-apps/icons/weather.svg
 author: Screenly, Inc.
 categories:
 - Utilities
