@@ -26,6 +26,7 @@ export interface ForecastItem {
   iconAlt: string
   timeLabel: string
   timePeriod?: string
+  timestamp: number
   displayTemp: string
 }
 
@@ -108,6 +109,7 @@ export async function getHourlyForecast(
           iconAlt: description,
           timeLabel,
           timePeriod,
+          timestamp: item.dt * 1000,
           displayTemp: `${temperature}°`,
         }
       },
@@ -121,6 +123,7 @@ export async function getHourlyForecast(
         iconAlt: currentWeather.iconAlt,
         timeLabel: 'NOW',
         timePeriod: undefined,
+        timestamp: Date.now(),
         displayTemp: `${currentWeather.temperature}°`,
       }
       return [nowItem, ...forecastItems]
