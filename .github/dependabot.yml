@@ -15,7 +15,7 @@ updates:
     # which breaks linting. Remove this once typescript-eslint supports TS 7.
     ignore:
       - dependency-name: 'typescript'
-        versions: ['>=7.0.0']
+        versions: ['>=6.1.0']
 
   - package-ecosystem: 'github-actions'
     directory: '/'
