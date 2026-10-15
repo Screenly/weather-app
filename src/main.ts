@@ -193,6 +193,7 @@ async function updateWeatherDisplay(
 
   if (!weather) {
     setForecastVisible(false)
+    trendEl?.classList.add('is-hidden')
     return
   }
 

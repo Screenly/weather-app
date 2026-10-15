@@ -48,6 +48,7 @@ body::before {
 }
 
 auto-scaler {
+  position: relative;
   z-index: var(--z-index-content);
 }
 
@@ -336,7 +337,7 @@ auto-scaler {
   line-height: 1.35;
 }
 
-.weather.has-error .now,
+.weather.has-error .middle,
 .weather.has-error .forecast {
   display: none;
 }
