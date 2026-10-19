@@ -3,6 +3,13 @@
  * Mock OpenWeather API responses for screenshot testing
  */
 
+type WeatherCondition = {
+  id: number
+  main: string
+  description: string
+  icon: string
+}
+
 /**
  * Mock OpenWeather API response for reverse geocoding (Mountain View, CA)
  */
@@ -368,3 +375,136 @@ export const mockForecastResponse = {
     sunset: 1771465849,
   },
 }
+
+function createWeatherResponse(
+  condition: WeatherCondition,
+  main: Partial<(typeof mockWeatherResponse)['main']>,
+  cloudsAll: number,
+) {
+  return {
+    ...mockWeatherResponse,
+    weather: [condition],
+    main: {
+      ...mockWeatherResponse.main,
+      ...main,
+    },
+    clouds: {
+      all: cloudsAll,
+    },
+  }
+}
+
+function createForecastResponse(
+  condition: WeatherCondition,
+  tempOffset: number,
+  cloudsAll: number,
+) {
+  return {
+    ...mockForecastResponse,
+    list: mockForecastResponse.list.map((entry) => ({
+      ...entry,
+      main: {
+        ...entry.main,
+        temp: entry.main.temp + tempOffset,
+        feels_like: entry.main.feels_like + tempOffset,
+        temp_min: entry.main.temp_min + tempOffset,
+        temp_max: entry.main.temp_max + tempOffset,
+      },
+      weather: [
+        {
+          ...condition,
+          icon: entry.weather[0]?.icon?.endsWith('n')
+            ? condition.icon.replace('d', 'n')
+            : condition.icon,
+        },
+      ],
+      clouds: {
+        all: cloudsAll,
+      },
+    })),
+  }
+}
+
+export const mockSunnyWeatherResponse = createWeatherResponse(
+  {
+    id: 800,
+    main: 'Clear',
+    description: 'clear sky',
+    icon: '01d',
+  },
+  {
+    temp: 72,
+    feels_like: 71,
+    temp_min: 64,
+    temp_max: 76,
+    humidity: 42,
+  },
+  5,
+)
+
+export const mockSunnyForecastResponse = createForecastResponse(
+  {
+    id: 800,
+    main: 'Clear',
+    description: 'clear sky',
+    icon: '01d',
+  },
+  18,
+  8,
+)
+
+export const mockCloudyWeatherResponse = createWeatherResponse(
+  {
+    id: 804,
+    main: 'Clouds',
+    description: 'overcast clouds',
+    icon: '04d',
+  },
+  {
+    temp: 61,
+    feels_like: 59.5,
+    temp_min: 57,
+    temp_max: 64,
+    humidity: 70,
+  },
+  92,
+)
+
+export const mockCloudyForecastResponse = createForecastResponse(
+  {
+    id: 804,
+    main: 'Clouds',
+    description: 'overcast clouds',
+    icon: '04d',
+  },
+  8,
+  88,
+)
+
+export const mockSnowWeatherResponse = createWeatherResponse(
+  {
+    id: 601,
+    main: 'Snow',
+    description: 'snow',
+    icon: '13d',
+  },
+  {
+    temp: 28,
+    feels_like: 22,
+    temp_min: 24,
+    temp_max: 31,
+    humidity: 85,
+  },
+  100,
+)
+
+export const mockSnowForecastResponse = createForecastResponse(
+  {
+    id: 601,
+    main: 'Snow',
+    description: 'snow',
+    icon: '13d',
+  },
+  -22,
+  100,
+)
