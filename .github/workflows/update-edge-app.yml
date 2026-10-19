@@ -18,7 +18,7 @@ jobs:
     environment: stage
     steps:
       - uses: actions/checkout@v7
-      - uses: Screenly/edge-apps-actions/update@f4ccd2bd50db5fb0a5147d287ac03cafe552d29b
+      - uses: Screenly/edge-apps-actions/update@5da8e48db8c9cc0818603db299e062a3d9e4d72b
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           environment: stage
@@ -32,7 +32,7 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v7
-      - uses: Screenly/edge-apps-actions/update@f4ccd2bd50db5fb0a5147d287ac03cafe552d29b
+      - uses: Screenly/edge-apps-actions/update@5da8e48db8c9cc0818603db299e062a3d9e4d72b
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           environment: production
