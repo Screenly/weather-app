@@ -6,8 +6,14 @@ import {
   setupOpenWeatherMocks,
 } from '@screenly/edge-apps/test/screenshots'
 import {
+  mockCloudyForecastResponse,
+  mockCloudyWeatherResponse,
   mockForecastResponse,
   mockGeocodingResponse,
+  mockSnowForecastResponse,
+  mockSnowWeatherResponse,
+  mockSunnyForecastResponse,
+  mockSunnyWeatherResponse,
   mockWeatherResponse,
 } from './weather-mocks'
 
@@ -70,4 +76,50 @@ for (const { width, height } of NO_API_KEY_RESOLUTIONS) {
       setupMocks: async () => {},
     })
   })
+}
+
+/** Landscape + portrait only — rainy is covered by the default screenshots above */
+const WEATHER_VARIANT_RESOLUTIONS = [
+  { width: 1920, height: 1080 },
+  { width: 1080, height: 1920 },
+]
+
+const WEATHER_VARIANTS = [
+  {
+    name: 'sunny',
+    weather: mockSunnyWeatherResponse,
+    forecast: mockSunnyForecastResponse,
+  },
+  {
+    name: 'cloudy',
+    weather: mockCloudyWeatherResponse,
+    forecast: mockCloudyForecastResponse,
+  },
+  {
+    name: 'snow',
+    weather: mockSnowWeatherResponse,
+    forecast: mockSnowForecastResponse,
+  },
+] as const
+
+for (const variant of WEATHER_VARIANTS) {
+  for (const { width, height } of WEATHER_VARIANT_RESOLUTIONS) {
+    test(`screenshot ${variant.name} ${width}x${height}`, async ({
+      browser,
+    }) => {
+      await captureScreenshot(browser, {
+        width,
+        height,
+        filenamePrefix: `weather-app-${variant.name}`,
+        screenlyJsContent,
+        setupMocks: async (page) => {
+          await setupOpenWeatherMocks(page, {
+            geocoding: mockGeocodingResponse,
+            weather: variant.weather,
+            forecast: variant.forecast,
+          })
+        },
+      })
+    })
+  }
 }
