@@ -397,6 +397,19 @@ auto-scaler {
     font-size: 2.5rem;
   }
 
+  /* Not enough width beside the date and clock, so drop to its own row */
+  .weather-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 1.5rem;
+  }
+
+  .offline-notice {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
   .middle {
     flex-direction: column;
     align-items: stretch;
