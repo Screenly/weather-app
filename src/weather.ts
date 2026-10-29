@@ -136,6 +136,26 @@ export async function getHourlyForecast(
   }
 }
 
+// Swap the cached "NOW" entry for the fresh reading so a reused forecast
+// doesn't contradict the current temperature.
+export function withCurrentWeather(
+  forecast: ForecastItem[],
+  weather: CurrentWeatherData,
+): ForecastItem[] {
+  if (forecast[0]?.timeLabel !== 'NOW') return forecast
+  return [
+    {
+      ...forecast[0],
+      temperature: weather.temperature,
+      iconSrc: weather.iconSrc,
+      iconAlt: weather.iconAlt,
+      timestamp: Date.now(),
+      displayTemp: `${weather.temperature}°`,
+    },
+    ...forecast.slice(1),
+  ]
+}
+
 function capitalizeFirstLetter(str: string): string {
   if (!str) return str
   return str.charAt(0).toUpperCase() + str.slice(1)

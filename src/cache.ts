@@ -40,6 +40,39 @@ function cityKey(latitude: number, longitude: number): string {
   return `weather-app:city:${latitude},${longitude}`
 }
 
+const isNumber = (value: unknown): value is number =>
+  typeof value === 'number' && Number.isFinite(value)
+
+const isString = (value: unknown): value is string => typeof value === 'string'
+
+function isWeather(value: unknown): value is CurrentWeatherData {
+  const w = value as Partial<CurrentWeatherData> | null
+  return (
+    !!w &&
+    isNumber(w.temperature) &&
+    isNumber(w.weatherId) &&
+    isNumber(w.tempHigh) &&
+    isNumber(w.tempLow) &&
+    isString(w.description) &&
+    isString(w.iconSrc) &&
+    isString(w.iconAlt) &&
+    isString(w.displayTemp)
+  )
+}
+
+function isForecastItem(value: unknown): value is ForecastItem {
+  const item = value as Partial<ForecastItem> | null
+  return (
+    !!item &&
+    isNumber(item.temperature) &&
+    isNumber(item.timestamp) &&
+    isString(item.iconSrc) &&
+    isString(item.iconAlt) &&
+    isString(item.timeLabel) &&
+    isString(item.displayTemp)
+  )
+}
+
 export function saveSnapshot(snapshot: WeatherSnapshot): void {
   writeJson(CACHE_KEY, snapshot)
 }
@@ -57,7 +90,10 @@ export function loadSnapshot(
     snapshot.latitude !== latitude ||
     snapshot.longitude !== longitude ||
     snapshot.unit !== unit ||
-    !snapshot.weather
+    !isNumber(snapshot.savedAt) ||
+    !isWeather(snapshot.weather) ||
+    !Array.isArray(snapshot.forecast) ||
+    !snapshot.forecast.every(isForecastItem)
   ) {
     return null
   }
@@ -76,5 +112,11 @@ export function loadCityInfo(
   latitude: number,
   longitude: number,
 ): CityInfo | null {
-  return readJson<CityInfo>(cityKey(latitude, longitude))
+  const info = readJson<CityInfo>(cityKey(latitude, longitude))
+  return info &&
+    isString(info.cityName) &&
+    info.cityName &&
+    isString(info.countryCode)
+    ? info
+    : null
 }

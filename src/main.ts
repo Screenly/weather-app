@@ -21,6 +21,7 @@ import {
   getCurrentWeather,
   getHourlyForecast,
   MISSING_API_KEY_ERROR,
+  withCurrentWeather,
 } from './weather'
 import type { CurrentWeatherData, ForecastItem } from './weather'
 import { loadCityInfo, loadSnapshot, saveCityInfo, saveSnapshot } from './cache'
@@ -230,14 +231,20 @@ function renderCurrentWeather(weather: CurrentWeatherData): void {
   }
 }
 
+// Bumped on every refresh so a slow, older request (e.g. one that failed
+// offline) can't overwrite the result of a newer one after reconnecting.
+let refreshId = 0
+
 async function updateWeatherDisplay(
   latitude: number,
   longitude: number,
   tz: string,
   unit: MeasurementUnit,
 ) {
+  const id = ++refreshId
   const cached = loadSnapshot(latitude, longitude, unit)
   const weather = await getCurrentWeather(latitude, longitude, tz, unit)
+  if (id !== refreshId) return
 
   // Offline or the API is unreachable: keep the last good values on screen
   // instead of blanking them, and say how old they are.
@@ -253,8 +260,6 @@ async function updateWeatherDisplay(
     return
   }
 
-  renderCurrentWeather(weather)
-
   const forecast = await getHourlyForecast(
     latitude,
     longitude,
@@ -263,22 +268,30 @@ async function updateWeatherDisplay(
     unit,
     weather,
   )
+  if (id !== refreshId) return
 
+  renderCurrentWeather(weather)
+
+  // Only the forecast failed: show the cached one, but keep the notice up
+  // and the snapshot untouched so its age stays accurate.
   if (forecast.length === 0 && cached && cached.forecast.length > 0) {
-    renderForecast(cached.forecast)
-  } else {
-    renderForecast(forecast)
+    renderForecast(withCurrentWeather(cached.forecast, weather))
+    setOfflineNotice(cached.savedAt)
+    return
   }
 
-  saveSnapshot({
-    latitude,
-    longitude,
-    unit,
-    weather,
-    forecast: forecast.length > 0 ? forecast : (cached?.forecast ?? []),
-    savedAt: Date.now(),
-  })
+  renderForecast(forecast)
   setOfflineNotice(null)
+  if (forecast.length > 0) {
+    saveSnapshot({
+      latitude,
+      longitude,
+      unit,
+      weather,
+      forecast,
+      savedAt: Date.now(),
+    })
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

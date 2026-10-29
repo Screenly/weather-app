@@ -64,6 +64,33 @@ describe('weather snapshot cache', () => {
     expect(loadSnapshot(40.7, -74, 'metric')).toBeNull()
   })
 
+  test('rejects a snapshot with missing or malformed fields', () => {
+    const { forecast: _forecast, ...noForecast } = snapshot
+    store.set('weather-app:last-snapshot', JSON.stringify(noForecast))
+    expect(loadSnapshot(40.7, -74, 'metric')).toBeNull()
+
+    const { savedAt: _savedAt, ...noSavedAt } = snapshot
+    store.set('weather-app:last-snapshot', JSON.stringify(noSavedAt))
+    expect(loadSnapshot(40.7, -74, 'metric')).toBeNull()
+
+    store.set(
+      'weather-app:last-snapshot',
+      JSON.stringify({ ...snapshot, weather: { temperature: 21 } }),
+    )
+    expect(loadSnapshot(40.7, -74, 'metric')).toBeNull()
+
+    store.set(
+      'weather-app:last-snapshot',
+      JSON.stringify({ ...snapshot, forecast: [{ timeLabel: 'NOW' }] }),
+    )
+    expect(loadSnapshot(40.7, -74, 'metric')).toBeNull()
+  })
+
+  test('rejects a malformed city entry', () => {
+    store.set('weather-app:city:40.7,-74', JSON.stringify({ cityName: 42 }))
+    expect(loadCityInfo(40.7, -74)).toBeNull()
+  })
+
   test('stores the city per coordinate', () => {
     saveCityInfo(40.7, -74, { cityName: 'New York, US', countryCode: 'US' })
     expect(loadCityInfo(40.7, -74)).toEqual({
