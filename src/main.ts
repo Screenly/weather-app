@@ -22,7 +22,8 @@ import {
   getHourlyForecast,
   MISSING_API_KEY_ERROR,
 } from './weather'
-import type { ForecastItem } from './weather'
+import type { CurrentWeatherData, ForecastItem } from './weather'
+import { loadCityInfo, loadSnapshot, saveCityInfo, saveSnapshot } from './cache'
 import { updateBackground } from './background'
 import { getPlaceSizeClass } from './place'
 import { buildGraphShape } from './graph'
@@ -67,6 +68,8 @@ let trendLowEl: Element | null
 let dateEl: Element | null
 let clockEl: Element | null
 let logoEl: HTMLImageElement | null
+let offlineNoticeEl: Element | null
+let offlineUpdatedEl: Element | null
 
 // State
 let timezone: string = 'UTC'
@@ -183,20 +186,31 @@ function formatHour(timestamp: number): string {
   return time.dayPeriod ? `${time.hour} ${time.dayPeriod}` : `${time.hour}:00`
 }
 
-async function updateWeatherDisplay(
-  latitude: number,
-  longitude: number,
-  tz: string,
-  unit: MeasurementUnit,
-) {
-  const weather = await getCurrentWeather(latitude, longitude, tz, unit)
+function setOfflineNotice(savedAt: number | null): void {
+  offlineNoticeEl?.classList.toggle('is-hidden', savedAt === null)
+  if (savedAt === null || !offlineUpdatedEl) return
 
-  if (!weather) {
-    setForecastVisible(false)
-    trendEl?.classList.add('is-hidden')
-    return
+  const saved = new Date(savedAt)
+  const time = formatTime(saved, locale, timezone)
+  const period = time.dayPeriod ? ` ${time.dayPeriod}` : ''
+  const isToday =
+    formatLocalizedDate(saved, locale, { timeZone: timezone }) ===
+    formatLocalizedDate(new Date(), locale, { timeZone: timezone })
+  const day = isToday
+    ? ''
+    : `${formatLocalizedDate(saved, locale, { timeZone: timezone, weekday: 'short' })} `
+  offlineUpdatedEl.textContent = `Last updated ${day}${time.hour}:${time.minute}${period}`
+}
+
+function renderForecast(forecast: ForecastItem[]): void {
+  setForecastVisible(forecast.length > 0)
+  renderTrend(forecast)
+  if (forecast.length > 0) {
+    renderForecastItems(forecast)
   }
+}
 
+function renderCurrentWeather(weather: CurrentWeatherData): void {
   updateBackground(weather.weatherId)
 
   if (temperatureEl) {
@@ -214,6 +228,32 @@ async function updateWeatherDisplay(
   if (tempLowEl) {
     tempLowEl.textContent = `${weather.tempLow}°`
   }
+}
+
+async function updateWeatherDisplay(
+  latitude: number,
+  longitude: number,
+  tz: string,
+  unit: MeasurementUnit,
+) {
+  const cached = loadSnapshot(latitude, longitude, unit)
+  const weather = await getCurrentWeather(latitude, longitude, tz, unit)
+
+  // Offline or the API is unreachable: keep the last good values on screen
+  // instead of blanking them, and say how old they are.
+  if (!weather) {
+    if (cached) {
+      renderCurrentWeather(cached.weather)
+      renderForecast(cached.forecast)
+      setOfflineNotice(cached.savedAt)
+    } else {
+      setForecastVisible(false)
+      trendEl?.classList.add('is-hidden')
+    }
+    return
+  }
+
+  renderCurrentWeather(weather)
 
   const forecast = await getHourlyForecast(
     latitude,
@@ -224,11 +264,21 @@ async function updateWeatherDisplay(
     weather,
   )
 
-  setForecastVisible(forecast.length > 0)
-  renderTrend(forecast)
-  if (forecast.length > 0) {
-    renderForecastItems(forecast)
+  if (forecast.length === 0 && cached && cached.forecast.length > 0) {
+    renderForecast(cached.forecast)
+  } else {
+    renderForecast(forecast)
   }
+
+  saveSnapshot({
+    latitude,
+    longitude,
+    unit,
+    weather,
+    forecast: forecast.length > 0 ? forecast : (cached?.forecast ?? []),
+    savedAt: Date.now(),
+  })
+  setOfflineNotice(null)
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -249,6 +299,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   trendChartEl = document.querySelector('[data-trend-chart]')
   trendHighEl = document.querySelector('[data-trend-high]')
   trendLowEl = document.querySelector('[data-trend-low]')
+  offlineNoticeEl = document.querySelector('[data-offline-notice]')
+  offlineUpdatedEl = document.querySelector('[data-offline-updated]')
   const displayErrors = getSetting<string>('display_errors') === 'true'
   const reportError = createErrorReporter(displayErrors)
 
@@ -266,7 +318,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderHeader()
     await setupLogo()
 
-    const { cityName, countryCode } = await getCityInfo(latitude, longitude)
+    let { cityName, countryCode } = await getCityInfo(latitude, longitude)
+    // A successful lookup always carries a country code; without one the
+    // lookup fell back to metadata (e.g. offline), so prefer the cached city.
+    if (countryCode) {
+      saveCityInfo(latitude, longitude, { cityName, countryCode })
+    } else {
+      const cachedCity = loadCityInfo(latitude, longitude)
+      if (cachedCity) ({ cityName, countryCode } = cachedCity)
+    }
     if (locationEl) {
       locationEl.textContent = cityName
       locationEl.className = `now-place ${getPlaceSizeClass(cityName)}`.trim()
@@ -279,13 +339,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     setInterval(renderHeader, TICK_MS)
 
+    const refreshWeather = () =>
+      updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
+
     // Refresh weather every 15 minutes
-    setInterval(
-      () => {
-        updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
-      },
-      15 * 60 * 1000,
-    )
+    setInterval(refreshWeather, 15 * 60 * 1000)
+
+    // Refresh right away when the connection comes back
+    window.addEventListener('online', refreshWeather)
   } catch (error) {
     console.error('Weather app initialization failed:', error)
     reportError(error)
