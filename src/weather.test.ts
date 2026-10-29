@@ -4,6 +4,7 @@ import {
   getCurrentWeather,
   getHourlyForecast,
   MISSING_API_KEY_ERROR,
+  withCurrentWeather,
 } from './weather'
 
 let mockFetchCurrentWeatherData: (
@@ -273,5 +274,55 @@ describe('getHourlyForecast', () => {
     )
 
     expect(result).toEqual([])
+  })
+})
+
+describe('withCurrentWeather', () => {
+  const weather = {
+    temperature: 25,
+    weatherId: 800,
+    description: 'Clear sky',
+    iconSrc: 'clear.svg',
+    iconAlt: 'clear sky',
+    tempHigh: 27,
+    tempLow: 18,
+    displayTemp: '25°C',
+  }
+  const later = {
+    temperature: 19,
+    iconSrc: 'rain.svg',
+    iconAlt: 'rain',
+    timeLabel: '15:00',
+    timestamp: 2,
+    displayTemp: '19°',
+  }
+
+  test('refreshes the cached NOW entry with the current reading', () => {
+    const result = withCurrentWeather(
+      [
+        {
+          temperature: 12,
+          iconSrc: 'old.svg',
+          iconAlt: 'old',
+          timeLabel: 'NOW',
+          timestamp: 1,
+          displayTemp: '12°',
+        },
+        later,
+      ],
+      weather,
+    )
+    expect(result[0]).toMatchObject({
+      temperature: 25,
+      iconSrc: 'clear.svg',
+      timeLabel: 'NOW',
+      displayTemp: '25°',
+    })
+    expect(result[1]).toBe(later)
+  })
+
+  test('leaves a forecast without a NOW entry unchanged', () => {
+    const forecast = [later]
+    expect(withCurrentWeather(forecast, weather)).toBe(forecast)
   })
 })
