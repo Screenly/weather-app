@@ -313,6 +313,44 @@ auto-scaler {
   font-variant-numeric: tabular-nums;
 }
 
+.offline-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin: 0;
+  padding: 0.625rem 1.5rem;
+  border: 0.0625rem solid var(--app-rule);
+  border-radius: 999rem;
+  background: rgb(4 4 8 / 55%);
+  color: var(--app-ink-dim);
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+
+.offline-notice.is-hidden {
+  display: none;
+}
+
+.offline-notice-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #f5a524;
+}
+
+.offline-notice-updated {
+  color: var(--app-ink-faint);
+}
+
+.offline-notice-updated:empty {
+  display: none;
+}
+
+.offline-notice-updated::before {
+  content: '·';
+  margin-right: 0.875rem;
+}
+
 .weather-error {
   display: none;
   flex: 1;
@@ -357,6 +395,19 @@ auto-scaler {
 
   .weather-clock {
     font-size: 2.5rem;
+  }
+
+  /* Not enough width beside the date and clock, so drop to its own row */
+  .weather-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 1.5rem;
+  }
+
+  .offline-notice {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    justify-self: start;
   }
 
   .middle {

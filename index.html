@@ -16,6 +16,11 @@
       <main class="weather" id="weather">
         <header class="weather-header">
           <p class="weather-date" data-date></p>
+          <p class="offline-notice is-hidden" data-offline-notice role="status">
+            <span class="offline-notice-dot" aria-hidden="true"></span>
+            <span>No internet connection</span>
+            <span class="offline-notice-updated" data-offline-updated></span>
+          </p>
           <div class="weather-brand">
             <span class="weather-clock" data-clock>--:--</span>
             <img class="weather-logo" data-logo alt="" />
